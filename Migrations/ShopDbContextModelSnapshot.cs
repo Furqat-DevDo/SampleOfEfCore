@@ -78,9 +78,8 @@ namespace EfCore.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
-                    b.Property<byte[]>("Size")
-                        .IsRequired()
-                        .HasColumnType("bytea");
+                    b.Property<long>("Size")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Src")
                         .IsRequired()
@@ -291,6 +290,42 @@ namespace EfCore.Migrations
                     b.ToTable("Stuffs");
                 });
 
+            modelBuilder.Entity("ProductImage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Extension")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer");
+
+                    b.Property<long>("Size")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Src")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductImages");
+                });
+
             modelBuilder.Entity("EfCore.Entities.Category", b =>
                 {
                     b.HasOne("EfCore.Entities.Category", "Upper")
@@ -353,6 +388,17 @@ namespace EfCore.Migrations
                     b.HasOne("EfCore.Entities.Product", "Products")
                         .WithMany()
                         .HasForeignKey("ProductsId");
+
+                    b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("ProductImage", b =>
+                {
+                    b.HasOne("EfCore.Entities.Product", "Products")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Products");
                 });

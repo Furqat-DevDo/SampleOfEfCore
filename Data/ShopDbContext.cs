@@ -17,6 +17,7 @@ public class ShopDbContext : DbContext
     public DbSet<CategoryImage> CategoryImages { get; set; }
     public DbSet<Shop> Shops { get; set; }
     public DbSet<Storage> Storages { get; set; }
+    public DbSet<ProductImage> ProductImages { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

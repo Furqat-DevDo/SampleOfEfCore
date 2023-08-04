@@ -113,7 +113,7 @@ namespace EfCore.Migrations
                     UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
                     Extension = table.Column<string>(type: "text", nullable: false),
-                    Size = table.Column<byte[]>(type: "bytea", nullable: false),
+                    Size = table.Column<long>(type: "bigint", nullable: false),
                     Src = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
@@ -162,6 +162,30 @@ namespace EfCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ProductImages",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    ProductId = table.Column<int>(type: "integer", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
+                    Extension = table.Column<string>(type: "text", nullable: false),
+                    Size = table.Column<long>(type: "bigint", nullable: false),
+                    Src = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductImages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ProductImages_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Storages",
                 columns: table => new
                 {
@@ -201,6 +225,11 @@ namespace EfCore.Migrations
                 column: "UpperId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ProductImages_ProductId",
+                table: "ProductImages",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Products_CategoryId",
                 table: "Products",
                 column: "CategoryId");
@@ -226,6 +255,9 @@ namespace EfCore.Migrations
         {
             migrationBuilder.DropTable(
                 name: "CategoryImages");
+
+            migrationBuilder.DropTable(
+                name: "ProductImages");
 
             migrationBuilder.DropTable(
                 name: "Shops");
