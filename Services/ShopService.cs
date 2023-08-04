@@ -19,7 +19,7 @@ public class ShopService : IShopService
     {
         var shop = new Shop 
         { 
-            Adrress = request.Adrress,
+            Address = request.Address,
             Name = request.Name,
             Phone = request.Phone,
             UpperId = request.UpperId
@@ -65,7 +65,7 @@ public class ShopService : IShopService
 
         shop.Name = request.Name;
         shop.UpdatedDate = DateTime.UtcNow;
-        shop.Adrress = request.Adrress;
+        shop.Address = request.Address;
         shop.Phone = request.Phone;
         shop.UpperId = request.UpperId;
 
