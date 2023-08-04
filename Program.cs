@@ -1,4 +1,5 @@
 using EfCore.Data;
+using EfCore.Entities;
 using EfCore.Services;
 using EfCore.Services.Interfaces;
 
@@ -12,6 +13,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ShopDbContext>();
 builder.Services.AddScoped<IShopService,ShopService>();
+builder.Services.AddScoped<ICategoryImageService, CategoryImageService>();
 
 var app = builder.Build();
 
