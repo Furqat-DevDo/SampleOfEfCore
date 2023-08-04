@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EfCore.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialDB : Migration
+    public partial class FirstMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -67,7 +67,7 @@ namespace EfCore.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: false),
-                    Adrress = table.Column<string>(type: "text", nullable: false),
+                    Address = table.Column<string>(type: "text", nullable: false),
                     Phone = table.Column<string>(type: "text", nullable: false),
                     UpperId = table.Column<int>(type: "integer", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -104,7 +104,7 @@ namespace EfCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CategoryImages",
+                name: "CategoryImage",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -118,9 +118,9 @@ namespace EfCore.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CategoryImages", x => x.Id);
+                    table.PrimaryKey("PK_CategoryImage", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CategoryImages_Categories_CategoryId",
+                        name: "FK_CategoryImage_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
                         principalColumn: "Id",
@@ -137,7 +137,7 @@ namespace EfCore.Migrations
                     ImageSrc = table.Column<string>(type: "text", nullable: true),
                     CategoryId = table.Column<int>(type: "integer", nullable: false),
                     CompanyId = table.Column<int>(type: "integer", nullable: false),
-                    ManafactureDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    ManufacturedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     ExpireDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Price = table.Column<decimal>(type: "numeric", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -168,7 +168,7 @@ namespace EfCore.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: false),
-                    Adrress = table.Column<string>(type: "text", nullable: false),
+                    Address = table.Column<string>(type: "text", nullable: false),
                     ProductIds = table.Column<List<int>>(type: "jsonb", nullable: false),
                     ProductsId = table.Column<int>(type: "integer", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -191,8 +191,8 @@ namespace EfCore.Migrations
                 column: "UpperId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CategoryImages_CategoryId",
-                table: "CategoryImages",
+                name: "IX_CategoryImage_CategoryId",
+                table: "CategoryImage",
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
@@ -225,7 +225,7 @@ namespace EfCore.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CategoryImages");
+                name: "CategoryImage");
 
             migrationBuilder.DropTable(
                 name: "Shops");

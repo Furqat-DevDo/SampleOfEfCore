@@ -17,19 +17,18 @@ public class ShopService : IShopService
 
     public async  Task<GetShopResponse> CreateShopAsync(CreateShopRequest request)
     {
-        var shop = new Shop 
-        { 
-            Adrress = request.Adrress,
+        var shop = new Shop()
+        {             
             Name = request.Name,
             Phone = request.Phone,
-            UpperId = request.UpperId
+            UpperId = request.UpperId,
+            Address = request.Address
         };
 
         var newShop = await _context.Shops.AddAsync(shop);
         await _context.SaveChangesAsync();
 
-        return new GetShopResponse(newShop.Entity);
-        
+        return new GetShopResponse(newShop.Entity);        
     }
 
     public async  Task<bool> DeleteAsync(int id)
@@ -65,7 +64,7 @@ public class ShopService : IShopService
 
         shop.Name = request.Name;
         shop.UpdatedDate = DateTime.UtcNow;
-        shop.Adrress = request.Adrress;
+        shop.Address = request.Address;
         shop.Phone = request.Phone;
         shop.UpperId = request.UpperId;
 
