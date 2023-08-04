@@ -19,6 +19,16 @@ public class ShopDbContext : DbContext
     {
         base.OnConfiguring(optionsBuilder);
         optionsBuilder.UseNpgsql("Host=localHost; Port=5435; UserName=Numonjon; Password=Numonjon1234@; Database=TestdB");
+        optionsBuilder.EnableSensitiveDataLogging(true);
+        optionsBuilder.LogTo(s => Console.WriteLine(s));
     }
-        
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<Storage>(s =>
+        {
+            s.Property(p => p.ProductIds).HasColumnType("jsonb");
+        });
+    }
 }
