@@ -1,6 +1,4 @@
 
-R
-"Models/Responds/GetShopResponse.cs,1/2/12518a4d1cf208432c12b30283379731c531e082
 _
 /Migrations/20230803151138_InitialDB.Designer.cs,c/2/c20b00b966caaccf05f651f37e90b8c6fec315fe
 X
