@@ -1,44 +1,76 @@
-﻿using EfCore.Entities;
+﻿using EfCore.Data;
+using EfCore.Entities;
+using EfCore.Models.Requests;
 using EfCore.Models.Responses;
 using EfCore.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace EfCore.Services;
 
 public class ShopService : IShopService
 {
-    private readonly IShopService _shopService;
-
-    public ShopService(IShopService shopService)
+    private readonly ShopDbContext _context;
+    public ShopService(ShopDbContext context)
     {
-        _shopService = shopService;
+        _context = context;
     }
-    public async Task<GetShopResponse> CreateAsync(GetShopResponse response)
+
+    public async  Task<GetShopResponse> CreateShopAsync(CreateShopRequest request)
     {
-        var shop = new Shop
-        {
-            Address = re
+        var shop = new Shop 
+        { 
+            Adrress = request.Adrress,
+            Name = request.Name,
+            Phone = request.Phone,
+            UpperId = request.UpperId
         };
 
-        var newShop = await _shopService.
+        var newShop = await _context.Shops.AddAsync(shop);
+        await _context.SaveChangesAsync();
+
+        return new GetShopResponse(newShop.Entity);
+        
     }
 
-    public Task<GetShopResponse> DeleteAsync(int id)
+    public async  Task<bool> DeleteAsync(int id)
     {
-        throw new NotImplementedException();
+        var shop = await _context.Shops.FirstOrDefaultAsync(sh => sh.Id == id);
+        if (shop is null) return false;
+
+        shop.IsDeleted = true;
+        return await _context.SaveChangesAsync() > 0;
     }
 
-    public Task<GetShopResponse> GetAllShopAsync()
+    public async Task<IEnumerable<GetShopResponse>> GetAllShopsAsync()
     {
-        throw new NotImplementedException();
+        var shops = await  _context.Shops.ToListAsync();
+        return shops.Any() ? 
+            shops.Select(sh => new GetShopResponse(sh)) 
+            : new List<GetShopResponse>(); 
     }
 
-    public Task<GetShopResponse> GetShopByIdAsync(int id)
+    public async Task<GetShopResponse?> GetShopByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        var shop = await _context.Shops
+            .Include(x => x.Branches)
+            .FirstOrDefaultAsync(sh => sh.Id == id);
+
+        return shop is null ? null : new GetShopResponse(shop);
     }
 
-    public Task<GetShopResponse> UpdateAsync(GetShopResponse response)
+    public async  Task<GetShopResponse?> UpdateShopAsync(int id, UpdateShopRequest request)
     {
-        throw new NotImplementedException();
+        var shop = await _context.Shops.FirstOrDefaultAsync(sh => sh.Id == id);
+        if (shop is null) return null;
+
+        shop.Name = request.Name;
+        shop.UpdatedDate = DateTime.UtcNow;
+        shop.Adrress = request.Adrress;
+        shop.Phone = request.Phone;
+        shop.UpperId = request.UpperId;
+
+        _context.Shops.Update(shop);
+        _context.SaveChanges();
+        return new GetShopResponse(shop);
     }
 }

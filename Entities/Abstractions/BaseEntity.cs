@@ -6,11 +6,11 @@ namespace EfCore.Entities.Abstractions;
 
 public abstract class BaseEntity
 {
-    [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public virtual int Id { get; set; } 
-    public virtual DateTime CreatedTime { get; set; } = DateTime.UtcNow;
-    public virtual DateTime? UpdatedTime { get; set; }
-    
+    [Key,DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public virtual int Id { get; set; }
+    public virtual DateTime CreatedDate { get; set; } = DateTime.UtcNow;
+    public virtual DateTime? UpdatedDate { get; set; } = null;
+
     [DefaultValue(false)]
     public virtual bool IsDeleted { get; set; }
 }

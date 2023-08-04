@@ -6,12 +6,15 @@ namespace EfCore.Data;
 public class ShopDbContext : DbContext
 {
     public ShopDbContext(DbContextOptions<ShopDbContext> options) : base(options) {}
+        
+    }
 
     public DbSet<Stuff> Stuffs { get; set; }
     public DbSet<Category> Categories { get; set; }
     public DbSet<CategoryImage> CategoriesImages { get; set; }
     public DbSet<Product> Products { get; set; }
     public DbSet<Company> Companies { get; set; }
+    public DbSet<CategoryImage> CategoryImages { get; set; }
     public DbSet<Shop> Shops { get; set; }
     public DbSet<Storage> Storages { get; set; }
 
