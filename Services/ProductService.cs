@@ -4,9 +4,6 @@ using EfCore.Models.Requests;
 using EfCore.Models.Responses;
 using EfCore.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.Design;
-using System.Xml.Linq;
-
 namespace EfCore.Services;
 
 public class ProductService : IProductInterface
@@ -23,10 +20,8 @@ public class ProductService : IProductInterface
         {
             Name = request.Name,
             ImageSrc = request.ImageSrc,
-            Categories = request.Categories,
             ManufacturedDate = request.ManufacturedDate,
             ExpireDate = request.ExpireDate,
-            Companies = request.Companies,
             Price = request.Price,
             CategoryId = request.CategoryId,
             CompanyId = request.CompanyId,
@@ -70,10 +65,8 @@ public class ProductService : IProductInterface
 
         product.Name = request.Name;
         product.ImageSrc = request.ImageSrc;
-        product.Categories = request.Categories;
         product.ManufacturedDate = request.ManufacturedDate;
         product.ExpireDate = request.ExpireDate;
-        product.Companies = request.Companies;
         product.Price = request.Price;
         product.CategoryId = request.CategoryId;
         product.CompanyId = request.CompanyId;

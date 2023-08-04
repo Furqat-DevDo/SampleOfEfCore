@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using EfCore.Entities;
 
 namespace EfCore.Models.Requests;
 
@@ -11,12 +10,8 @@ public class UpdateProductRequest
     [ForeignKey("CategoryId")]
     public required int CategoryId { get; set; }
 
-    public virtual Category? Categories { get; set; }
-
     [ForeignKey("CompanyId")]
     public required int CompanyId { get; set; }
-
-    public virtual Company? Companies { get; set; }
     public DateTime ManufacturedDate { get; set; }
     public DateTime ExpireDate { get; set; }
     public decimal Price { get; set; }

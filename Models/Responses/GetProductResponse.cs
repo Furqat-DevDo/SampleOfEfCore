@@ -12,8 +12,6 @@ public class GetProductResponse
         IsDeleted = product.IsDeleted;
         Name = product.Name;
         ImageSrc = product.ImageSrc;
-        Categories = product.Categories;   
-        Companies = product.Companies;
         ManufacturedDate = product.ManufacturedDate;
         ExpireDate = product.ExpireDate;
         Price = product.Price;
@@ -27,8 +25,6 @@ public class GetProductResponse
     public bool IsDeleted { get; set; }
     public string Name { get; set; }
     public string? ImageSrc { get; set; }
-    public Category? Categories { get; set; }
-    public Company? Companies { get; set; }
     public DateTime ManufacturedDate { get; set; }
     public int CategoryId { get; set; }
     public int CompanyId { get; set; }

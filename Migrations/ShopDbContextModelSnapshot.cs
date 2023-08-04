@@ -38,13 +38,12 @@ namespace EfCore.Migrations
                     b.Property<Guid?>("ImageId")
                         .HasColumnType("uuid");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("Text")
-                        .HasColumnName("CategoryName");
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("timestamp with time zone");
@@ -75,7 +74,7 @@ namespace EfCore.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
 
                     b.Property<byte[]>("Size")
@@ -110,7 +109,7 @@ namespace EfCore.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
 
                     b.Property<string>("Name")
@@ -153,6 +152,9 @@ namespace EfCore.Migrations
                     b.Property<string>("ImageSrc")
                         .HasColumnType("text");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
@@ -165,6 +167,9 @@ namespace EfCore.Migrations
 
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
+
+                    b.Property<DateTime>("UpDatedDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("timestamp with time zone");
@@ -193,6 +198,9 @@ namespace EfCore.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
@@ -204,7 +212,7 @@ namespace EfCore.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime?>("UpdatedDate")
+                    b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<int?>("UpperId")
@@ -225,14 +233,14 @@ namespace EfCore.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Address")
+                    b.Property<string>("Adrress")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
 
                     b.Property<string>("Name")
@@ -271,7 +279,7 @@ namespace EfCore.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
 
                     b.Property<JsonDocument>("PersonalData")
@@ -294,7 +302,7 @@ namespace EfCore.Migrations
             modelBuilder.Entity("EfCore.Entities.Category", b =>
                 {
                     b.HasOne("EfCore.Entities.Category", "Upper")
-                        .WithMany()
+                        .WithMany("ChildCategories")
                         .HasForeignKey("UpperId");
 
                     b.Navigation("Upper");
@@ -355,6 +363,11 @@ namespace EfCore.Migrations
                         .HasForeignKey("ProductsId");
 
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("EfCore.Entities.Category", b =>
+                {
+                    b.Navigation("ChildCategories");
                 });
 
             modelBuilder.Entity("EfCore.Entities.Company", b =>
