@@ -33,10 +33,10 @@ public class ShopService : IShopService
 
     public async  Task<bool> DeleteAsync(int id)
     {
-        var shop = await _context.Shops.FirstOrDefaultAsync(sh => sh.Id == id);
-        if (shop is null) return false;
+        var product = await _context.Shops.FirstOrDefaultAsync(sh => sh.Id == id);
+        if (product is null) return false;
 
-        shop.IsDeleted = true;
+        product.IsDeleted = true;
         return await _context.SaveChangesAsync() > 0;
     }
 

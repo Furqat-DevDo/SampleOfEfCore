@@ -9,5 +9,4 @@ public class Company : BaseEntity
     public int? UpperId { get; set; }
     public Company? Upper { get; set; }
     public List<Company>? Branches { get; set; }
-        
 }

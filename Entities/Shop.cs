@@ -10,5 +10,7 @@ public class Shop : BaseEntity
     public int? UpperId { get; set; }
     public Shop? Upper { get; set; }
     public List<Shop>? Branches { get; set; }
+    public bool IsDeleted { get; set; }
+    public DateTime UpdatedDate { get; set; }
 
 }
