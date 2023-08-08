@@ -9,23 +9,25 @@ namespace EfCore.Services
 {
     public class CategoryService : ICategoryService
     {
-        private readonly ShopDbContext context;
-        public CategoryService(ShopDbContext _context)
-        {
-            context = _context;
+        private readonly ShopDbContext _context;
+        public CategoryService(ShopDbContext context)
+       {
+            _context = context;
         }
+
 
 
         public async Task<GetCategoryResponse> CreateCategoryAsync(CreateCategoryRequest categoryRequest)
         {
+
             var category = new Category
             {
                 Name = categoryRequest.Name,
                 UpperId = categoryRequest.UpperId,
-                //ImageId= (Guid?)categoryRequest.ImageId,
+                ImageId= categoryRequest.ImageID ,
             };
-            var newCategory = await context.Categories.AddAsync(category);
-            await context.SaveChangesAsync();
+            var newCategory = await _context.Categories.AddAsync(category);
+            await _context.SaveChangesAsync();
             return new GetCategoryResponse(newCategory.Entity);
 
 
@@ -33,37 +35,37 @@ namespace EfCore.Services
 
         public async Task<bool> DeletedCategoryAsync(int id)
         {
-            var category=await context.Categories.LastOrDefaultAsync(x=>x.Id==id);
+            var category=await _context.Categories.FirstOrDefaultAsync(x=>x.Id==id);
             if (category == null) return false;
 
-            category.IsDeleted = true;
-            return await context.SaveChangesAsync() > 0;
+            category.IsActive = true;
+            return await _context.SaveChangesAsync() > 0;
         }
 
         public async Task<List<GetCategoryResponse>> GetAllCategoriesAsync()
         {
-            var categories = await context.Categories.ToListAsync();
+            var categories = await _context.Categories.ToListAsync();
             return categories.Select(x => new GetCategoryResponse(x)).ToList();
         }
 
-        public async Task<GetCategoryResponse> GetCategoryByIdAsync(int id)
+        public async Task<GetCategoryResponse?> GetCategoryByIdAsync(int id)
         {
-            var category=await context.Categories.FirstOrDefaultAsync(x => x.Id == id);
-            return category == null ? null : new GetCategoryResponse(category);
+            var category=await _context.Categories.FirstOrDefaultAsync(x => x.Id == id);
+           
+            return category is null ? null : new GetCategoryResponse(category);
 
         }
 
         public async Task<GetCategoryResponse?> UpdateCategoryAsync(int id, UpdateCategoryRequest update_request)
         {
-            var category = await context.Categories.FirstOrDefaultAsync(x => x.Id == id);
+            var category = await _context.Categories.FirstOrDefaultAsync(x => x.Id == id);
             if (category == null) return null;
-            
+
             category.Name = update_request.Name;
-           // category.ImageId = (Guid?)update_request.ImageId;
             category.UpperId = update_request.UpperId;
 
-            context.Categories.Update(category);
-            await context.SaveChangesAsync();
+            _context.Categories.Update(category);
+            await _context.SaveChangesAsync();
             return new GetCategoryResponse(category);
 
         }

@@ -6,7 +6,6 @@ namespace EfCore.Models.Requests
     {
         public string Name { get; set; } = string.Empty;
         public int? UpperId { get; set; }
-        public Category? Upper { get; set; }
         public Guid? ImageID { get; set; }
        
     }

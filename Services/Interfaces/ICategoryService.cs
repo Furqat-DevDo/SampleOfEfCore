@@ -7,7 +7,7 @@ namespace EfCore.Services.Interfaces
     public interface ICategoryService
     {
          Task<List<GetCategoryResponse>> GetAllCategoriesAsync();
-         Task<GetCategoryResponse> GetCategoryByIdAsync(int id);
+         Task<GetCategoryResponse?> GetCategoryByIdAsync(int id);
          Task<bool> DeletedCategoryAsync(int id);
          Task<GetCategoryResponse> CreateCategoryAsync(CreateCategoryRequest categoryRequest);
          Task<GetCategoryResponse?> UpdateCategoryAsync(int id, UpdateCategoryRequest update_request);

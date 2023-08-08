@@ -37,7 +37,7 @@ public class ShopService : IShopService
         var shop = await _context.Shops.FirstOrDefaultAsync(sh => sh.Id == id);
         if (shop is null) return false;
 
-        shop.IsDeleted = true;
+        shop.IsActive = true;
         return await _context.SaveChangesAsync() > 0;
     }
 

@@ -11,7 +11,7 @@ public class GetShopResponse
         Id = entity.Id;
         CreatedDate = entity.CreatedDate;
         UpdatedDate = entity.UpdatedDate;
-        IsDeleted = entity.IsDeleted;
+        IsActive = entity.IsActive;
         Name = entity.Name;
         Adrress = entity.Adrress;
         Phone = entity.Phone;
@@ -22,7 +22,7 @@ public class GetShopResponse
     public int Id { get; set; }
     public  DateTime CreatedDate { get; set; } 
     public  DateTime? UpdatedDate { get; set; }
-    public bool IsDeleted { get; set; }
+    public bool IsActive { get; set; }
     public string? Name { get; set; }
     public string? Adrress { get; set; }
     public string? Phone { get; set; } 

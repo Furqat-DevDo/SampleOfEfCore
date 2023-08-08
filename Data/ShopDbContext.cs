@@ -33,5 +33,6 @@ public class ShopDbContext : DbContext
         {
             s.Property(t => t.ProductIds).HasColumnType("jsonb");
         });
+        
     }
 }

@@ -12,5 +12,5 @@ public abstract class BaseEntity
     public virtual DateTime? UpdatedDate { get; set; } = null;
 
     [DefaultValue(false)]
-    public virtual bool IsDeleted { get; set; }
+    public virtual bool IsActive { get; set; }
 }
