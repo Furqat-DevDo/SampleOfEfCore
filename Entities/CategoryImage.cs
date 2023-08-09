@@ -7,5 +7,5 @@ public class CategoryImage : BaseFile
 {
     [ForeignKey("CategoryId")]
     public required int CategoryId { get; set; }
-    public Category? Category { get; set; }
+    public Category? Categories { get; set; }
 }
