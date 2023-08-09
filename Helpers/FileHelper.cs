@@ -24,4 +24,22 @@ public static  class FileHelper
 
         return (destinationFilePath,fileId);
     }
+
+    public static byte[] ReadFileFromPathAsync(string filePath)
+    {
+        
+        byte[] byteArray = new byte[0];
+
+        try
+        {
+            byteArray = File.ReadAllBytes(filePath);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("An error occurred: " + ex.Message);
+        }
+
+        return byteArray;
+        
+    }
 }
