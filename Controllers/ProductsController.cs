@@ -9,13 +9,12 @@ using Microsoft.AspNetCore.Mvc;
 [ApiController]
 public class ProducsController : ControllerBase 
 {
-    private readonly IProductInterface _productService;
+    private readonly IProductService _productService;
 
-    public ProducsController(IProductInterface productService)
+    public ProducsController(IProductService productService)
     {
         _productService = productService;
-    }
-    
+    }    
     
     [HttpPost]
     public async Task<IActionResult> CreateProductAsync(CreateProductRequest request)

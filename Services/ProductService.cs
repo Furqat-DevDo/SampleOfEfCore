@@ -6,7 +6,7 @@ using EfCore.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 namespace EfCore.Services;
 
-public class ProductService : IProductInterface
+public class ProductService : IProductService
 {
     private readonly ShopDbContext _context;
     public ProductService(ShopDbContext context)

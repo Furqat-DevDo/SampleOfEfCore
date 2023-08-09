@@ -1,6 +1,7 @@
-﻿using EfCore.Entities;
-using EfCore.Entities.Abstractions;
+﻿using EfCore.Entities.Abstractions;
 using System.ComponentModel.DataAnnotations.Schema;
+
+namespace EfCore.Entities;
 
 public class ProductImage : BaseFile
 {

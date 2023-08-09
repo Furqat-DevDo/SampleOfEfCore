@@ -21,7 +21,7 @@ builder.Services.AddDbContext<ShopDbContext>();
 builder.Services.AddMyServices();
 
 //Product
-builder.Services.AddScoped<IProductInterface,ProductService>();
+builder.Services.AddScoped<IProductService,ProductService>();
 
 
 var app = builder.Build();

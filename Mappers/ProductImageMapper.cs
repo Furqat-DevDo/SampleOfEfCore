@@ -1,4 +1,5 @@
-﻿using EfCore.Models.Requests;
+﻿using EfCore.Entities;
+using EfCore.Models.Requests;
 using EfCore.Models.Responses;
 
 namespace EfCore.Mappers;

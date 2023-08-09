@@ -3,7 +3,7 @@ using EfCore.Models.Responses;
 
 namespace EfCore.Services.Interfaces;
 
-public interface IProductInterface
+public interface IProductService
 {
     Task<GetProductResponse> CreateProductAsync(CreateProductRequest request);
     Task<GetProductResponse?> UpdateProductAsync(int id, UpdateProductRequest request);
