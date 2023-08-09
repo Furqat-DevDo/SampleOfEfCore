@@ -22,7 +22,7 @@ public class ShopDbContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         base.OnConfiguring(optionsBuilder);
-        optionsBuilder.UseNpgsql("Host=localhost; Port=5432; Username=Furqat; Password = furqat1234@; Database = MyFirstDB;");
+        optionsBuilder.UseNpgsql("Host=localhost; Port=5435; Username=furqat; Password = furqat1234@; Database = MyFirstDB;");
         optionsBuilder.EnableSensitiveDataLogging(true);
         optionsBuilder.LogTo(s =>Console.WriteLine(s));
     }
@@ -33,6 +33,12 @@ public class ShopDbContext : DbContext
         modelBuilder.Entity<Storage>(s =>
         {
             s.Property(t => t.ProductIds).HasColumnType("jsonb");
+            s.HasQueryFilter(s=> s.IsDeleted != true);
+        });
+
+        modelBuilder.Entity<Shop>(sh =>
+        {
+            sh.HasQueryFilter(s=>s.IsDeleted != true);
         });
     }
 }

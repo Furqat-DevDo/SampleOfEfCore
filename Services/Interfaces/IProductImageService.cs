@@ -6,5 +6,7 @@ namespace EfCore.Services.Interfaces;
 public interface IProductImageService
 {
     Task<GetProductImageResponse> CreateAsync(int id, CreateProductImageRequest request);
-    public byte[] ReadFileFromPathAsync(string filePath);
+    Task<bool> DeleteProductImage(Guid fileId);
+    Task<IEnumerable<GetProductImageResponse>> GetProductFilesAsync(int id);
+    public Task<(byte[] bytes,string[] fileInfo)> ReadFileFromPathAsync(string filePath);
 }
