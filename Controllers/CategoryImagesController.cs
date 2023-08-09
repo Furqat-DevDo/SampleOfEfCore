@@ -33,38 +33,6 @@ public class CategoryImagesController : ControllerBase
         var routValue = new { id = result.CategoryId };
         return CreatedAtRoute(routValue, result);
     }
-
-
-
-
-
-
-
-    //// GET: api/<CategoryImageController>
-    //[HttpGet]
-    //public IEnumerable<string> Get()
-    //{
-    //    return new string[] { "value1", "value2" };
-    //}
-
-    //// GET api/<CategoryImageController>/5
-    //[HttpGet("{id}")]
-    //public string Get(int id)
-    //{
-    //    return "value";
-    //}
-
-
-
-    //// PUT api/<CategoryImageController>/5
-    //[HttpPut("{id}")]
-    //public void Put(int id, [FromBody] string value)
-    //{
-    //}
-
-    //// DELETE api/<CategoryImageController>/5
-    //[HttpDelete("{id}")]
-    //public void Delete(int id)
-    //{
-}       //}
+    
+}       
     
