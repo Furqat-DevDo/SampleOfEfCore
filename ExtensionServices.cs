@@ -9,6 +9,7 @@ public static class ExtensionServices
     {
         services.AddScoped<IShopService,ShopService>();
         services.AddScoped<IProductImageService,ProductImageService>();
+        services.AddScoped<ICategoryImageService,CategoryImageService>();
         return services;
     }
 }
