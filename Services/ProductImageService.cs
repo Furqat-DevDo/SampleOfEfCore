@@ -28,4 +28,9 @@ public class ProductImageService : IProductImageService
 
         return result.Entity.ToResponse(); 
     }
+
+    public byte[] ReadFileFromPathAsync(string filePath)
+    {
+        return FileHelper.ReadFileFromPathAsync(filePath);
+    }
 }
