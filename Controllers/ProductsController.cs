@@ -19,7 +19,7 @@ public class ProducsController : ControllerBase
     /// <summary>
     /// Siz yangi product yaratishiz mumkin!
     /// </summary>
-    /// <param name="product"></param>
+    /// <param name="request"></param>
     /// <response code="200">Returns the newly created product</response>
     [HttpPost]
     public async Task<IActionResult> CreateProductAsync(CreateProductRequest request)
@@ -33,7 +33,7 @@ public class ProducsController : ControllerBase
     /// <summary>
     /// Id orqali productni olishingiz mumkin!
     /// </summary>
-    /// <param name="product"></param>
+    /// <param name="id"></param>
     /// <response code="200">Returns the product with Id</response>
     /// <response code="404">Returns null when product was not found</response>
     [HttpGet("{id}")]
@@ -46,7 +46,6 @@ public class ProducsController : ControllerBase
     /// <summary>
     /// Barcha productlarni olishingiz mumkin!
     /// </summary>
-    /// <param name="product"></param>
     /// <response code="200">Returns all products</response>
     /// <response code="404">Returns null when products was not found</response>
     [HttpGet]
@@ -58,7 +57,7 @@ public class ProducsController : ControllerBase
     /// <summary>
     /// Id orqali productni o'chirishingiz mumkin!
     /// </summary>
-    /// <param name="product"></param>
+    /// <param name="id"></param>
     /// <response code="200">Deletes the product with Id</response>
     /// <response code="404">Returns null when product was not found</response>
     [HttpDelete("{id}")]
@@ -71,7 +70,8 @@ public class ProducsController : ControllerBase
     /// <summary>
     /// Id orqali productni o'zgartirishingiz mumkin!
     /// </summary>
-    /// <param name="product"></param>
+    /// <param name="id"></param>
+    /// <param name="request"></param>
     /// <response code="200">Returns updated product with Id</response>
     /// <response code="404">Returns null when product was not found</response>
     [HttpPut("{id}")]
