@@ -1,3 +1,4 @@
+using EfCore;
 using EfCore.Data;
 using EfCore.Services;
 using EfCore.Services.Interfaces;
@@ -17,7 +18,7 @@ builder.Services.AddDbContext<ShopDbContext>();
 
 
 builder.Services.AddDbContext<ShopDbContext>();
-builder.Services.AddScoped<IShopService,ShopService>();
+builder.Services.AddMyServices();
 
 //Product
 builder.Services.AddScoped<IProductInterface,ProductService>();
