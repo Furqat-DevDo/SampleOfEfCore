@@ -11,6 +11,7 @@ public static class ExtensionServices
         services.AddScoped<IProductImageService,ProductImageService>();
         services.AddScoped<IProductService,ProductService>();
         services.AddScoped<ICompanyService,CompanyService>();
+        services.AddScoped<IStorageService, StorageService>();
         return services;
     }
 }
