@@ -5,17 +5,18 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EfCore.Controllers;
 
-[Route("api/products/{id}/[controller]")]
+[Route("api/categorys/{id}/[controller]")]
 [ApiController]
 public class CategoryImagesController : ControllerBase
 {
 
 
     private readonly ICategoryImageService _categoryImageService;
-
-    public CategoryImagesController(ICategoryImageService categoryImageService)
+    private readonly ICategoryService _categoryService;
+    public CategoryImagesController(ICategoryImageService categoryImageService, ICategoryService productService)
     {
         _categoryImageService = categoryImageService;
+        _categoryService = productService;
     }
     /// <summary>
     /// posted image
@@ -35,49 +36,58 @@ public class CategoryImagesController : ControllerBase
         return CreatedAtRoute(routValue, result);
     }
 
-    [HttpGet]
-    public IActionResult GetFileFromPath(string filePath)
+    [HttpGet("direct")]
+    public async Task<IActionResult> GetFileFromPath(int id, string filePath)
     {
-        var file = _categoryImageService.ReadFileFromPathAsync(filePath);
-        if (file is null)
+
+        var product = await _categoryService.GetCategoryByIdAsync(id);
+        if (product is null) return NotFound("Product Not Found !!!");
+
+        var searchFileResult = await _categoryImageService.ReadFileFromPathAsync(filePath);
+        if (searchFileResult.bytes.Length == 0)
         {
-            return NotFound();
+            return NotFound("File not found !!!");
         }
 
-        string contentType = GetContentType(Path.GetExtension(filePath));
-
-        return File(file, contentType);
-    }
-
-    private string GetContentType(string fileExtension)
-    {
-        switch (fileExtension.ToLower())
-        {
-            case ".jpg":
-            case ".jpeg":
-                return "image/jpeg";
-            case ".png":
-                return "image/png";
-            case ".gif":
-                return "image/gif";
-            case ".pdf":
-                return "application/pdf";
-
-            default:
-                return "application/octet-stream";
-        }
+        return File(searchFileResult.Item1, searchFileResult.fileInfo[0]);
     }
 
     [HttpGet("download")]
-    public IActionResult GetFileFromPathDownload(string filePath)
+    public async Task<IActionResult> GetFileFromPathDownload(int id, string filePath)
     {
-        var file = _categoryImageService.ReadFileFromPathAsync(filePath);
-        if (file is null)
+        var product = await _categoryService.GetCategoryByIdAsync(id);
+        if (product is null) return NotFound("Product Not Found !!!");
+
+        var searchFileResult = await _categoryImageService.ReadFileFromPathAsync(filePath);
+        if (searchFileResult.bytes.Count() == 0)
         {
-            return NotFound();
+            return NotFound("File not found !!!");
         }
 
-        return File(file, "application/octet-stream", $"{Path.GetFileName(filePath)}");
+        return File(searchFileResult.Item1, "application/octet-stream", searchFileResult.fileInfo[1]);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GeCategoriesImages(int id)
+    {
+        var product = await _categoryService.GetCategoryByIdAsync(id);
+        if (product is null) return NotFound("Product Not Found");
+
+        var productFiles = await _categoryImageService.GetCategoryFilesAsync(id);
+        return Ok(productFiles);
+    }
+
+    [HttpDelete("{fileId}")]
+    public async Task<IActionResult> DeleteCategoryImage(int id, Guid fileId)
+    {
+        var product = await _categoryService.GetCategoryByIdAsync(id);
+
+        if (product is null)
+            return NotFound("Product not found");
+
+        var result = await _categoryImageService.DeleteCategoryImage(fileId);
+
+        return result ? Ok(result) : NotFound(result);
     }
 
 }       

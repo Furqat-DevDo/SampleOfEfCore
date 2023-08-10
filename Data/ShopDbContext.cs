@@ -22,7 +22,7 @@ public class ShopDbContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         base.OnConfiguring(optionsBuilder);
-        optionsBuilder.UseNpgsql("Host=localhost; Port=5435; Username=furqat; Password = furqat1234@; Database = MyFirstDB;");
+        optionsBuilder.UseNpgsql("Host=localhost; Port=5435; Username=behruz; Password =behruz1234#; Database = myfirstDB;");
         optionsBuilder.EnableSensitiveDataLogging(true);
         optionsBuilder.LogTo(s =>Console.WriteLine(s));
     }
@@ -40,5 +40,6 @@ public class ShopDbContext : DbContext
         {
             sh.HasQueryFilter(s=>s.IsDeleted != true);
         });
+        
     }
 }

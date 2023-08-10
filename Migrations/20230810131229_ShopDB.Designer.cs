@@ -14,8 +14,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EfCore.Migrations
 {
     [DbContext(typeof(ShopDbContext))]
-    [Migration("20230809104742_Init")]
-    partial class Init
+    [Migration("20230810131229_ShopDB")]
+    partial class ShopDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -47,7 +47,7 @@ namespace EfCore.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("Text")
-                        .HasColumnName("CategoryName");
+                        .HasColumnName("Name");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("timestamp with time zone");
@@ -341,7 +341,7 @@ namespace EfCore.Migrations
             modelBuilder.Entity("EfCore.Entities.CategoryImage", b =>
                 {
                     b.HasOne("EfCore.Entities.Category", "Category")
-                        .WithMany()
+                        .WithMany("categoryImages")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -404,6 +404,11 @@ namespace EfCore.Migrations
                         .IsRequired();
 
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("EfCore.Entities.Category", b =>
+                {
+                    b.Navigation("categoryImages");
                 });
 
             modelBuilder.Entity("EfCore.Entities.Company", b =>

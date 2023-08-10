@@ -6,6 +6,8 @@ namespace EfCore.Services.Interfaces
     public interface ICategoryImageService
     {
         Task<GetCategoryImageResponse> CreateAsync(int id, CreateCategoryImageRequest request);
-        byte[] ReadFileFromPathAsync(string filePath);
+        Task<bool> DeleteCategoryImage(Guid fileId);
+        Task<IEnumerable<GetCategoryImageResponse>> GetCategoryFilesAsync(int id);
+        public Task<(byte[] bytes, string[] fileInfo)> ReadFileFromPathAsync(string filePath);
     }
 }
