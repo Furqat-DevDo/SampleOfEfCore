@@ -6,7 +6,6 @@ namespace EfCore.Entities;
 public class Product : BaseEntity
 {
     public required string Name { get; set; }
-    public string? ImageSrc { get; set; }
 
     [ForeignKey("CategoryId")]
     public required int CategoryId { get; set; }

@@ -148,9 +148,6 @@ namespace EfCore.Migrations
                     b.Property<DateTime>("ExpireDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("ImageSrc")
-                        .HasColumnType("text");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 

@@ -14,7 +14,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EfCore.Migrations
 {
     [DbContext(typeof(ShopDbContext))]
-    [Migration("20230810111147_InitialDb")]
+    [Migration("20230810130645_InitialDb")]
     partial class InitialDb
     {
         /// <inheritdoc />
@@ -150,9 +150,6 @@ namespace EfCore.Migrations
 
                     b.Property<DateTime>("ExpireDate")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("ImageSrc")
-                        .HasColumnType("text");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
