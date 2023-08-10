@@ -48,7 +48,7 @@ public class StorageService : IStorageService
     {
         var storage = await _shopDbContext.Storages
             .FirstOrDefaultAsync(s => s.Id == id);
-
+        
         return storage is null ? null : storage.ToResponseStorage();
     }
 
