@@ -1,4 +1,5 @@
 ﻿using EfCore.Models.Requests;
+using EfCore.Models.Responses;
 using EfCore.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,7 +22,16 @@ public class CompanyController : ControllerBase
     /// <param name="request">Parametres of new company</param>
     /// <response code="200">Returns the newly created company</response>
     /// <response code="500">Returns when there was unable to create company</response>
+    /// <remarks >
+    /// Post:
+    /// {
+    ///    "Name":"Coca Cola",
+    ///    "ClosedDate" : null,
+    ///    "UpperId" : null
+    /// }
+    /// </remarks>
     [HttpPost]
+    [ProducesResponseType(typeof(GetCompanyResponse),StatusCodes.Status200OK)]
     public async Task<IActionResult> CreateCompanyAsync(CreateCompanyRequest request)
     {
         var response = await _companyService.CreateCompanyAsync(request);

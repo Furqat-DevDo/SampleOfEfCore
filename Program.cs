@@ -9,7 +9,10 @@ builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    
+});
 
 var connectionString = builder.Configuration.GetConnectionString("ShopDb");
 
