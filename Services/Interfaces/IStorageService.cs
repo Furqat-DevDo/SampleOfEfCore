@@ -3,7 +3,7 @@ using EfCore.Models.Responses;
 
 namespace EfCore.Services.Interfaces;
 
-public interface IStorageServise
+public interface IStorageService
 {
     Task<GetStorageResponse>CreateStorageAsync(CreateStorageRequest request);
     Task<GetStorageResponse?> UpdateStorageAsync(int id, UpdateStorageRequest request);

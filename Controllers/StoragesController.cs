@@ -11,9 +11,9 @@ public class StoragesController : ControllerBase
 {
     private readonly IStorageService _storageService;
 
-    public StoragesController(IStorageService storageServise)
+    public StoragesController(IStorageService storageService)
     {
-        _storageService = storageServise;
+        _storageService = storageService;
     }
     [HttpPost]
     public async Task<IActionResult> CreateStorageAsync(CreateStorageRequest request)
