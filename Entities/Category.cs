@@ -13,6 +13,8 @@ public class Category : BaseEntity
     [JsonIgnore]
     public Category? Upper { get; set; }
     public Guid? ImageId { get; set; }
-    public List<Category>? ChildCategoryes { get; set; }
+
+    public List<CategoryImage> ?categoryImages { get; set; }
+    
 
 }
