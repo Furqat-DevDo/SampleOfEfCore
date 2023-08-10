@@ -22,7 +22,24 @@ namespace EfCore.Controllers
             _productService = productService;
         }
 
+        /// <summary>
+        /// Here you can create new company.
+        /// </summary>
+        /// <param name="request">Parametres of new company</param>
+        /// <response code="200">Returns the newly created company</response>
+        /// <response code="500">Returns when there was unable to create company</response>
+        /// <remarks >
+        /// Sample request:
+        ///
+        ///         POST /Todo
+        ///         {
+        ///             "Name":"Coca Cola",
+        ///             "ClosedDate" : null,
+        ///             "UpperId" : null
+        ///         }
+        /// </remarks>
         [HttpPost]
+        [ProducesResponseType(typeof(GetCompanyResponse), StatusCodes.Status200OK)]
         public async Task<IActionResult> CreateAsync(int id, [FromForm] CreateProductImageRequest request)
         {
             var product = await _productService.GetProductByIdAsync(id);

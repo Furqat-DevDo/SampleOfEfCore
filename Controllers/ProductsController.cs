@@ -1,4 +1,5 @@
 ﻿using EfCore.Models.Requests;
+using EfCore.Models.Responses;
 using EfCore.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,7 +21,18 @@ public class ProducsController : ControllerBase
     /// </summary>
     /// <param name="request">Parametres of new product</param>
     /// <response code="200">Returns the newly created product</response>
+    /// <remarks >
+    /// Sample request:
+    ///
+    ///         POST /Todo
+    ///         {
+    ///             "Name":"Coca Cola",
+    ///             "ClosedDate" : null,
+    ///             "UpperId" : null
+    ///         }
+    /// </remarks>
     [HttpPost]
+    [ProducesResponseType(typeof(GetCompanyResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> CreateProductAsync(CreateProductRequest request)
     {
         var response = await _productService.CreateProductAsync(request);

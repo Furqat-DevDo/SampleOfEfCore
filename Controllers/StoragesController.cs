@@ -1,4 +1,5 @@
 ﻿using EfCore.Models.Requests;
+using EfCore.Models.Responses;
 using EfCore.Services;
 using EfCore.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +17,24 @@ public class StoragesController : ControllerBase
         _storageService = storageService;
     }
 
+    /// <summary>
+    /// Here you can create new company.
+    /// </summary>
+    /// <param name="request">Parametres of new company</param>
+    /// <response code="200">Returns the newly created company</response>
+    /// <response code="500">Returns when there was unable to create company</response>
+    /// <remarks >
+    /// Sample request:
+    ///
+    ///         POST /Todo
+    ///         {
+    ///             "Name":"Coca Cola",
+    ///             "ClosedDate" : null,
+    ///             "UpperId" : null
+    ///         }
+    /// </remarks>
     [HttpPost]
+    [ProducesResponseType(typeof(GetCompanyResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> CreateStorageAsync(CreateStorageRequest request)
     {
         var response = await _storageService.CreateStorageAsync(request);
