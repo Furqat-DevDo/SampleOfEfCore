@@ -23,12 +23,14 @@ public class CompanyController : ControllerBase
     /// <response code="200">Returns the newly created company</response>
     /// <response code="500">Returns when there was unable to create company</response>
     /// <remarks >
-    /// Post:
-    /// {
-    ///    "Name":"Coca Cola",
-    ///    "ClosedDate" : null,
-    ///    "UpperId" : null
-    /// }
+    /// Sample request:
+    ///
+    ///         POST /Todo
+    ///         {
+    ///             "Name":"Coca Cola",
+    ///             "ClosedDate" : null,
+    ///             "UpperId" : null
+    ///         }
     /// </remarks>
     [HttpPost]
     [ProducesResponseType(typeof(GetCompanyResponse),StatusCodes.Status200OK)]
