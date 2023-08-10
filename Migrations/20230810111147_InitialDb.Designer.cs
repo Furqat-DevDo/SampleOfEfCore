@@ -14,7 +14,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EfCore.Migrations
 {
     [DbContext(typeof(ShopDbContext))]
-    [Migration("20230810090300_InitialDb")]
+    [Migration("20230810111147_InitialDb")]
     partial class InitialDb
     {
         /// <inheritdoc />

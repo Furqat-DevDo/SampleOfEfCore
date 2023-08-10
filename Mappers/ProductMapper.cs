@@ -12,19 +12,22 @@ public static class ProductMapper
         product.ExpireDate = request.ExpireDate;
         product.ManufacturedDate = request.ManufacturedDate;
         product.CategoryId = request.CategoryId;
-        product.CompanyId = request.CompanyId
+        product.CompanyId = request.CompanyId;
         product.Price = request.Price;
     }
 
     public static GetProductResponse ResponseProduct(this Product product)
     => new GetProductResponse
     {
+        Id = product.Id,
         Name = product.Name,
         ExpireDate = product.ExpireDate,
         ManufacturedDate = product.ManufacturedDate,
         CategoryId = product.CategoryId,
         CompanyId = product.CompanyId,
-        Price = product.Price
+        Price = product.Price,
+        CreatedDate = product.CreatedDate,
+        UpdatedDate = product.UpdatedDate
     };
 
     public static Product CreateProduct(this CreateProductRequest product)
