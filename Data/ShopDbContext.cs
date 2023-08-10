@@ -33,6 +33,12 @@ public class ShopDbContext : DbContext
         modelBuilder.Entity<Storage>(s =>
         {
             s.Property(t => t.ProductIds).HasColumnType("jsonb");
+            s.HasQueryFilter(s=> s.IsDeleted != true);
+        });
+
+        modelBuilder.Entity<Shop>(sh =>
+        {
+            sh.HasQueryFilter(s=>s.IsDeleted != true);
         });
     }
 }

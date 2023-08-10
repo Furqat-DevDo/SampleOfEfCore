@@ -25,14 +25,14 @@ public static  class FileHelper
         return (destinationFilePath,fileId);
     }
 
-    public static byte[] ReadFileFromPathAsync(string filePath)
+    public async static Task<byte[]> ReadFileFromPathAsync(string filePath)
     {
         
         byte[] byteArray = new byte[0];
 
         try
         {
-            byteArray = File.ReadAllBytes(filePath);
+            byteArray =  await File.ReadAllBytesAsync(filePath);
         }
         catch (Exception ex)
         {
