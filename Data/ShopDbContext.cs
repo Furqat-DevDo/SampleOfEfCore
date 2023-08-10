@@ -21,10 +21,14 @@ public class ShopDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        base.OnConfiguring(optionsBuilder);
-        optionsBuilder.UseNpgsql("Host=localhost; Port=5435; Username=furqat; Password = furqat1234@; Database = MyFirstDB;");
-        optionsBuilder.EnableSensitiveDataLogging(true);
-        optionsBuilder.LogTo(s =>Console.WriteLine(s));
+        if(!optionsBuilder.IsConfigured)
+        {
+                base.OnConfiguring(optionsBuilder);
+            optionsBuilder.UseNpgsql("Host=localhost; Port=5435; Username=furqat; Password = furqat1234@; Database = MyFirstDB;");
+            optionsBuilder.EnableSensitiveDataLogging(true);
+            optionsBuilder.LogTo(s =>Console.WriteLine(s));
+
+        }
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -40,5 +44,30 @@ public class ShopDbContext : DbContext
         {
             sh.HasQueryFilter(s=>s.IsDeleted != true);
         });
+
+        modelBuilder.Entity<Stuff>().Property(s => s.FullName).HasMaxLength(100);
+        modelBuilder.Entity<Category>().Property(s => s.Name).HasMaxLength(100);
+        modelBuilder.Entity<Shop>().Property(s => s.Name).HasMaxLength(50);
+        modelBuilder.Entity<Product>()
+            .Property(s => s.Name)
+            .IsRequired()
+            .HasPrecision(15, 5) 
+            .HasColumnName("product_price");
+
+
+        modelBuilder.Entity<ProductImage>()
+            .Property(x => x.Src)
+            .HasColumnType("bytea")
+            .HasMaxLength(255)
+            .IsUnicode(false);
+        modelBuilder.Entity<ProductImage>()
+            .ToTable("Products")
+            .HasQueryFilter(x => x.IsDeleted != true)
+            .HasQueryFilter(x => x.ProductId >= 20000);
+        modelBuilder.Entity<Category>()
+            .HasQueryFilter(x => x.IsDeleted != true)
+            .HasIndex(x => x.UpperId != null);
+
+
     }
 }
