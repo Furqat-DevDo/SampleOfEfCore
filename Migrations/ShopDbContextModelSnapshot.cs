@@ -239,7 +239,6 @@ namespace EfCore.Migrations
                         .HasColumnType("text");
 
                     b.Property<List<int>>("ProductIds")
-                        .IsRequired()
                         .HasColumnType("jsonb");
 
                     b.Property<int?>("ProductsId")

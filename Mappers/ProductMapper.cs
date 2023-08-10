@@ -27,6 +27,7 @@ public static class ProductMapper
         Price = product.Price
     };
 
+
     public static Product ToCreateProduct(this CreateProductRequest product)
     => new Product
     {
