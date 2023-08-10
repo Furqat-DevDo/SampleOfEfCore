@@ -6,7 +6,5 @@ public class CreateStorageRequest
 {
     public required string Name { get; set; }
     public required string Adrress { get; set; }
-
-    [ForeignKey(nameof(ProductIds))]
-    public List<int> ProductIds { get; set; } = new();
+    public List<int>? ProductIds { get; set; }
 }

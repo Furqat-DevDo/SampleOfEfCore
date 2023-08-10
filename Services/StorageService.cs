@@ -14,9 +14,11 @@ public class StorageService : IStorageService
     {
         _shopDbContext = shopDbContext;
     }
+
     public async Task<GetStorageResponse> CreateStorageAsync(CreateStorageRequest request)
     {
         var storage = request.ToCreateStorage();
+        
         var newStorage = await _shopDbContext.Storages.AddAsync(storage);
         await _shopDbContext.SaveChangesAsync();
 
@@ -27,6 +29,7 @@ public class StorageService : IStorageService
     {
         var storage = await _shopDbContext.Storages
             .FirstOrDefaultAsync(p => p.Id == id);
+        
         if (storage is null) return false;
 
         storage.IsDeleted = true;
@@ -53,6 +56,7 @@ public class StorageService : IStorageService
     {
         var storage = await _shopDbContext.Storages
             .FirstOrDefaultAsync(s => s.Id == id);
+       
         if (storage is null) return null;
 
         storage.UpdateStorage(request);

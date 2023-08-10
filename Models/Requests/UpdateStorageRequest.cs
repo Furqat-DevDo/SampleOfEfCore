@@ -6,4 +6,5 @@ public class UpdateStorageRequest
 {
     public required string Adrress { get; set; }
     public required string Name { get; set; }
+    public List<int>? ProductIds { get; set; }
 }
