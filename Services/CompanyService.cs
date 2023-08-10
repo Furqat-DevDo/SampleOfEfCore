@@ -40,7 +40,10 @@ public class CompanyService : ICompanyService
 
     public async Task<IEnumerable<GetCompanyResponse>> GetAllCompanysAsync()
     {
-        var companies = await _shopDbContext.Companies.ToListAsync();
+        var companies = await _shopDbContext
+            .Companies
+            .Include(sh => sh.Branches)
+            .ToListAsync();
 
         return companies.Any() ? companies.Select(c => c.ResponseCompany())
             : new List<GetCompanyResponse>();
@@ -48,7 +51,10 @@ public class CompanyService : ICompanyService
 
     public async Task<GetCompanyResponse?> GetCompanyByIdAsync(int id)
     {
-        var company = await _shopDbContext.Companies.FirstOrDefaultAsync(p => p.Id == id);
+        var company = await _shopDbContext
+            .Companies
+            .Include (sh => sh.Branches)
+            .FirstOrDefaultAsync(p => p.Id == id);
 
         return company is null ? null : company.ResponseCompany();
     }

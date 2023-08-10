@@ -1,6 +1,4 @@
-﻿using EfCore.Entities;
-
-namespace EfCore.Models.Responses;
+﻿namespace EfCore.Models.Responses;
 
 public class GetCompanyResponse
 {
@@ -10,5 +8,5 @@ public class GetCompanyResponse
     public required string Name { get; set; }
     public DateTime? ClosedDate { get; set; }
     public int? UpperId { get; set; }
-    public List<Company>? Branches { get; set; }
+    public List<GetCompanyResponse>? Branches { get; set; }
 }
