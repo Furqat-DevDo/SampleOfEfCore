@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EfCore.Entities;
 
+
 public class Storage : BaseEntity
 {
     public required string Name { get; set; }
