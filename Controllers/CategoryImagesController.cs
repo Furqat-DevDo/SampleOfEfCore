@@ -40,8 +40,8 @@ public class CategoryImagesController : ControllerBase
     public async Task<IActionResult> GetFileFromPath(int id, string filePath)
     {
 
-        var product = await _categoryService.GetCategoryByIdAsync(id);
-        if (product is null) return NotFound("Product Not Found !!!");
+        var image = await _categoryService.GetCategoryByIdAsync(id);
+        if (image is null) return NotFound("Image Not Found !!!");
 
         var searchFileResult = await _categoryImageService.ReadFileFromPathAsync(filePath);
         if (searchFileResult.bytes.Length == 0)
@@ -55,8 +55,8 @@ public class CategoryImagesController : ControllerBase
     [HttpGet("download")]
     public async Task<IActionResult> GetFileFromPathDownload(int id, string filePath)
     {
-        var product = await _categoryService.GetCategoryByIdAsync(id);
-        if (product is null) return NotFound("Product Not Found !!!");
+        var image = await _categoryService.GetCategoryByIdAsync(id);
+        if (image is null) return NotFound("image Not Found !!!");
 
         var searchFileResult = await _categoryImageService.ReadFileFromPathAsync(filePath);
         if (searchFileResult.bytes.Count() == 0)
@@ -70,20 +70,20 @@ public class CategoryImagesController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GeCategoriesImages(int id)
     {
-        var product = await _categoryService.GetCategoryByIdAsync(id);
-        if (product is null) return NotFound("Product Not Found");
+        var image = await _categoryService.GetCategoryByIdAsync(id);
+        if (image is null) return NotFound("Image Not Found");
 
-        var productFiles = await _categoryImageService.GetCategoryFilesAsync(id);
-        return Ok(productFiles);
+        var imageFiles = await _categoryImageService.GetCategoryFilesAsync(id);
+        return Ok(imageFiles);
     }
 
     [HttpDelete("{fileId}")]
     public async Task<IActionResult> DeleteCategoryImage(int id, Guid fileId)
     {
-        var product = await _categoryService.GetCategoryByIdAsync(id);
+        var image = await _categoryService.GetCategoryByIdAsync(id);
 
-        if (product is null)
-            return NotFound("Product not found");
+        if (image is null)
+            return NotFound("Image not found");
 
         var result = await _categoryImageService.DeleteCategoryImage(fileId);
 
