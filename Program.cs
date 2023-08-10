@@ -1,6 +1,6 @@
 using EfCore;
 using EfCore.Data;
-
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +11,12 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<ShopDbContext>();
+var connectionString = builder.Configuration.GetConnectionString("ShopDb");
+builder.Services.AddDbContext<ShopDbContext>(option =>
+{
+    option.UseNpgsql(connectionString);
+
+});
 
 builder.Services.AddMyServices();
 
