@@ -3,9 +3,7 @@
 namespace EfCore.Models.Responses;
 
 public class GetShopResponse
-{
-    
-
+{  
     public GetShopResponse(Shop entity)
     {
         Id = entity.Id;
@@ -13,7 +11,7 @@ public class GetShopResponse
         UpdatedDate = entity.UpdatedDate;
         IsActive = entity.IsActive;
         Name = entity.Name;
-        Adrress = entity.Adrress;
+        Address = entity.Address;
         Phone = entity.Phone;
         UpperId = entity.UpperId;
         Branches = entity.Branches?.Select(e=>new GetShopResponse(e));
@@ -24,7 +22,7 @@ public class GetShopResponse
     public  DateTime? UpdatedDate { get; set; }
     public bool IsActive { get; set; }
     public string? Name { get; set; }
-    public string? Adrress { get; set; }
+    public string? Address { get; set; }
     public string? Phone { get; set; } 
     public int? UpperId { get; set; }
     public IEnumerable<GetShopResponse>? Branches { get; set; }

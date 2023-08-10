@@ -3,7 +3,7 @@
 public class CreateShopRequest
 {
     public required string Name { get; set; }
-    public required string Adrress { get; set; }
+    public required string Address { get; set; }
     public string Phone { get; set; } = null!;
     public int? UpperId { get; set; }
 }

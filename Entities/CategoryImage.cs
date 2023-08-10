@@ -1,12 +1,11 @@
 ﻿using EfCore.Entities.Abstractions;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EfCore.Entities
+namespace EfCore.Entities;
+
+public class CategoryImage : BaseFile
 {
-    public class CategoryImage : BaseFile
-    {
-        [ForeignKey("CategoryId")]
-        public int CategoryId { get; set; }
-        public Category? Category { get; set; }
-    }
+    [ForeignKey("CategoryId")]
+    public required int CategoryId { get; set; }
+    public Category? Categories { get; set; }
 }

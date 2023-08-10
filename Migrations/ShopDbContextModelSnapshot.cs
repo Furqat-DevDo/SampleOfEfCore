@@ -43,8 +43,7 @@ namespace EfCore.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("Text")
-                        .HasColumnName("CategoryName");
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("timestamp with time zone");
@@ -78,9 +77,8 @@ namespace EfCore.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
 
-                    b.Property<byte[]>("Size")
-                        .IsRequired()
-                        .HasColumnType("bytea");
+                    b.Property<long>("Size")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Src")
                         .IsRequired()
@@ -93,7 +91,7 @@ namespace EfCore.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("CategoryImages");
+                    b.ToTable("CategoryImage");
                 });
 
             modelBuilder.Entity("EfCore.Entities.Company", b =>
@@ -156,7 +154,7 @@ namespace EfCore.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
 
-                    b.Property<DateTime>("ManafactureDate")
+                    b.Property<DateTime>("ManufacturedDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
@@ -165,6 +163,9 @@ namespace EfCore.Migrations
 
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
+
+                    b.Property<DateTime>("UpDatedDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("timestamp with time zone");
@@ -178,6 +179,42 @@ namespace EfCore.Migrations
                     b.ToTable("Products");
                 });
 
+            modelBuilder.Entity("EfCore.Entities.ProductImage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Extension")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer");
+
+                    b.Property<long>("Size")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Src")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductImages");
+                });
+
             modelBuilder.Entity("EfCore.Entities.Shop", b =>
                 {
                     b.Property<int>("Id")
@@ -186,7 +223,7 @@ namespace EfCore.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Adrress")
+                    b.Property<string>("Address")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -294,7 +331,7 @@ namespace EfCore.Migrations
             modelBuilder.Entity("EfCore.Entities.Category", b =>
                 {
                     b.HasOne("EfCore.Entities.Category", "Upper")
-                        .WithMany()
+                        .WithMany("ChildCategories")
                         .HasForeignKey("UpperId");
 
                     b.Navigation("Upper");
@@ -302,13 +339,13 @@ namespace EfCore.Migrations
 
             modelBuilder.Entity("EfCore.Entities.CategoryImage", b =>
                 {
-                    b.HasOne("EfCore.Entities.Category", "Category")
+                    b.HasOne("EfCore.Entities.Category", "Categories")
                         .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Category");
+                    b.Navigation("Categories");
                 });
 
             modelBuilder.Entity("EfCore.Entities.Company", b =>
@@ -339,6 +376,17 @@ namespace EfCore.Migrations
                     b.Navigation("Companies");
                 });
 
+            modelBuilder.Entity("EfCore.Entities.ProductImage", b =>
+                {
+                    b.HasOne("EfCore.Entities.Product", "Products")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Products");
+                });
+
             modelBuilder.Entity("EfCore.Entities.Shop", b =>
                 {
                     b.HasOne("EfCore.Entities.Shop", "Upper")
@@ -355,6 +403,11 @@ namespace EfCore.Migrations
                         .HasForeignKey("ProductsId");
 
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("EfCore.Entities.Category", b =>
+                {
+                    b.Navigation("ChildCategories");
                 });
 
             modelBuilder.Entity("EfCore.Entities.Company", b =>

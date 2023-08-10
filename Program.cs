@@ -1,3 +1,4 @@
+using EfCore;
 using EfCore.Data;
 using EfCore.Services;
 using EfCore.Services.Interfaces;
@@ -9,10 +10,17 @@ builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+//DB Context Adding
+builder.Services.AddDbContext<ShopDbContext>();
+
+
 
 builder.Services.AddDbContext<ShopDbContext>();
-builder.Services.AddScoped<IShopService,ShopService>();
-builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddMyServices();
+
+//Product
+builder.Services.AddScoped<IProductService,ProductService>();
+
 
 var app = builder.Build();
 

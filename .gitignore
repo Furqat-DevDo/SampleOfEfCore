@@ -400,6 +400,7 @@ FodyWeavers.xsd
 *.msp
 
 # JetBrains Rider
+/rider
 *.sln.iml
 
 ##
@@ -477,3 +478,7 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# All static Files must be ignored
+./Files/*
+/Files
