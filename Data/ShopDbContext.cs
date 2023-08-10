@@ -20,7 +20,6 @@ public class ShopDbContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         base.OnConfiguring(optionsBuilder);
-        optionsBuilder.UseNpgsql("Host=localHost; Port=5435; UserName=Numonjon; Password=Numonjon1234@; Database=TestDb");
         optionsBuilder.EnableSensitiveDataLogging(true);
         optionsBuilder.LogTo(s => Console.WriteLine(s));
     }

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EfCore.Controllers;
 
-[Route("api/storages/{id}/[controller]")]
+[Route("api/[controller]")]
 [ApiController]
 public class StoragesController : ControllerBase
 {
