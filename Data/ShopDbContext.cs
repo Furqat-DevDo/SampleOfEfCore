@@ -39,5 +39,10 @@ public class ShopDbContext : DbContext
         {
             sh.HasQueryFilter(s=>s.IsDeleted != true);
         });
+
+        modelBuilder.Entity<Company>(company => 
+        {
+            company.HasQueryFilter(c=>!c.IsDeleted);
+        });
     }
 }
