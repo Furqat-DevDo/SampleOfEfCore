@@ -36,6 +36,12 @@ public class CategoryImagesController : ControllerBase
         return CreatedAtRoute(routValue, result);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="filePath"></param>
+    /// <returns></returns>
     [HttpGet("direct")]
     public async Task<IActionResult> GetFileFromPath(int id, string filePath)
     {
