@@ -17,7 +17,7 @@ public class Product : BaseEntity
     public required int CompanyId { get; set; }
 
     public virtual Company? Companies { get; set; }
-    public DateTime ManafactureDate { get; set; }
+    public DateTime ManufacturedDate { get; set; }
     public DateTime ExpireDate { get; set; }
     public decimal Price { get; set; }
 }

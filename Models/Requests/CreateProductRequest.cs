@@ -8,4 +8,5 @@ public class CreateProductRequest
     public DateTime ManufacturedDate { get; set; }
     public DateTime ExpireDate { get; set; }
     public decimal Price { get; set; }
+
 }
