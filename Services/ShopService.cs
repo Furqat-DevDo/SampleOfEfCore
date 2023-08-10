@@ -15,7 +15,7 @@ public class ShopService : IShopService
         _context = context;
     }
 
-    public async  Task<GetShopResponse> CreateShopAsync(CreateShopRequest request)
+    public async Task<GetShopResponse> CreateShopAsync(CreateShopRequest request)
     {
         var shop = new Shop()
         {             

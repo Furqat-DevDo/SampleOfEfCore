@@ -28,9 +28,21 @@ public class ShopDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+        
         modelBuilder.Entity<Storage>(s =>
         {
-            s.Property(p => p.ProductIds).HasColumnType("jsonb");
+            s.Property(t => t.ProductIds).HasColumnType("jsonb");
+            s.HasQueryFilter(s=> s.IsDeleted != true);
+        });
+
+        modelBuilder.Entity<Shop>(sh =>
+        {
+            sh.HasQueryFilter(s=>s.IsDeleted != true);
+        });
+
+        modelBuilder.Entity<Product>(p =>
+        {
+            p.HasQueryFilter(f => f.IsDeleted != true);
         });
     }
 }

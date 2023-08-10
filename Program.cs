@@ -2,8 +2,6 @@ using EfCore;
 using EfCore.Data;
 using EfCore.Services;
 using EfCore.Services.Interfaces;
-using EfCore.Data;
-using EfCore.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 

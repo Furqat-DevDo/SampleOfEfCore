@@ -17,9 +17,9 @@ public class ProducsController : ControllerBase
     }
 
     /// <summary>
-    /// Siz yangi product yaratishiz mumkin!
+    /// Here you can create new product.
     /// </summary>
-    /// <param name="request"></param>
+    /// <param name="request">Parametres of new product</param>
     /// <response code="200">Returns the newly created product</response>
     [HttpPost]
     public async Task<IActionResult> CreateProductAsync(CreateProductRequest request)
@@ -31,20 +31,20 @@ public class ProducsController : ControllerBase
     }
 
     /// <summary>
-    /// Id orqali productni olishingiz mumkin!
+    /// Here you can get product by Id.
     /// </summary>
-    /// <param name="id"></param>
+    /// <param name="id">Id of existing product</param>
     /// <response code="200">Returns the product with Id</response>
     /// <response code="404">Returns null when product was not found</response>
     [HttpGet("{id}")]
     public async Task<IActionResult> GetProductByIdAsync(uint id)
     {
-        var response = await  _productService.GetProductByIdAsync((int)id);
-        return response is null ? NotFound(null) : Ok(response);
+        var response = await _productService.GetProductByIdAsync((int)id);
+        return response is null ? NotFound(response) : Ok(response);
     }
 
     /// <summary>
-    /// Barcha productlarni olishingiz mumkin!
+    /// Here you can get all products.
     /// </summary>
     /// <response code="200">Returns all products</response>
     /// <response code="404">Returns null when products was not found</response>
@@ -55,22 +55,22 @@ public class ProducsController : ControllerBase
     }
 
     /// <summary>
-    /// Id orqali productni o'chirishingiz mumkin!
+    /// Here you can delete existing product by its Id.
     /// </summary>
-    /// <param name="id"></param>
-    /// <response code="200">Deletes the product with Id</response>
-    /// <response code="404">Returns null when product was not found</response>
+    /// <param name="id">Id of existing product</param>
+    /// <response code="200">Deletes the product with Id and returns true</response>
+    /// <response code="404">Returns false when product was not found</response>
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteProductAsync(uint id)
     {
         var result = await _productService.DeleteAsync((int)id);
-        return result ? Ok(result) : NotFound();    
+        return result ? Ok(result) : NotFound(result);    
     }
 
     /// <summary>
-    /// Id orqali productni o'zgartirishingiz mumkin!
+    /// Here you can update the product with Id.
     /// </summary>
-    /// <param name="id"></param>
+    /// <param name="id">Id of existing product</param>
     /// <param name="request"></param>
     /// <response code="200">Returns updated product with Id</response>
     /// <response code="404">Returns null when product was not found</response>
@@ -78,6 +78,6 @@ public class ProducsController : ControllerBase
     public async Task<IActionResult> UpdateProductAsync(uint id, [FromBody] UpdateProductRequest request)
     {
         var result = await  _productService.UpdateProductAsync((int) id, request);
-        return result is null ? NotFound() : Ok(result);
+        return result is null ? NotFound(result) : Ok(result);
     }
 }

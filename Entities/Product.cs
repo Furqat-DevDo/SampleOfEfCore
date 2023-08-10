@@ -20,6 +20,5 @@ public class Product : BaseEntity
     public DateTime ManufacturedDate { get; set; }
     public DateTime ExpireDate { get; set; }
     public decimal Price { get; set; }
-    public bool IsDeleted { get; set; }
     public DateTime UpDatedDate { get; set; }
 }
