@@ -17,19 +17,20 @@ public class ShopsController : ControllerBase
     }
 
     /// <summary>
-    /// Here you can create new company.
+    /// Here you can create new shop.
     /// </summary>
-    /// <param name="request">Parametres of new company</param>
-    /// <response code="200">Returns the newly created company</response>
-    /// <response code="500">Returns when there was unable to create company</response>
+    /// <param name="request">Parametres of new shop</param>
+    /// <response code="200">Returns the newly created shop</response>
+    /// <response code="500">Returns when there was unable to create shop</response>
     /// <remarks >
     /// Sample request:
     ///
-    ///         POST /Todo
+    ///         POST
     ///         {
-    ///             "Name":"Coca Cola",
-    ///             "ClosedDate" : null,
-    ///             "UpperId" : null
+    ///             "name": "Uzum Market",
+    ///             "adrress": "Chilonzor",
+    ///             "phone": "931871234",
+    ///             "upperId": 0
     ///         }
     /// </remarks>
     [HttpPost]
@@ -42,7 +43,13 @@ public class ShopsController : ControllerBase
             Ok(response);
     }
 
-
+    /// <summary>
+    /// Here you can get shop with id.
+    /// </summary>
+    /// <param name="id"> Id of existing shop</param>
+    /// <response code="200">Returns shop by id</response>
+    /// <response code="404">Returns null when shop was not found</response>
+    /// <returns></returns>
     [HttpGet("{id}")]
     public async Task<IActionResult> GetShopByIdAsync(uint id)
     {
@@ -50,14 +57,25 @@ public class ShopsController : ControllerBase
         return response is null ? NotFound() : Ok(response);
     }
 
-
+    /// <summary>
+    /// Here you can get all shops
+    /// </summary>
+    /// <response code="200">Returns all shops</response>
+    /// <response code="404">Returns null when shop was not found</response>
+    /// <returns></returns>
     [HttpGet]
     public async Task<IActionResult> GetAllShopsAsync()
     {
         return Ok(await _shopService.GetAllShopsAsync());
     }
 
-
+    /// <summary>
+    /// Here you can delete existinf shop by its id
+    /// </summary>
+    /// <param name="id">Id of existing shop</param>
+    /// <response code="200">Deletes the shop with Id and returns true</response>
+    /// <response code="404">Returns false when shop was not found</response>
+    
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteShopAsync(uint id)
     {
@@ -65,7 +83,24 @@ public class ShopsController : ControllerBase
         return result ? Ok(result) : NotFound();    
     }
 
-
+    /// <summary>
+    /// Here you can update shop with id
+    /// </summary>
+    /// <param name="id">Id of existing shop</param>
+    /// <param name="request">Parametrs of shop</param>
+    /// <response code="200">Updated shop by id </response>
+    /// <response code="404">Returns null when shop was not found</response>
+    /// <remarks >
+    /// Sample request:
+    ///
+    ///         PUT
+    ///         {
+    ///             "name": "Uzum Market",
+    ///             "adrress": "Chilonzor",
+    ///             "phone": "931871234",
+    ///             "upperId": 0
+    ///         }
+    /// </remarks>
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateShopAsync(uint id, [FromBody] UpdateShopRequest request)
     {
