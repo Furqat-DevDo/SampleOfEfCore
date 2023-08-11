@@ -1,7 +1,8 @@
 ﻿using EfCore.Models.Requests;
+using EfCore.Models.Responses;
 using EfCore.Services.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Numerics;
 
 
 namespace EfCore.Controllers
@@ -12,66 +13,82 @@ namespace EfCore.Controllers
     {
 
         private readonly IProductImageService _productImageService;
+        private readonly IProductService _productService;
 
-        public ProductImagesController(IProductImageService productImageService)
+        public ProductImagesController(IProductImageService productImageService,
+            IProductService productService)
         {
             _productImageService = productImageService;
+            _productService = productService;
         }
-        
+
         [HttpPost]
-        public async Task<IActionResult> CreateAsync (int id,[FromForm] CreateProductImageRequest request)
+        public async Task<IActionResult> CreateAsync(int id, [FromForm] CreateProductImageRequest request)
         {
-            if(!ModelState.IsValid)
+            var product = await _productService.GetProductByIdAsync(id);
+            if (product is null) return NotFound("Product Not Found !!!");
+
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var result = await _productImageService.CreateAsync(id,request);
+            var result = await _productImageService.CreateAsync(id, request);
             return Ok(result);
+
         }
 
-        [HttpGet]
-        public IActionResult GetFileFromPath (string filePath) 
-        { 
-            var file = _productImageService.ReadFileFromPathAsync(filePath);
-            if(file is null)
-            {
-                return NotFound();
-            }
-
-            string contentType = GetContentType(Path.GetExtension(filePath));
-
-            return File(file,contentType);
-        }
-
-        private string GetContentType(string fileExtension)
+        [HttpGet("direct")]
+        public async Task<IActionResult> GetFileFromPath(int id, string filePath)
         {
-            switch (fileExtension.ToLower())
+
+            var product = await _productService.GetProductByIdAsync(id);
+            if (product is null) return NotFound("Product Not Found !!!");
+
+            var searchFileResult = await _productImageService.ReadFileFromPathAsync(filePath);
+            if (searchFileResult.bytes.Length == 0)
             {
-                case ".jpg":
-                case ".jpeg":
-                    return "image/jpeg";
-                case ".png":
-                    return "image/png";
-                case ".gif":
-                    return "image/gif";
-                case ".pdf":
-                    return "application/pdf";
-                
-                default:
-                    return "application/octet-stream";
+                return NotFound("File not found !!!");
             }
+
+            return File(searchFileResult.Item1, searchFileResult.fileInfo[0]);
         }
 
         [HttpGet("download")]
-        public IActionResult GetFileFromPathDownload(string filePath)
+        public async Task<IActionResult> GetFileFromPathDownload(int id, string filePath)
         {
-            var file = _productImageService.ReadFileFromPathAsync(filePath);
-            if (file is null)
+            var product = await _productService.GetProductByIdAsync(id);
+            if (product is null) return NotFound("Product Not Found !!!");
+
+            var searchFileResult = await _productImageService.ReadFileFromPathAsync(filePath);
+            if (searchFileResult.bytes.Count() == 0)
             {
-                return NotFound();
+                return NotFound("File not found !!!");
             }
 
-            return File(file,"application/octet-stream",$"{Path.GetFileName(filePath)}");
+            return File(searchFileResult.Item1, "application/octet-stream", searchFileResult.fileInfo[1]);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetProductsImages(int id)
+        {
+            var product = await _productService.GetProductByIdAsync(id);
+            if (product is null) return NotFound("Product Not Found");
+
+            var productFiles = await _productImageService.GetProductFilesAsync(id);
+            return Ok(productFiles);
+        }
+
+        [HttpDelete("{fileId}")]
+        public async Task<IActionResult> DeleteProductImage(int id, Guid fileId)
+        {
+            var product = await _productService.GetProductByIdAsync(id);
+
+            if (product is null)
+                return NotFound("Product not found");
+
+            var result = await _productImageService.DeleteProductImage(fileId);
+
+            return result ? Ok(result) : NotFound(result);
         }
     }
 }

@@ -14,8 +14,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EfCore.Migrations
 {
     [DbContext(typeof(ShopDbContext))]
-    [Migration("20230804163542_InitialDB")]
-    partial class InitialDB
+    [Migration("20230810152152_InitialDb")]
+    partial class InitialDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -158,7 +158,7 @@ namespace EfCore.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
-                    b.Property<DateTime>("ManafactureDate")
+                    b.Property<DateTime>("ManufacturedDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
@@ -242,7 +242,6 @@ namespace EfCore.Migrations
                         .HasColumnType("text");
 
                     b.Property<List<int>>("ProductIds")
-                        .IsRequired()
                         .HasColumnType("jsonb");
 
                     b.Property<int?>("ProductsId")
