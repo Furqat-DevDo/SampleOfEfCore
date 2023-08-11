@@ -15,7 +15,7 @@ public class ProductImageService : IProductImageService
     {
         _shopContext = shopDbContext;
     }
-    public async Task<GetProductImageResponse> CreateAsync(int id,
+    public async Task<GetProductImageResponse?> CreateAsync(int id,
         CreateProductImageRequest request)
     {
         var (filePath, fileId) = await FileHelper.SaveFormFileAsync(request.ProductFile);
@@ -24,9 +24,9 @@ public class ProductImageService : IProductImageService
 
         var result = await _shopContext.ProductImages.AddAsync(newProductFile);
 
-        await _shopContext.SaveChangesAsync();
+        
 
-        return result.Entity.ToResponse();
+        return await _shopContext.SaveChangesAsync() > 0 ? result.Entity.ToResponse() : null;
     }
 
     public async Task<IEnumerable<GetProductImageResponse>> GetProductFilesAsync(int id)

@@ -20,18 +20,18 @@ public class CompanyController : ControllerBase
     /// Here you can create new company.
     /// </summary>
     /// <param name="request">Parametres of new company</param>
-    /// <response code="200">Returns the newly created company</response>
-    /// <response code="500">Returns when there was unable to create company</response>
     /// <remarks >
     /// Sample request:
     ///
-    ///         POST /Todo
+    ///         POST
     ///         {
-    ///             "Name":"Coca Cola",
+    ///             "Name":"Coca-Cola Co.",
     ///             "ClosedDate" : null,
     ///             "UpperId" : null
     ///         }
     /// </remarks>
+    /// <response code="200">Returns the newly created company</response>
+    /// <response code="500">Returns when there was unable to create new company</response>
     [HttpPost]
     [ProducesResponseType(typeof(GetCompanyResponse),StatusCodes.Status200OK)]
     public async Task<IActionResult> CreateCompanyAsync(CreateCompanyRequest request)
@@ -49,6 +49,7 @@ public class CompanyController : ControllerBase
     /// <response code="200">Returns the company with Id</response>
     /// <response code="404">Returns null when company was not found</response>
     [HttpGet("{id}")]
+    [ProducesResponseType(typeof(GetCompanyResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetCompanyByIdAsync(uint id)
     {
         var response = await _companyService.GetCompanyByIdAsync((int)id);
@@ -59,8 +60,8 @@ public class CompanyController : ControllerBase
     /// Here you can get all companys.
     /// </summary>
     /// <response code="200">Returns all companys</response>
-    /// <response code="404">Returns null when companys was not found</response>
     [HttpGet]
+    [ProducesResponseType(typeof(List<GetCompanyResponse>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllCompanysAsync()
     {
         return Ok(await _companyService.GetAllCompanysAsync());
@@ -73,6 +74,8 @@ public class CompanyController : ControllerBase
     /// <response code="200">Deletes the company with Id and returns true</response>
     /// <response code="404">Returns false when company was not found</response>
     [HttpDelete("{id}")]
+    [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(NotFoundResult),StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteCompanyAsync(uint id)
     {
         var result = await _companyService.DeleteAsync((int)id);
@@ -83,10 +86,21 @@ public class CompanyController : ControllerBase
     /// Here you can update the company with Id.
     /// </summary>
     /// <param name="id">Id of existing company</param>
-    /// <param name="request"></param>
+    /// <param name="request">New parameters of updating company</param>
     /// <response code="200">Returns updated company with Id</response>
     /// <response code="404">Returns null when company was not found</response>
+    /// <remarks >
+    /// Sample request:
+    ///
+    ///         PUT
+    ///         {
+    ///             "Name":"Coca-Cola Co.",
+    ///             "ClosedDate" : null,
+    ///             "UpperId" : null
+    ///         }
+    /// </remarks>
     [HttpPut("{id}")]
+    [ProducesResponseType(typeof(GetCompanyResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> UpdateCompanyAsync(uint id, [FromBody] UpdateCompanyRequest request)
     {
         var result = await _companyService.UpdateCompanyAsync((int)id, request);
