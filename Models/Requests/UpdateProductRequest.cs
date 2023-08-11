@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace EfCore.Models.Requests;
+﻿namespace EfCore.Models.Requests;
 
 public class UpdateProductRequest
 {

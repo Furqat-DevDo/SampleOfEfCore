@@ -5,8 +5,8 @@ namespace EfCore.Data;
 
 public class ShopDbContext : DbContext
 {
-    public ShopDbContext(DbContextOptions<ShopDbContext> options) : base(options) {}      
-    
+    public ShopDbContext(DbContextOptions<ShopDbContext> options) : base(options) { }
+
     public DbSet<Stuff> Stuffs { get; set; }
     public DbSet<Category> Categories { get; set; }
     public DbSet<CategoryImage> CategoriesImages { get; set; }
@@ -20,7 +20,7 @@ public class ShopDbContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         base.OnConfiguring(optionsBuilder);
-        optionsBuilder.UseNpgsql("Host=localhost; Port=5435; Username=Samandar; Password =samandar2004; Database = MyDatabaza;");
+        optionsBuilder.UseNpgsql("Host=localhost; Port=5435; Username=Samandar; Password =samandar2004; Database = DatabaseDB;");
         optionsBuilder.EnableSensitiveDataLogging(true);
         optionsBuilder.LogTo(s => Console.WriteLine(s));
     }
@@ -28,22 +28,26 @@ public class ShopDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        
+
         modelBuilder.Entity<Storage>(s =>
         {
             s.Property(t => t.ProductIds).HasColumnType("jsonb");
-            s.HasQueryFilter(s=> s.IsDeleted != true);
+            s.HasQueryFilter(s => s.IsDeleted != true);
         });
 
         modelBuilder.Entity<Shop>(sh =>
         {
-            sh.HasQueryFilter(s=>s.IsDeleted != true);
+            sh.HasQueryFilter(s => s.IsDeleted != true);
         });
 
         modelBuilder.Entity<Product>(p =>
         {
             p.HasQueryFilter(f => f.IsDeleted != true);
         });
-        
+        modelBuilder.Entity<Category>(c =>
+        {
+            c.HasQueryFilter(f => f.IsDeleted != true);
+        });
+
     }
 }

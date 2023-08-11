@@ -1,9 +1,9 @@
 ﻿namespace EfCore.Helpers;
 
-public static  class FileHelper
+public static class FileHelper
 {
     private static string destination = "./Files";
-    public static async Task<(string,Guid)> SaveFormFileAsync(IFormFile formFile)
+    public static async Task<(string, Guid)> SaveFormFileAsync(IFormFile formFile)
     {
         if (formFile == null)
             throw new ArgumentNullException(nameof(formFile));
@@ -20,19 +20,19 @@ public static  class FileHelper
 
         using FileStream destinationStream = File.Create(destinationFilePath);
         await formFile.CopyToAsync(destinationStream);
-        
 
-        return (destinationFilePath,fileId);
+
+        return (destinationFilePath, fileId);
     }
 
     public async static Task<byte[]> ReadFileFromPathAsync(string filePath)
     {
-        
+
         byte[] byteArray = new byte[0];
 
         try
         {
-            byteArray =  await File.ReadAllBytesAsync(filePath);
+            byteArray = await File.ReadAllBytesAsync(filePath);
         }
         catch (Exception ex)
         {
@@ -40,6 +40,6 @@ public static  class FileHelper
         }
 
         return byteArray;
-        
+
     }
 }

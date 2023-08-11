@@ -12,7 +12,7 @@ public class ShopsController : ControllerBase
 
     public ShopsController(IShopService shopService)
     {
-          _shopService = shopService;
+        _shopService = shopService;
     }
 
 
@@ -20,9 +20,9 @@ public class ShopsController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateShopAsync(CreateShopRequest request)
     {
-       var response = await _shopService.CreateShopAsync(request);
-        return response is null ? 
-            new StatusCodeResult(StatusCodes.Status500InternalServerError):
+        var response = await _shopService.CreateShopAsync(request);
+        return response is null ?
+            new StatusCodeResult(StatusCodes.Status500InternalServerError) :
             Ok(response);
     }
 
@@ -30,7 +30,7 @@ public class ShopsController : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> GetShopByIdAsync(uint id)
     {
-        var response = await  _shopService.GetShopByIdAsync((int)id);
+        var response = await _shopService.GetShopByIdAsync((int)id);
         return response is null ? NotFound() : Ok(response);
     }
 
@@ -46,14 +46,14 @@ public class ShopsController : ControllerBase
     public async Task<IActionResult> DeleteShopAsync(uint id)
     {
         var result = await _shopService.DeleteAsync((int)id);
-        return result ? Ok(result) : NotFound();    
+        return result ? Ok(result) : NotFound();
     }
 
 
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateShopAsync(uint id, [FromBody] UpdateShopRequest request)
     {
-        var result = await  _shopService.UpdateShopAsync((int) id, request);
+        var result = await _shopService.UpdateShopAsync((int)id, request);
         return result is null ? NotFound() : Ok(result);
     }
 }

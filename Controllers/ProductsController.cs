@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 [Route("api/[controller]")]
 [ApiController]
-public class ProducsController : ControllerBase 
+public class ProducsController : ControllerBase
 {
     private readonly IProductService _productService;
 
@@ -25,8 +25,8 @@ public class ProducsController : ControllerBase
     public async Task<IActionResult> CreateProductAsync(CreateProductRequest request)
     {
         var response = await _productService.CreateProductAsync(request);
-        return response is null ? 
-            new StatusCodeResult(StatusCodes.Status500InternalServerError):
+        return response is null ?
+            new StatusCodeResult(StatusCodes.Status500InternalServerError) :
             Ok(response);
     }
 
@@ -64,7 +64,7 @@ public class ProducsController : ControllerBase
     public async Task<IActionResult> DeleteProductAsync(uint id)
     {
         var result = await _productService.DeleteAsync((int)id);
-        return result ? Ok(result) : NotFound(result);    
+        return result ? Ok(result) : NotFound(result);
     }
 
     /// <summary>
@@ -77,7 +77,7 @@ public class ProducsController : ControllerBase
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateProductAsync(uint id, [FromBody] UpdateProductRequest request)
     {
-        var result = await  _productService.UpdateProductAsync((int) id, request);
+        var result = await _productService.UpdateProductAsync((int)id, request);
         return result is null ? NotFound(result) : Ok(result);
     }
 }

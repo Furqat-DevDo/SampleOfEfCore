@@ -4,7 +4,6 @@ using EfCore.Mappers;
 using EfCore.Models.Requests;
 using EfCore.Models.Responses;
 using EfCore.Services.Interfaces;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace EfCore.Services;
@@ -73,9 +72,9 @@ public class ProductImageService : IProductImageService
     public async Task<bool> DeleteProductImage(Guid fileId)
     {
         var result = await _shopContext.ProductImages.FirstOrDefaultAsync(x => x.Id == fileId);
-        
+
         if (result is null) return false;
-        
+
         result.IsDeleted = true;
         return await _shopContext.SaveChangesAsync() > 0;
     }

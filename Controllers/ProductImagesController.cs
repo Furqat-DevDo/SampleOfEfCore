@@ -1,7 +1,5 @@
 ﻿using EfCore.Models.Requests;
-using EfCore.Models.Responses;
 using EfCore.Services.Interfaces;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 

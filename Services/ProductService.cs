@@ -28,7 +28,7 @@ public class ProductService : IProductService
 
     public async Task<bool> DeleteAsync(int id)
     {
-        var product = await _shopDbContext.Products            
+        var product = await _shopDbContext.Products
             .FirstOrDefaultAsync(p => p.Id == id);
 
         if (product is null) return false;
@@ -40,7 +40,7 @@ public class ProductService : IProductService
     public async Task<IEnumerable<GetProductResponse>> GetAllProductsAsync()
     {
         var products = await _shopDbContext.Products.ToListAsync();
-        
+
         return products.Any() ?
             products.Select(p => p.ResponseProduct())
             : new List<GetProductResponse>();
@@ -58,7 +58,7 @@ public class ProductService : IProductService
     {
         var product = await _shopDbContext.Products
             .FirstOrDefaultAsync(sh => sh.Id == id);
-        
+
         if (product is null) return null;
 
         product.UpdateProduct(request);

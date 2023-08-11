@@ -11,7 +11,7 @@ namespace EfCore.Services
     {
         private readonly ShopDbContext _context;
         public CategoryService(ShopDbContext context)
-       {
+        {
             _context = context;
         }
 
@@ -24,7 +24,6 @@ namespace EfCore.Services
             {
                 Name = categoryRequest.Name,
                 UpperId = categoryRequest.UpperId,
-                ImageId= categoryRequest.ImageID ,
             };
             var newCategory = await _context.Categories.AddAsync(category);
             await _context.SaveChangesAsync();
@@ -35,10 +34,10 @@ namespace EfCore.Services
 
         public async Task<bool> DeletedCategoryAsync(int id)
         {
-            var category=await _context.Categories.FirstOrDefaultAsync(x=>x.Id==id);
+            var category = await _context.Categories.FirstOrDefaultAsync(x => x.Id == id);
             if (category == null) return false;
 
-            category.IsActive = true;
+            category.IsDeleted = true;
             return await _context.SaveChangesAsync() > 0;
         }
 
@@ -50,8 +49,8 @@ namespace EfCore.Services
 
         public async Task<GetCategoryResponse?> GetCategoryByIdAsync(int id)
         {
-            var category=await _context.Categories.FirstOrDefaultAsync(x => x.Id == id);
-           
+            var category = await _context.Categories.FirstOrDefaultAsync(x => x.Id == id);
+
             return category is null ? null : new GetCategoryResponse(category);
 
         }

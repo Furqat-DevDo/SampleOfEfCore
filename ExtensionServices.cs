@@ -5,11 +5,11 @@ namespace EfCore;
 
 public static class ExtensionServices
 {
-    public static IServiceCollection AddMyServices (this IServiceCollection services)
+    public static IServiceCollection AddMyServices(this IServiceCollection services)
     {
-        services.AddScoped<IShopService,ShopService>();
-        services.AddScoped<IProductImageService,ProductImageService>();
-        services.AddScoped<IProductService,ProductService>();
+        services.AddScoped<IShopService, ShopService>();
+        services.AddScoped<IProductImageService, ProductImageService>();
+        services.AddScoped<IProductService, ProductService>();
         return services;
     }
 }

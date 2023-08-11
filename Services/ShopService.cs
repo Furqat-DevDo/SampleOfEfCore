@@ -18,7 +18,7 @@ public class ShopService : IShopService
     public async Task<GetShopResponse> CreateShopAsync(CreateShopRequest request)
     {
         var shop = new Shop()
-        {             
+        {
             Name = request.Name,
             Phone = request.Phone,
             UpperId = request.UpperId,
@@ -28,10 +28,10 @@ public class ShopService : IShopService
         var newShop = await _context.Shops.AddAsync(shop);
         await _context.SaveChangesAsync();
 
-        return new GetShopResponse(newShop.Entity);        
+        return new GetShopResponse(newShop.Entity);
     }
 
-    public async  Task<bool> DeleteAsync(int id)
+    public async Task<bool> DeleteAsync(int id)
     {
         var product = await _context.Shops.FirstOrDefaultAsync(sh => sh.Id == id);
         if (product is null) return false;
@@ -42,10 +42,10 @@ public class ShopService : IShopService
 
     public async Task<IEnumerable<GetShopResponse>> GetAllShopsAsync()
     {
-        var shops = await  _context.Shops.ToListAsync();
-        return shops.Any() ? 
-            shops.Select(sh => new GetShopResponse(sh)) 
-            : new List<GetShopResponse>(); 
+        var shops = await _context.Shops.ToListAsync();
+        return shops.Any() ?
+            shops.Select(sh => new GetShopResponse(sh))
+            : new List<GetShopResponse>();
     }
 
     public async Task<GetShopResponse?> GetShopByIdAsync(int id)
@@ -57,7 +57,7 @@ public class ShopService : IShopService
         return shop is null ? null : new GetShopResponse(shop);
     }
 
-    public async  Task<GetShopResponse?> UpdateShopAsync(int id, UpdateShopRequest request)
+    public async Task<GetShopResponse?> UpdateShopAsync(int id, UpdateShopRequest request)
     {
         var shop = await _context.Shops.FirstOrDefaultAsync(sh => sh.Id == id);
         if (shop is null) return null;

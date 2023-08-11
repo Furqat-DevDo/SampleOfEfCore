@@ -7,8 +7,8 @@ namespace EfCore.Mappers;
 public static class ProductImageMapper
 {
     public static GetProductImageResponse ToResponse(this ProductImage image)
-    => new GetProductImageResponse 
-    { 
+    => new GetProductImageResponse
+    {
         ProductId = image.ProductId,
         FileId = image.Id,
         FileSrc = image.Src
@@ -17,8 +17,8 @@ public static class ProductImageMapper
     public static ProductImage ToEntity(this CreateProductImageRequest request,
         int id,
         string filePath,
-        Guid fileId) 
-        =>new ProductImage
+        Guid fileId)
+        => new ProductImage
         {
             ProductId = id,
             Id = fileId,
