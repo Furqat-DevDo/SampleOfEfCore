@@ -19,11 +19,19 @@ public class CategoryImagesController : ControllerBase
         _categoryService = productService;
     }
     /// <summary>
-    /// posted image
+    /// Here you can create new image.
     /// </summary>
-    /// <param name="id"></param>
-    /// <param name="request"></param>
-    /// <returns code="201"></returns>
+    /// <param name="request">Parametres of new company</param>
+    /// <response code="201">Returns the newly created company</response>
+    /// <response code="500">Returns when there was unable to create image</response>
+    /// <remarks >
+    /// Sample request:
+    ///
+    ///         POST /Todo
+    ///         {     
+    ///            "CategoryId" : null
+    ///         }
+    /// </remarks>
     [HttpPost]
     public async Task<IActionResult> CreateAsync(int id, [FromForm] CreateCategoryImageRequest request)
     {
@@ -37,11 +45,11 @@ public class CategoryImagesController : ControllerBase
     }
 
     /// <summary>
-    /// 
+    /// Here you can get the image.
     /// </summary>
-    /// <param name="id"></param>
-    /// <param name="filePath"></param>
-    /// <returns></returns>
+    /// <param name="request"></param>
+    /// <response code="200">Returns the newly created image</response>
+    /// <response code="500">Returns when there was unable to get image</response>
     [HttpGet("direct")]
     public async Task<IActionResult> GetFileFromPath(int id, string filePath)
     {
@@ -58,6 +66,12 @@ public class CategoryImagesController : ControllerBase
         return File(searchFileResult.Item1, searchFileResult.fileInfo[0]);
     }
 
+    /// <summary>
+    /// Here you can get file of the image.
+    /// </summary>
+    /// <param name="request"></param>
+    /// <response code="200">Returns the newly file of created image</response>
+    /// <response code="500">Returns when there was unable to get image</response>
     [HttpGet("download")]
     public async Task<IActionResult> GetFileFromPathDownload(int id, string filePath)
     {
@@ -73,6 +87,12 @@ public class CategoryImagesController : ControllerBase
         return File(searchFileResult.Item1, "application/octet-stream", searchFileResult.fileInfo[1]);
     }
 
+    /// <summary>
+    /// Here you can get the image by id.
+    /// </summary>
+    /// <param name="request"></param>
+    /// <response code="200">Returns the newly created image</response>
+    /// <response code="500">Returns when there was unable to get image</response>  
     [HttpGet]
     public async Task<IActionResult> GeCategoriesImages(int id)
     {
@@ -83,6 +103,12 @@ public class CategoryImagesController : ControllerBase
         return Ok(imageFiles);
     }
 
+    /// <summary>
+    /// Here you can delete existing company by its Id.
+    /// </summary>
+    /// <param name="id">Id of existing company</param>
+    /// <response code="200">Deletes the image with Id and returns true</response>
+    /// <response code="404">Returns false when image was not found</response>
     [HttpDelete("{fileId}")]
     public async Task<IActionResult> DeleteCategoryImage(int id, Guid fileId)
     {

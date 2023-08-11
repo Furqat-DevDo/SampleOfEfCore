@@ -155,7 +155,7 @@ namespace EfCore.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
-                    b.Property<DateTime>("ManafactureDate")
+                    b.Property<DateTime>("ManufacturedDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
@@ -239,7 +239,6 @@ namespace EfCore.Migrations
                         .HasColumnType("text");
 
                     b.Property<List<int>>("ProductIds")
-                        .IsRequired()
                         .HasColumnType("jsonb");
 
                     b.Property<int?>("ProductsId")

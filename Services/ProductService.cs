@@ -16,13 +16,13 @@ public class ProductService : IProductService
     }
     public async Task<GetProductResponse> CreateProductAsync(CreateProductRequest request)
     {
-        var product = request.ToCreateProduct();
+        var product = request.CreateProduct();
 
         var newProduct = await _shopDbContext.Products
             .AddAsync(product);
         await _shopDbContext.SaveChangesAsync();
 
-        return newProduct.Entity.ToResponseProduct();
+        return newProduct.Entity.ResponseProduct();
     }
 
     public async Task<bool> DeleteAsync(int id)
@@ -40,7 +40,7 @@ public class ProductService : IProductService
     {
         var products = await _shopDbContext.Products.ToListAsync();
         return products.Any() ?
-            products.Select(p => p.ToResponseProduct())
+            products.Select(p => p.ResponseProduct())
             : new List<GetProductResponse>();
     }
 
@@ -49,7 +49,7 @@ public class ProductService : IProductService
         var product = await _shopDbContext.Products
             .FirstOrDefaultAsync(sh => sh.Id == id);
 
-        return product is null ? null : product.ToResponseProduct();
+        return product is null ? null : product.ResponseProduct();
     }
 
     public async Task<GetProductResponse?> UpdateProductAsync(int id, UpdateProductRequest request)
@@ -62,6 +62,6 @@ public class ProductService : IProductService
 
         _shopDbContext.Products.Update(product);
         _shopDbContext.SaveChanges();
-        return product.ToResponseProduct();
+        return product.ResponseProduct();
     }
 }
