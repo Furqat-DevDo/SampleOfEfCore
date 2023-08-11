@@ -21,17 +21,8 @@ public class CategoryImagesController : ControllerBase
     /// <summary>
     /// Here you can create new image.
     /// </summary>
-    /// <param name="request">Parametres of new company</param>
     /// <response code="201">Returns the newly created company</response>
     /// <response code="500">Returns when there was unable to create image</response>
-    /// <remarks >
-    /// Sample request:
-    ///
-    ///         POST /Todo
-    ///         {     
-    ///            "CategoryId" : null
-    ///         }
-    /// </remarks>
     [HttpPost]
     public async Task<IActionResult> CreateAsync(int id, [FromForm] CreateCategoryImageRequest request)
     {
@@ -47,7 +38,6 @@ public class CategoryImagesController : ControllerBase
     /// <summary>
     /// Here you can get the image.
     /// </summary>
-    /// <param name="request"></param>
     /// <response code="200">Returns the newly created image</response>
     /// <response code="500">Returns when there was unable to get image</response>
     [HttpGet("direct")]
@@ -69,7 +59,6 @@ public class CategoryImagesController : ControllerBase
     /// <summary>
     /// Here you can get file of the image.
     /// </summary>
-    /// <param name="request"></param>
     /// <response code="200">Returns the newly file of created image</response>
     /// <response code="500">Returns when there was unable to get image</response>
     [HttpGet("download")]
@@ -90,7 +79,6 @@ public class CategoryImagesController : ControllerBase
     /// <summary>
     /// Here you can get the image by id.
     /// </summary>
-    /// <param name="request"></param>
     /// <response code="200">Returns the newly created image</response>
     /// <response code="500">Returns when there was unable to get image</response>  
     [HttpGet]
@@ -104,9 +92,8 @@ public class CategoryImagesController : ControllerBase
     }
 
     /// <summary>
-    /// Here you can delete existing company by its Id.
+    /// Here you can delete existing image by its Id.
     /// </summary>
-    /// <param name="id">Id of existing company</param>
     /// <response code="200">Deletes the image with Id and returns true</response>
     /// <response code="404">Returns false when image was not found</response>
     [HttpDelete("{fileId}")]
