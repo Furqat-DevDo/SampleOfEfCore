@@ -60,7 +60,6 @@ public class CompanyController : ControllerBase
     /// Here you can get all companys.
     /// </summary>
     /// <response code="200">Returns all companys</response>
-    /// <response code="404">Returns null when companys was not found</response>
     [HttpGet]
     [ProducesResponseType(typeof(List<GetCompanyResponse>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllCompanysAsync()
@@ -76,6 +75,7 @@ public class CompanyController : ControllerBase
     /// <response code="404">Returns false when company was not found</response>
     [HttpDelete("{id}")]
     [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(NotFoundResult),StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteCompanyAsync(uint id)
     {
         var result = await _companyService.DeleteAsync((int)id);
