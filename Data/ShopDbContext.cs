@@ -10,6 +10,9 @@ public class ShopDbContext : DbContext
         
     }
 
+
+
+
     public DbSet<Stuff> Stuffs { get; set; }
     public DbSet<Category> Categories { get; set; }
     public DbSet<Product> Products { get; set; }
@@ -43,6 +46,11 @@ public class ShopDbContext : DbContext
         modelBuilder.Entity<Company>(company => 
         {
             company.HasQueryFilter(c=>!c.IsDeleted);
+        });
+
+        modelBuilder.Entity<Stuff>(stuff =>
+        {
+            stuff.HasQueryFilter(c => !c.IsDeleted);
         });
     }
 }
