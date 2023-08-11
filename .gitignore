@@ -479,5 +479,4 @@ $RECYCLE.BIN/
 *.lnk
 
 # All static Files must be ignored
-./Files/*
 /Files
