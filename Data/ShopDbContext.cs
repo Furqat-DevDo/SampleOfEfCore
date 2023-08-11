@@ -25,7 +25,6 @@ public class ShopDbContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         base.OnConfiguring(optionsBuilder);
-        optionsBuilder.UseNpgsql("Host = localhost; Port = 5435; Username = Ergash; Password = Ergash1997; Database = Database");
         optionsBuilder.EnableSensitiveDataLogging(true);
         optionsBuilder.LogTo(s =>Console.WriteLine(s));
     }
@@ -47,6 +46,11 @@ public class ShopDbContext : DbContext
         modelBuilder.Entity<Company>(company => 
         {
             company.HasQueryFilter(c=>!c.IsDeleted);
+        });
+
+        modelBuilder.Entity<Stuff>(stuff =>
+        {
+            stuff.HasQueryFilter(c => !c.IsDeleted);
         });
     }
 }

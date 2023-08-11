@@ -19,15 +19,15 @@ builder.Services.AddSwaggerGen(options =>
     var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 });
-builder.Services.AddDbContext<ShopDbContext>();
+
 builder.Services.AddScoped<IStuffService, StuffService>();
 
-/*var connectionString = builder.Configuration.GetConnectionString("ShopDb");
+var connectionString = builder.Configuration.GetConnectionString("ShopDb");
 
 builder.Services.AddDbContext<ShopDbContext>(option =>
 {
     option.UseNpgsql(connectionString);
-});*/
+});
 
 builder.Services.AddMyServices();
 

@@ -30,7 +30,9 @@ namespace EfCore.Services
 
         public async Task<bool> DeleteStuffAsync(int id)
         {
-            var stuff = await _context.Stuffs.FirstOrDefaultAsync(s => s.Id == id);
+            var stuff = await _context
+                .Stuffs
+                .FirstOrDefaultAsync(s => s.Id == id);
             if (stuff is null) return false;
 
             stuff.IsDeleted = true;
