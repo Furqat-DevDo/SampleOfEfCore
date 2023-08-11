@@ -21,8 +21,8 @@ public class CategoryImagesController : ControllerBase
     /// <summary>
     /// Here you can create new image.
     /// </summary>
-    /// <response code="201">Returns the newly created company</response>
-    /// <response code="500">Returns when there was unable to create image</response>
+    /// <response code="201">Returns the newly created image</response>
+    /// <response code="400">Returns when there was unable to create image</response>
     [HttpPost]
     public async Task<IActionResult> CreateAsync(int id, [FromForm] CreateCategoryImageRequest request)
     {
@@ -39,7 +39,7 @@ public class CategoryImagesController : ControllerBase
     /// Here you can get the image.
     /// </summary>
     /// <response code="200">Returns the newly created image</response>
-    /// <response code="500">Returns when there was unable to get image</response>
+    /// <response code="404">Returns when there was unable to get image</response>
     [HttpGet("direct")]
     public async Task<IActionResult> GetFileFromPath(int id, string filePath)
     {
@@ -60,7 +60,7 @@ public class CategoryImagesController : ControllerBase
     /// Here you can get file of the image.
     /// </summary>
     /// <response code="200">Returns the newly file of created image</response>
-    /// <response code="500">Returns when there was unable to get image</response>
+    /// <response code="404">Returns when there was unable to get image</response>
     [HttpGet("download")]
     public async Task<IActionResult> GetFileFromPathDownload(int id, string filePath)
     {
@@ -80,7 +80,7 @@ public class CategoryImagesController : ControllerBase
     /// Here you can get the image by id.
     /// </summary>
     /// <response code="200">Returns the newly created image</response>
-    /// <response code="500">Returns when there was unable to get image</response>  
+    /// <response code="404">Returns when there was unable to get image</response>  
     [HttpGet]
     public async Task<IActionResult> GeCategoriesImages(int id)
     {
@@ -93,7 +93,7 @@ public class CategoryImagesController : ControllerBase
 
     /// <summary>
     /// Here you can delete existing image by its Id.
-    /// </summary>
+    /// </summary>d
     /// <response code="200">Deletes the image with Id and returns true</response>
     /// <response code="404">Returns false when image was not found</response>
     [HttpDelete("{fileId}")]
