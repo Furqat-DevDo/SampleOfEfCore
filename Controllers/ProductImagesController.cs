@@ -23,36 +23,30 @@ namespace EfCore.Controllers
         }
 
         /// <summary>
-        /// Here you can create new company.
+        /// Here you can add new image for existing product.
         /// </summary>
-        /// <param name="request">Parametres of new company</param>
-        /// <response code="200">Returns the newly created company</response>
-        /// <response code="500">Returns when there was unable to create company</response>
-        /// <remarks >
-        /// Sample request:
-        ///
-        ///         POST /Todo
-        ///         {
-        ///             "Name":"Coca Cola",
-        ///             "ClosedDate" : null,
-        ///             "UpperId" : null
-        ///         }
-        /// </remarks>
+        /// <param name="request">Field for adding new image</param>
+        /// <param name="id">Id of existing product</param>
+        /// <response code="200">Returns parameters of newly created image</response>
+        /// <response code="400">Returns ModelState parametres when provided data is not valid</response>
+        /// <response code="404">Returns NULL when there was unable to find product which id = Id</response>
+        /// <response code="500">Returns when there was unable to add new image</response>
         [HttpPost]
-        [ProducesResponseType(typeof(GetCompanyResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GetProductImageResponse), StatusCodes.Status200OK)]
         public async Task<IActionResult> CreateAsync(int id, [FromForm] CreateProductImageRequest request)
         {
             var product = await _productService.GetProductByIdAsync(id);
-            if (product is null) return NotFound("Product Not Found !!!");
+            if (product is null) return NotFound(null);
 
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var result = await _productImageService.CreateAsync(id, request);
-            return Ok(result);
 
+            var result = await _productImageService.CreateAsync(id, request);
+            return result is null ? new StatusCodeResult(StatusCodes.Status500InternalServerError) : Ok(result);
         }
+
 
         [HttpGet("direct")]
         public async Task<IActionResult> GetFileFromPath(int id, string filePath)
