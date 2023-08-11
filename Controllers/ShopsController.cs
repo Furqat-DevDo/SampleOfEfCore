@@ -35,6 +35,7 @@ public class ShopsController : ControllerBase
     /// </remarks>
     [HttpPost]
     [ProducesResponseType(typeof(GetCompanyResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> CreateShopAsync(CreateShopRequest request)
     {
        var response = await _shopService.CreateShopAsync(request);
