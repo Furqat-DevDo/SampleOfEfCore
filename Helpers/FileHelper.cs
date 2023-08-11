@@ -2,7 +2,7 @@
 
 public static  class FileHelper
 {
-    private static string destination = "./Files";
+    private static string destination = "./Files/File";
     public static async Task<(string,Guid)> SaveFormFileAsync(IFormFile formFile)
     {
         if (formFile == null)

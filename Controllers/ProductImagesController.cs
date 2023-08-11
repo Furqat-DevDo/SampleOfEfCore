@@ -5,22 +5,22 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 
-namespace EfCore.Controllers
+namespace EfCore.Controllers;
+
+[Route("api/products/{id}/[controller]")]
+[ApiController]
+public class ProductImagesController : ControllerBase
 {
-    [Route("api/products/{id}/[controller]")]
-    [ApiController]
-    public class ProductImagesController : ControllerBase
+
+    private readonly IProductImageService _productImageService;
+    private readonly IProductService _productService;
+
+    public ProductImagesController(IProductImageService productImageService,
+        IProductService productService)
     {
-
-        private readonly IProductImageService _productImageService;
-        private readonly IProductService _productService;
-
-        public ProductImagesController(IProductImageService productImageService,
-            IProductService productService)
-        {
-            _productImageService = productImageService;
-            _productService = productService;
-        }
+        _productImageService = productImageService;
+        _productService = productService;
+    }
 
         /// <summary>
         /// Here you can add new image for existing product.
@@ -68,8 +68,8 @@ namespace EfCore.Controllers
                 return NotFound(null);
             }
 
-            return File(searchFileResult.Item1, searchFileResult.fileInfo[0]);
-        }
+        return File(searchFileResult.Item1, searchFileResult.fileInfo[0]);
+    }
 
         /// <summary>
         /// Here you can download product image which id = Id
@@ -91,8 +91,8 @@ namespace EfCore.Controllers
                 return NotFound(null);
             }
 
-            return File(searchFileResult.Item1, "application/octet-stream", searchFileResult.fileInfo[1]);
-        }
+        return File(searchFileResult.Item1, "application/octet-stream", searchFileResult.fileInfo[1]);
+    }
 
         /// <summary>
         /// Here you can get all images of product which id = Id.
@@ -107,9 +107,9 @@ namespace EfCore.Controllers
             var product = await _productService.GetProductByIdAsync(id);
             if (product is null) return NotFound(null);
 
-            var productFiles = await _productImageService.GetProductFilesAsync(id);
-            return Ok(productFiles);
-        }
+        var productFiles = await _productImageService.GetProductFilesAsync(id);
+        return Ok(productFiles);
+    }
 
         /// <summary>
         /// Here you can delete existing product image by product Id and image FileId.
@@ -124,12 +124,11 @@ namespace EfCore.Controllers
         {
             var product = await _productService.GetProductByIdAsync(id);
 
-            if (product is null)
-                return NotFound("Product not found");
+        if (product is null)
+            return NotFound("Product not found");
 
-            var result = await _productImageService.DeleteProductImage(fileId);
+        var result = await _productImageService.DeleteProductImage(fileId);
 
-            return result ? Ok(result) : NotFound(result);
-        }
+        return result ? Ok(result) : NotFound(result);
     }
 }

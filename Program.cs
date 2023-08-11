@@ -25,6 +25,7 @@ builder.Services.AddDbContext<ShopDbContext>(option =>
     option.UseNpgsql(connectionString);
 });
 
+builder.Services.AddDbContext<ShopDbContext>();
 builder.Services.AddMyServices();
 
 var app = builder.Build();
