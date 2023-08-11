@@ -1,7 +1,5 @@
 using EfCore;
 using EfCore.Data;
-using EfCore.Services;
-using EfCore.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -20,7 +18,6 @@ builder.Services.AddSwaggerGen(options =>
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 });
 
-builder.Services.AddScoped<IStuffService, StuffService>();
 
 var connectionString = builder.Configuration.GetConnectionString("ShopDb");
 

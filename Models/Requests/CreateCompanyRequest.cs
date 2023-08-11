@@ -5,7 +5,7 @@ namespace EfCore.Models.Requests;
 
 public class CreateCompanyRequest
 {
-    [StringValidation]
+    [StringValidator]
     public required string Name { get; set; }
 
     [DataType(DataType.Date)]

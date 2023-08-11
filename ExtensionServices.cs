@@ -11,6 +11,9 @@ public static class ExtensionServices
         services.AddScoped<IProductImageService,ProductImageService>();
         services.AddScoped<ICategoryImageService,CategoryImageService>();
         services.AddScoped<ICategoryService,CategoryService>();
+        services.AddScoped<IStuffService, StuffService>();
+        services.AddScoped<IProductService, ProductService>();
+
         return services;
     }
 }

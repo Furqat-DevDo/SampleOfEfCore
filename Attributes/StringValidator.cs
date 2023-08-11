@@ -5,22 +5,22 @@ namespace EfCore.Attributes;
 /// <summary>
 /// Validates that a string value is between a minimum and maximum length.
 /// </summary>
-public class StringValidation : ValidationAttribute
+public class StringValidator : ValidationAttribute
 {
     public int MinLength { get; set; } = 1;
     public int MaxLength { get; set; } = 10;
 
-    public StringValidation(int minLength, int maxLength)
+    public StringValidator(int minLength, int maxLength)
     {
         MinLength = minLength;
         MaxLength = maxLength;
     }
 
-    public StringValidation(int minLength, int maxLength, string ErrorMessage) : this(minLength, maxLength)
+    public StringValidator(int minLength, int maxLength, string ErrorMessage) : this(minLength, maxLength)
     {
     }
 
-    public StringValidation()
+    public StringValidator()
     {
         
     }
@@ -32,6 +32,7 @@ public class StringValidation : ValidationAttribute
 
     public override string FormatErrorMessage(string message)
     {
-        return $"{ErrorMessageString} (MinLength: {MinLength}, MaxLength: {MaxLength})";
+        return $"{message} {ErrorMessageString} " +
+            $"(MinLength: {MinLength}, MaxLength: {MaxLength}) bo'ladi";
     }
 }
