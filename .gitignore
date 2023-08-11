@@ -480,3 +480,4 @@ $RECYCLE.BIN/
 
 # All static Files must be ignored
 /Files
+/.vscode
