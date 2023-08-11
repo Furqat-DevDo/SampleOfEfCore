@@ -1,5 +1,5 @@
 ﻿using EfCore.Models.Requests;
-using EfCore.Services;
+using EfCore.Models.Responses;
 using EfCore.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,7 +16,25 @@ public class StoragesController : ControllerBase
         _storageService = storageService;
     }
 
+    /// <summary>
+    /// Here you can create new storage.
+    /// </summary>
+    /// <param name="request">Parametres of new storage</param>
+    /// <response code="200">Returns the newly created storage</response>
+    /// <response code="500">Returns when there was unable to create storage</response>
+    /// <remarks >
+    /// Sample request:
+    ///
+    ///         POST
+    ///         {
+    ///             "name": "Uzum Storage",
+    ///             "adrress": "Yunusobod, Amir Temur 119",
+    ///             "productIds": null
+    ///         }
+    /// </remarks>
     [HttpPost]
+    [ProducesResponseType(typeof(GetCompanyResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> CreateStorageAsync(CreateStorageRequest request)
     {
         var response = await _storageService.CreateStorageAsync(request);
@@ -25,6 +43,13 @@ public class StoragesController : ControllerBase
             Ok(response);
     }
 
+    /// <summary>
+    /// Here you can get storage with id.
+    /// </summary>
+    /// <param name="id"> Id of existing storage</param>
+    /// <response code="200">Returns storage by id</response>
+    /// <response code="404">Returns null when storage was not found</response>
+    /// <returns></returns>
     [HttpGet("{id}")]
     public async Task<IActionResult> GetStorageByIdAsync(uint id)
     {
@@ -32,6 +57,12 @@ public class StoragesController : ControllerBase
         return response is null ? NotFound() : Ok(response);
     }
 
+    /// <summary>
+    /// Here you can get all storages
+    /// </summary>
+    /// <response code="200">Returns all storages</response>
+    /// <response code="404">Returns null when storage was not found</response>
+    /// <returns></returns>
     [HttpGet]
     public async Task<IActionResult> GetAllStoragesAsync()
     {
@@ -39,6 +70,13 @@ public class StoragesController : ControllerBase
     }
 
 
+    /// <summary>
+    /// Here you can delete existing storage by its id
+    /// </summary>
+    /// <param name="id">Id of existing storage</param>
+    /// <response code="200">Deletes the storage with Id and returns true</response>
+    /// <response code="404">Returns false when storage was not found</response>
+    /// <returns></returns>
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteStorageAsync(uint id)
     {
@@ -47,6 +85,25 @@ public class StoragesController : ControllerBase
     }
 
 
+    /// <summary>
+    /// Here you can update storage with id
+    /// </summary>
+    /// <param name="id">Id of existing storage</param>
+    /// <param name="request">Parametrs of storage</param>
+    /// <response code="200">Updated storage by id </response>
+    /// <response code="404">Returns null when storage was not found</response>
+    /// <remarks >
+    /// Sample request:
+    ///
+    ///         PUT
+    ///         {
+    ///             "name": "Uzum Storage",
+    ///             "adrress": "Yunusobod, AMir Temur 119",
+    ///             "productIds": [
+    ///                             1
+    ///             ]
+    ///         }
+    /// </remarks>
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateStorageAsync(uint id, [FromBody] UpdateStorageRequest request)
     {
