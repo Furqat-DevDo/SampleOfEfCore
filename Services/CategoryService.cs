@@ -1,5 +1,6 @@
 ﻿using EfCore.Data;
 using EfCore.Entities;
+using EfCore.Mappers;
 using EfCore.Models.Requests;
 using EfCore.Models.Responses;
 using EfCore.Services.Interfaces;
@@ -20,15 +21,13 @@ namespace EfCore.Services
         public async Task<GetCategoryResponse> CreateCategoryAsync(CreateCategoryRequest categoryRequest)
         {
 
-            var category = new Category
-            {
-                Name = categoryRequest.Name,
-                UpperId = categoryRequest.UpperId,
-            };
-            var newCategory = await _context.Categories.AddAsync(category);
-            await _context.SaveChangesAsync();
-            return new GetCategoryResponse(newCategory.Entity);
+            var category = categoryRequest.CreateCategory();
 
+            var newCategory = await _context.Categories
+                .AddAsync(category);
+            await _context.SaveChangesAsync();
+
+            return newCategory.Entity.ResponseCategory();
 
         }
 
@@ -41,17 +40,21 @@ namespace EfCore.Services
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public async Task<List<GetCategoryResponse>> GetAllCategoriesAsync()
+        public async Task<IEnumerable<GetCategoryResponse>> GetAllCategoriesAsync()
         {
             var categories = await _context.Categories.ToListAsync();
-            return categories.Select(x => new GetCategoryResponse(x)).ToList();
+
+            return categories.Any() ?
+                categories.Select(p => p.ResponseCategory())
+                : new List<GetCategoryResponse>();
         }
 
         public async Task<GetCategoryResponse?> GetCategoryByIdAsync(int id)
         {
-            var category = await _context.Categories.FirstOrDefaultAsync(x => x.Id == id);
+            var category = await _context.Categories
+            .FirstOrDefaultAsync(sh => sh.Id == id);
 
-            return category is null ? null : new GetCategoryResponse(category);
+            return category is null ? null : category.ResponseCategory();
 
         }
 
@@ -65,7 +68,7 @@ namespace EfCore.Services
 
             _context.Categories.Update(category);
             await _context.SaveChangesAsync();
-            return new GetCategoryResponse(category);
+            return category.ResponseCategory();
 
         }
     }

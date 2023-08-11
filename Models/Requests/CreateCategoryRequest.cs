@@ -4,6 +4,7 @@
     {
         public string Name { get; set; } = string.Empty;
         public int? UpperId { get; set; }
+        public DateTime CreateDate { get; set; }
 
     }
 }

@@ -24,7 +24,7 @@ namespace EfCore.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("EfCore.Entities.Categories", b =>
+            modelBuilder.Entity("EfCore.Entities.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

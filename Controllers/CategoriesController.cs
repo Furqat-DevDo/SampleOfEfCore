@@ -1,5 +1,6 @@
 ﻿using EfCore.Models.Requests;
 using EfCore.Models.Responses;
+using EfCore.Services;
 using EfCore.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,7 +10,7 @@ namespace EfCore.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
-        private readonly ICategoryService categoryService;
+        private readonly ICategoryService _categoryService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CategoriesController"/> class.
@@ -17,7 +18,7 @@ namespace EfCore.Controllers
         /// <param name="categoryService">The category service.</param>
         public CategoriesController(ICategoryService categoryService)
         {
-            this.categoryService = categoryService;
+            _categoryService = categoryService;
         }
 
 
@@ -44,7 +45,7 @@ namespace EfCore.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> CreateCategoryAsync(CreateCategoryRequest request)
         {
-            var response = await categoryService.CreateCategoryAsync(request);
+            var response = await _categoryService.CreateCategoryAsync(request);
             return response is null ? new StatusCodeResult(StatusCodes.Status404NotFound) : Ok(response);
 
         }
@@ -55,9 +56,9 @@ namespace EfCore.Controllers
         /// <returns>Returns a list of all categories.</returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<GetCategoryResponse>))]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAllCategoryAsync()
         {
-            return Ok(await categoryService.GetAllCategoriesAsync());
+            return Ok(await _categoryService.GetAllCategoriesAsync());
         }
 
 
@@ -74,11 +75,11 @@ namespace EfCore.Controllers
         {
 
             ///Get the category by its unique identifier using the categoryService.
-            var response = await categoryService.GetCategoryByIdAsync((int)id);
+            var response = await _categoryService.GetCategoryByIdAsync((int)id);
             /// If the response is null, return a 404 Not Found response.
             try
             {
-                return Ok(await categoryService.GetCategoryByIdAsync((int)id));
+                return Ok(await _categoryService.GetCategoryByIdAsync((int)id));
             }
             catch (Exception ex)
             {
@@ -105,7 +106,7 @@ namespace EfCore.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateCategoryAsync(uint id, UpdateCategoryRequest request)
         {
-            var result = await categoryService.UpdateCategoryAsync((int)id, request);
+            var result = await _categoryService.UpdateCategoryAsync((int)id, request);
             return result is null ? NotFound() : Ok(result);
         }
 
@@ -124,7 +125,7 @@ namespace EfCore.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteCategoryAsync(uint id)
         {
-            var result = await categoryService.DeletedCategoryAsync((int)id);
+            var result = await _categoryService.DeletedCategoryAsync((int)id);
             return result ? Ok(result) : NotFound();
         }
 

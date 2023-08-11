@@ -3,7 +3,11 @@ using EfCore;
 using EfCore.Data;
 using EfCore.Services;
 using EfCore.Services.Interfaces;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using System.Reflection;
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,11 +15,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+    
 });
+
+
 
 //DB Context Adding
 builder.Services.AddDbContext<ShopDbContext>();
@@ -24,11 +32,7 @@ builder.Services.AddMyServices();
 //Product
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
-/*var connection = builder.Configuration.GetConnectionString("ShopDb");
-builder.Services.AddDbContext<ShopDbContext>(options =>
-{
-    options.UseNpgsql(connection);
-});*/
+
 
 
 var app = builder.Build();
