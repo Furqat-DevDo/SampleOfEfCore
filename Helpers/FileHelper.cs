@@ -28,6 +28,8 @@ public static  class FileHelper
     public async static Task<byte[]> ReadFileFromPathAsync(string filePath)
     {
         
+        // TODO Check FilePath IsExist and is not null
+
         byte[] byteArray = new byte[0];
 
         try
@@ -36,6 +38,7 @@ public static  class FileHelper
         }
         catch (Exception ex)
         {
+            // TODO inside of catch block do not hide exception throw it untill controller
             Console.WriteLine("An error occurred: " + ex.Message);
         }
 
