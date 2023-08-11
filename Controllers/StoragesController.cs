@@ -34,6 +34,7 @@ public class StoragesController : ControllerBase
     /// </remarks>
     [HttpPost]
     [ProducesResponseType(typeof(GetCompanyResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> CreateStorageAsync(CreateStorageRequest request)
     {
         var response = await _storageService.CreateStorageAsync(request);
