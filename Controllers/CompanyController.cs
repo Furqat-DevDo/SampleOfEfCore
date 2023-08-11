@@ -11,7 +11,8 @@ public class CompanyController : ControllerBase
 {
     private readonly ICompanyService _companyService;
 
-    public CompanyController(ICompanyService companyService)
+    public CompanyController(
+        ICompanyService companyService)
     {
         _companyService = companyService;
     }

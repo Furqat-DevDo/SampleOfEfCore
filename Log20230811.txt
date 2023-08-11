@@ -1,0 +1,48 @@
+2023-08-11 16:10:15.161 +05:00 [Warning] [EfCore.Services.CompanyService] [] Company with id 798465456 does not exist
+2023-08-11 16:10:21.965 +05:00 [Warning] [EfCore.Services.CompanyService] [] Company with id 132 does not exist
+2023-08-11 16:10:23.718 +05:00 [Warning] [EfCore.Services.CompanyService] [] Company with id 132 does not exist
+2023-08-11 16:10:23.856 +05:00 [Warning] [EfCore.Services.CompanyService] [] Company with id 132 does not exist
+2023-08-11 16:10:24.072 +05:00 [Warning] [EfCore.Services.CompanyService] [] Company with id 132 does not exist
+2023-08-11 16:10:24.238 +05:00 [Warning] [EfCore.Services.CompanyService] [] Company with id 132 does not exist
+2023-08-11 16:10:27.406 +05:00 [Warning] [EfCore.Services.CompanyService] [] Company with id 798465456 does not exist
+2023-08-11 16:10:27.635 +05:00 [Warning] [EfCore.Services.CompanyService] [] Company with id 798465456 does not exist
+2023-08-11 16:10:27.818 +05:00 [Warning] [EfCore.Services.CompanyService] [] Company with id 798465456 does not exist
+2023-08-11 16:10:28.015 +05:00 [Warning] [EfCore.Services.CompanyService] [] Company with id 798465456 does not exist
+2023-08-11 16:10:28.184 +05:00 [Warning] [EfCore.Services.CompanyService] [] Company with id 798465456 does not exist
+2023-08-11 16:10:30.112 +05:00 [Warning] [EfCore.Services.CompanyService] [] Company with id 132 does not exist
+2023-08-11 16:10:30.315 +05:00 [Warning] [EfCore.Services.CompanyService] [] Company with id 132 does not exist
+2023-08-11 16:10:30.514 +05:00 [Warning] [EfCore.Services.CompanyService] [] Company with id 132 does not exist
+2023-08-11 16:10:30.710 +05:00 [Warning] [EfCore.Services.CompanyService] [] Company with id 132 does not exist
+2023-08-11 16:10:30.883 +05:00 [Warning] [EfCore.Services.CompanyService] [] Company with id 132 does not exist
+2023-08-11 16:10:33.875 +05:00 [Warning] [EfCore.Services.CompanyService] [] Company with id 798465456 does not exist
+2023-08-11 16:10:34.065 +05:00 [Warning] [EfCore.Services.CompanyService] [] Company with id 798465456 does not exist
+2023-08-11 16:10:34.254 +05:00 [Warning] [EfCore.Services.CompanyService] [] Company with id 798465456 does not exist
+2023-08-11 16:18:17.763 +05:00 [Warning] [EfCore.Services.CompanyService] [] Company with id 321321312 does not exist
+2023-08-11 16:18:43.574 +05:00 [Warning] [EfCore.Services.CompanyService] [] Company with id 987 does not exist
+2023-08-11 16:21:34.914 +05:00 [Warning] [EfCore.Services.CompanyService] [] Company with id 321987654 does not exist
+2023-08-11 16:21:48.753 +05:00 [Warning] [EfCore.Services.CompanyService] [] Company with id 312321 does not exist
+2023-08-11 16:24:26.113 +05:00 [Warning] [EfCore.Services.CompanyService] [] Company with id 546 does not exist
+2023-08-11 16:30:26.308 +05:00 [Fatal] [Microsoft.AspNetCore.Hosting.Diagnostics] [{ Id: 6 }] Application startup exception
+System.InvalidOperationException: Unable to resolve service for type 'Serilog.Extensions.Hosting.DiagnosticContext' while attempting to activate 'Serilog.AspNetCore.RequestLoggingMiddleware'.
+   at Microsoft.Extensions.Internal.ActivatorUtilities.ConstructorMatcher.CreateInstance(IServiceProvider provider)
+   at Microsoft.Extensions.Internal.ActivatorUtilities.CreateInstance(IServiceProvider provider, Type instanceType, Object[] parameters)
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.<>c__DisplayClass5_0.<UseMiddleware>b__0(RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+2023-08-11 16:31:13.085 +05:00 [Fatal] [Microsoft.AspNetCore.Hosting.Diagnostics] [{ Id: 6 }] Application startup exception
+System.InvalidOperationException: Unable to resolve service for type 'Serilog.Extensions.Hosting.DiagnosticContext' while attempting to activate 'Serilog.AspNetCore.RequestLoggingMiddleware'.
+   at Microsoft.Extensions.Internal.ActivatorUtilities.ConstructorMatcher.CreateInstance(IServiceProvider provider)
+   at Microsoft.Extensions.Internal.ActivatorUtilities.CreateInstance(IServiceProvider provider, Type instanceType, Object[] parameters)
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.<>c__DisplayClass5_0.<UseMiddleware>b__0(RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+2023-08-11 16:34:00.985 +05:00 [Fatal] [Microsoft.AspNetCore.Hosting.Diagnostics] [{ Id: 6 }] Application startup exception
+System.InvalidOperationException: Unable to resolve service for type 'Serilog.Extensions.Hosting.DiagnosticContext' while attempting to activate 'Serilog.AspNetCore.RequestLoggingMiddleware'.
+   at Microsoft.Extensions.Internal.ActivatorUtilities.ConstructorMatcher.CreateInstance(IServiceProvider provider)
+   at Microsoft.Extensions.Internal.ActivatorUtilities.CreateInstance(IServiceProvider provider, Type instanceType, Object[] parameters)
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.<>c__DisplayClass5_0.<UseMiddleware>b__0(RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
