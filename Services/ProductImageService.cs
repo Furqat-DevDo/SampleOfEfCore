@@ -18,13 +18,12 @@ public class ProductImageService : IProductImageService
     public async Task<GetProductImageResponse?> CreateAsync(int id,
         CreateProductImageRequest request)
     {
+        
         var (filePath, fileId) = await FileHelper.SaveFormFileAsync(request.ProductFile);
 
         var newProductFile = request.ToEntity(id, filePath, fileId);
 
-        var result = await _shopContext.ProductImages.AddAsync(newProductFile);
-
-        
+        var result = await _shopContext.ProductImages.AddAsync(newProductFile); 
 
         return await _shopContext.SaveChangesAsync() > 0 ? result.Entity.ToResponse() : null;
     }
