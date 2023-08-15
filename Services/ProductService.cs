@@ -1,4 +1,5 @@
 ﻿using EfCore.Data;
+using EfCore.Exceptions;
 using EfCore.Mappers;
 using EfCore.Models.Requests;
 using EfCore.Models.Responses;
@@ -17,6 +18,12 @@ public class ProductService : IProductService
     public async Task<GetProductResponse> CreateProductAsync(CreateProductRequest request)
     {
         var product = request.CreateProduct();
+
+        var company = _shopDbContext.Companies.FirstOrDefault(c=>c.Id == request.CompanyId);
+        if (company == null) throw new CompanyNotFoundException();
+
+        var category = _shopDbContext.Categories.FirstOrDefault(c => c.Id == request.CategoryId);
+        if (company == null) throw new CategoryNotFoundException();
 
         var newProduct = await _shopDbContext.Products
             .AddAsync(product);
