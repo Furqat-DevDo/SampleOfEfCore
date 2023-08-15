@@ -11,6 +11,10 @@ public class ProducsController : ControllerBase
 {
     private readonly IProductService _productService;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ProducsController"/> class.
+    /// </summary>
+    /// <param name="productService">The product service.</param>
     public ProducsController(IProductService productService)
     {
         _productService = productService;
@@ -37,6 +41,7 @@ public class ProducsController : ControllerBase
     /// <response code="500">Returns when there was unable to create new product</response>
     [HttpPost]
     [ProducesResponseType(typeof(GetProductResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> CreateProductAsync(CreateProductRequest request)
     {
         var response = await _productService.CreateProductAsync(request);
@@ -53,17 +58,17 @@ public class ProducsController : ControllerBase
     /// <response code="404">Returns null when product was not found</response>
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(GetProductResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(NotFoundResult), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetProductByIdAsync(uint id)
     {
         var response = await _productService.GetProductByIdAsync((int)id);
-        return response is null ? NotFound(response) : Ok(response);
+        return response is null ? NotFound() : Ok(response);
     }
 
     /// <summary>
     /// Here you can get all products.
     /// </summary>
-    /// <response code="200">Returns all products</response>
-    /// <response code="404">Returns null when products was not found</response>
+    /// <response code="200">Returns all existing products or empty list if not</response>
     [HttpGet]
     [ProducesResponseType(typeof(List<GetProductResponse>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllProductsAsync()
@@ -107,9 +112,10 @@ public class ProducsController : ControllerBase
     /// </remarks>
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(GetProductResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(NotFoundResult), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateProductAsync(uint id, [FromBody] UpdateProductRequest request)
     {
         var result = await _productService.UpdateProductAsync((int)id, request);
-        return result is null ? NotFound(result) : Ok(result);
+        return result is null ? NotFound() : Ok(result);
     }
 }

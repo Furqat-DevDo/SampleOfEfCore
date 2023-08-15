@@ -44,7 +44,7 @@ namespace EfCore.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("Text")
-                        .HasColumnName("Name");
+                        .HasColumnName("CategoryName");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("timestamp with time zone");
