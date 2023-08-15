@@ -14,8 +14,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EfCore.Migrations
 {
     [DbContext(typeof(ShopDbContext))]
-    [Migration("20230810131229_ShopDB")]
-    partial class ShopDB
+    [Migration("20230815143621_InitialDB")]
+    partial class InitialDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -47,7 +47,7 @@ namespace EfCore.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("Text")
-                        .HasColumnName("Name");
+                        .HasColumnName("CategoryName");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("timestamp with time zone");
@@ -158,7 +158,7 @@ namespace EfCore.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
-                    b.Property<DateTime>("ManafactureDate")
+                    b.Property<DateTime>("ManufacturedDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
@@ -242,7 +242,6 @@ namespace EfCore.Migrations
                         .HasColumnType("text");
 
                     b.Property<List<int>>("ProductIds")
-                        .IsRequired()
                         .HasColumnType("jsonb");
 
                     b.Property<int?>("ProductsId")
@@ -270,7 +269,6 @@ namespace EfCore.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("FullName")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<bool>("IsDeleted")
