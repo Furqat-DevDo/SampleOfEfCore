@@ -62,7 +62,7 @@ public class ProductImagesController : ControllerBase
     /// <response code="200">Returns image which id = Id</response>
     /// <response code="404">Returns null when image was not found</response>
     [HttpGet("direct")]
-    [ProducesResponseType(typeof((byte[], string)), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(FileContentResult), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(NotFoundResult), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetFileFromPath(int id, string filePath)
     {
@@ -87,7 +87,7 @@ public class ProductImagesController : ControllerBase
     /// <response code="200">Returns all companys</response>
     /// <response code="404">Returns null when companys was not found</response>
     [HttpGet("download")]
-    [ProducesResponseType(typeof((byte[], string, string)), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(FileContentResult), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(NotFoundResult), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetFileFromPathDownload(int id, string filePath)
     {
@@ -131,6 +131,7 @@ public class ProductImagesController : ControllerBase
     [HttpDelete("{fileId}")]
     [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(bool), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(NotFoundResult), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteProductImage(int id, Guid fileId)
     {
         var product = await _productService.GetProductByIdAsync(id);
