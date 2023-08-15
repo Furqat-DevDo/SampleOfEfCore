@@ -7,16 +7,7 @@ namespace EfCore.Models.Responses
 {
     public class GetStuffResponse
     {
-        public GetStuffResponse(Stuff entity)
-        {
-            Id = entity.Id;
-            FullName = entity.FullName;
-            CreatedDate = entity.CreatedDate;
-            UpdatedDate = entity.UpdatedDate;
-            Role = entity.Role;
-            PersonalData = entity.PersonalData;
-            Salary = entity.Salary;
-        }
+       
         public int Id { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
