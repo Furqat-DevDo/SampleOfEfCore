@@ -8,12 +8,12 @@ namespace EfCore.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategorysController:ControllerBase
+    public class CategorysController : ControllerBase
     {
         private readonly ICategoryService categoryService;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CategoriesController"/> class.
+        /// Initializes a new instance of the <see cref="CategorysController"/> class.
         /// </summary>
         /// <param name="categoryService">The category service.</param>
         public CategorysController(ICategoryService categoryService)

@@ -11,6 +11,11 @@ public class ShopsController : ControllerBase
 {
     private readonly IShopService _shopService;
 
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ShopsController"/> class.
+    /// </summary>
+    /// <param name="shopService">The shop service.</param>
     public ShopsController(IShopService shopService)
     {
           _shopService = shopService;
@@ -34,7 +39,7 @@ public class ShopsController : ControllerBase
     ///         }
     /// </remarks>
     [HttpPost]
-    [ProducesResponseType(typeof(GetCompanyResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(GetShopResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> CreateShopAsync(CreateShopRequest request)
     {
@@ -52,6 +57,8 @@ public class ShopsController : ControllerBase
     /// <response code="404">Returns null when shop was not found</response>
     /// <returns></returns>
     [HttpGet("{id}")]
+    [ProducesResponseType(typeof(GetShopResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(NotFoundResult), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetShopByIdAsync(uint id)
     {
         var response = await  _shopService.GetShopByIdAsync((int)id);
@@ -62,9 +69,9 @@ public class ShopsController : ControllerBase
     /// Here you can get all shops
     /// </summary>
     /// <response code="200">Returns all shops</response>
-    /// <response code="404">Returns null when shop was not found</response>
     /// <returns></returns>
     [HttpGet]
+    [ProducesResponseType(typeof(List<GetShopResponse>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllShopsAsync()
     {
         return Ok(await _shopService.GetAllShopsAsync());
@@ -78,6 +85,8 @@ public class ShopsController : ControllerBase
     /// <response code="404">Returns false when shop was not found</response>
     
     [HttpDelete("{id}")]
+    [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(NotFoundResult), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteShopAsync(uint id)
     {
         var result = await _shopService.DeleteAsync((int)id);
@@ -103,6 +112,8 @@ public class ShopsController : ControllerBase
     ///         }
     /// </remarks>
     [HttpPut("{id}")]
+    [ProducesResponseType(typeof(GetShopResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(NotFoundResult), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateShopAsync(uint id, [FromBody] UpdateShopRequest request)
     {
         var result = await  _shopService.UpdateShopAsync((int) id, request);

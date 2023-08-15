@@ -8,7 +8,6 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace EfCore.Migrations
 {
-    /// <inheritdoc />
     public partial class InitialDB : Migration
     {
         /// <inheritdoc />
