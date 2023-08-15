@@ -34,12 +34,13 @@ public class ProductService : IProductService
 
     public async Task<bool> DeleteAsync(int id)
     {
-        var product = await _shopDbContext.Products
-            
+        var product = await _shopDbContext.Products            
             .FirstOrDefaultAsync(p => p.Id == id);
+
         if (product is null) return false;
 
         product.IsDeleted = true;
+
         return await _shopDbContext.SaveChangesAsync() > 0;
     }
 
@@ -56,14 +57,15 @@ public class ProductService : IProductService
         var product = await _shopDbContext.Products
             .FirstOrDefaultAsync(sh => sh.Id == id);
 
-        return product is null ? null : product.ResponseProduct();
+        return product is null ? throw new ProductNotFoundException() 
+            : product.ResponseProduct();
     }
 
     public async Task<GetProductResponse?> UpdateProductAsync(int id, UpdateProductRequest request)
     {
         var product = await _shopDbContext.Products
             .FirstOrDefaultAsync(sh => sh.Id == id);
-        if (product is null) return null;
+        if (product is null) throw new ProductNotFoundException();
 
         product.UpdateProduct(request);
 

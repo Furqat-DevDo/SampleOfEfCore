@@ -1,9 +1,7 @@
 ﻿using System.Runtime.Serialization;
 
 namespace EfCore.Exceptions;
-
-[Serializable]
-public class CompanyNotFoundException : Exception
+public class CompanyNotFoundException : BaseNotFoundException
 {
     public CompanyNotFoundException()
     {
