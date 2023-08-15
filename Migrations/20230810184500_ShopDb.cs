@@ -8,7 +8,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace EfCore.Migrations
 {
-    public partial class InitialDB : Migration
+    /// <inheritdoc />
+    public partial class ShopDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

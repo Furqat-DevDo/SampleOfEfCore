@@ -5,6 +5,7 @@ using System.Text.Json;
 using EfCore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -13,9 +14,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EfCore.Migrations
 {
     [DbContext(typeof(ShopDbContext))]
-    partial class ShopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230810131229_ShopDB")]
+    partial class ShopDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,7 +47,7 @@ namespace EfCore.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("Text")
-                        .HasColumnName("CategoryName");
+                        .HasColumnName("Name");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("timestamp with time zone");
@@ -56,7 +59,7 @@ namespace EfCore.Migrations
 
                     b.HasIndex("UpperId");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("EfCore.Entities.CategoryImage", b =>
@@ -92,7 +95,7 @@ namespace EfCore.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("CategoryImages", (string)null);
+                    b.ToTable("CategoryImages");
                 });
 
             modelBuilder.Entity("EfCore.Entities.Company", b =>
@@ -126,7 +129,7 @@ namespace EfCore.Migrations
 
                     b.HasIndex("UpperId");
 
-                    b.ToTable("Companies", (string)null);
+                    b.ToTable("Companies");
                 });
 
             modelBuilder.Entity("EfCore.Entities.Product", b =>
@@ -155,7 +158,7 @@ namespace EfCore.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
-                    b.Property<DateTime>("ManufacturedDate")
+                    b.Property<DateTime>("ManafactureDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
@@ -174,7 +177,7 @@ namespace EfCore.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("EfCore.Entities.Shop", b =>
@@ -213,7 +216,7 @@ namespace EfCore.Migrations
 
                     b.HasIndex("UpperId");
 
-                    b.ToTable("Shops", (string)null);
+                    b.ToTable("Shops");
                 });
 
             modelBuilder.Entity("EfCore.Entities.Storage", b =>
@@ -239,6 +242,7 @@ namespace EfCore.Migrations
                         .HasColumnType("text");
 
                     b.Property<List<int>>("ProductIds")
+                        .IsRequired()
                         .HasColumnType("jsonb");
 
                     b.Property<int?>("ProductsId")
@@ -251,7 +255,7 @@ namespace EfCore.Migrations
 
                     b.HasIndex("ProductsId");
 
-                    b.ToTable("Storages", (string)null);
+                    b.ToTable("Storages");
                 });
 
             modelBuilder.Entity("EfCore.Entities.Stuff", b =>
@@ -266,6 +270,7 @@ namespace EfCore.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("FullName")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<bool>("IsDeleted")
@@ -285,7 +290,7 @@ namespace EfCore.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Stuffs", (string)null);
+                    b.ToTable("Stuffs");
                 });
 
             modelBuilder.Entity("ProductImage", b =>
@@ -321,7 +326,7 @@ namespace EfCore.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductImages", (string)null);
+                    b.ToTable("ProductImages");
                 });
 
             modelBuilder.Entity("EfCore.Entities.Category", b =>
