@@ -1,5 +1,6 @@
 ﻿using EfCore.Data;
-using EfCore.Entities;
+using EfCore.Exceptions;
+using EfCore.Mappers;
 using EfCore.Models.Requests;
 using EfCore.Models.Responses;
 using EfCore.Services.Interfaces;
@@ -17,35 +18,35 @@ public class ShopService : IShopService
 
     public async  Task<GetShopResponse> CreateShopAsync(CreateShopRequest request)
     {
-        var shop = new Shop 
-        { 
-            Adrress = request.Adrress,
-            Name = request.Name,
-            Phone = request.Phone,
-            UpperId = request.UpperId
-        };
+        var shop = request.CreateShop();
 
         var newShop = await _context.Shops.AddAsync(shop);
-        await _context.SaveChangesAsync();
 
-        return new GetShopResponse(newShop.Entity);
-        
+        if (await _context.SaveChangesAsync() <= 0)
+            throw new UnableToSaveShopChangesException();
+
+        return newShop.Entity.ResponseShop();   
     }
 
     public async  Task<bool> DeleteAsync(int id)
     {
         var shop = await _context.Shops.FirstOrDefaultAsync(sh => sh.Id == id);
+        
         if (shop is null) return false;
 
         shop.IsDeleted = true;
-        return await _context.SaveChangesAsync() > 0;
+
+        if (await _context.SaveChangesAsync() <= 0)
+            throw new UnableToSaveShopChangesException();
+
+        return true;
     }
 
     public async Task<IEnumerable<GetShopResponse>> GetAllShopsAsync()
     {
         var shops = await  _context.Shops.ToListAsync();
         return shops.Any() ? 
-            shops.Select(sh => new GetShopResponse(sh)) 
+            shops.Select(sh => sh.ResponseShop()) 
             : new List<GetShopResponse>(); 
     }
 
@@ -55,22 +56,20 @@ public class ShopService : IShopService
             .Include(x => x.Branches)
             .FirstOrDefaultAsync(sh => sh.Id == id);
 
-        return shop is null ? null : new GetShopResponse(shop);
+        return shop is null ? throw new ShopNotFoundException() : shop.ResponseShop();
     }
 
     public async  Task<GetShopResponse?> UpdateShopAsync(int id, UpdateShopRequest request)
     {
         var shop = await _context.Shops.FirstOrDefaultAsync(sh => sh.Id == id);
-        if (shop is null) return null;
 
-        shop.Name = request.Name;
-        shop.UpdatedDate = DateTime.UtcNow;
-        shop.Adrress = request.Adrress;
-        shop.Phone = request.Phone;
-        shop.UpperId = request.UpperId;
+        if (shop is null) throw new ShopNotFoundException();
 
         _context.Shops.Update(shop);
-        _context.SaveChanges();
-        return new GetShopResponse(shop);
+
+        if (await _context.SaveChangesAsync() <= 0)
+            throw new UnableToSaveShopChangesException();
+
+        return shop.ResponseShop();
     }
 }

@@ -45,9 +45,7 @@ public class ProducsController : ControllerBase
     public async Task<IActionResult> CreateProductAsync(CreateProductRequest request)
     {
         var response = await _productService.CreateProductAsync(request);
-        return response is null ?
-            new StatusCodeResult(StatusCodes.Status500InternalServerError) :
-            Ok(response);
+        return Ok(response);
     }
 
     /// <summary>
@@ -62,7 +60,7 @@ public class ProducsController : ControllerBase
     public async Task<IActionResult> GetProductByIdAsync(uint id)
     {
         var response = await _productService.GetProductByIdAsync((int)id);
-        return response is null ? NotFound() : Ok(response);
+        return Ok(response);
     }
 
     /// <summary>
@@ -87,7 +85,7 @@ public class ProducsController : ControllerBase
     public async Task<IActionResult> DeleteProductAsync(uint id)
     {
         var result = await _productService.DeleteAsync((int)id);
-        return result ? Ok(result) : NotFound(result);
+        return Ok(result);
     }
 
     /// <summary>
@@ -116,6 +114,6 @@ public class ProducsController : ControllerBase
     public async Task<IActionResult> UpdateProductAsync(uint id, [FromBody] UpdateProductRequest request)
     {
         var result = await _productService.UpdateProductAsync((int)id, request);
-        return result is null ? NotFound() : Ok(result);
+        return Ok(result);
     }
 }

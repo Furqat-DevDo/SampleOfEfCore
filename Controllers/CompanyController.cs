@@ -42,9 +42,7 @@ public class CompanyController : ControllerBase
     public async Task<IActionResult> CreateCompanyAsync(CreateCompanyRequest request)
     {
         var response = await _companyService.CreateCompanyAsync(request);
-        return response is null ?
-            new StatusCodeResult(StatusCodes.Status500InternalServerError) :
-            Ok(response);
+        return Ok(response);
     }
 
     /// <summary>
@@ -59,7 +57,7 @@ public class CompanyController : ControllerBase
     public async Task<IActionResult> GetCompanyByIdAsync(uint id)
     {
         var response = await _companyService.GetCompanyByIdAsync((int)id);
-        return response is null ? NotFound() : Ok(response);
+        return Ok(response);
     }
 
     /// <summary>
@@ -85,7 +83,7 @@ public class CompanyController : ControllerBase
     public async Task<IActionResult> DeleteCompanyAsync(uint id)
     {
         var result = await _companyService.DeleteAsync((int)id);
-        return result ? Ok(result) : NotFound();
+        return Ok(result);
     }
 
     /// <summary>
@@ -111,6 +109,6 @@ public class CompanyController : ControllerBase
     public async Task<IActionResult> UpdateCompanyAsync(uint id, [FromBody] UpdateCompanyRequest request)
     {
         var result = await _companyService.UpdateCompanyAsync((int)id, request);
-        return result is null ? NotFound() : Ok(result);
+        return Ok(result);
     }
 }
