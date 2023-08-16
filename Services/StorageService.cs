@@ -33,7 +33,7 @@ public class StorageService : IStorageService
         var storage = await _shopDbContext.Storages
             .FirstOrDefaultAsync(p => p.Id == id);
         
-        if (storage is null) return false;
+        if (storage is null) throw new StorageNotFoundException();
 
         storage.IsDeleted = true;
 

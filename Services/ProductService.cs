@@ -5,6 +5,7 @@ using EfCore.Models.Requests;
 using EfCore.Models.Responses;
 using EfCore.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography.Xml;
 
 namespace EfCore.Services;
 
@@ -39,7 +40,7 @@ public class ProductService : IProductService
         var product = await _shopDbContext.Products            
             .FirstOrDefaultAsync(p => p.Id == id);
 
-        if (product is null) return false;
+        if (product is null) throw new ShopNotFoundException();
 
         product.IsDeleted = true;
 

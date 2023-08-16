@@ -32,7 +32,7 @@ public class ShopService : IShopService
     {
         var shop = await _context.Shops.FirstOrDefaultAsync(sh => sh.Id == id);
         
-        if (shop is null) return false;
+        if (shop is null) throw new ShopNotFoundException();
 
         shop.IsDeleted = true;
 

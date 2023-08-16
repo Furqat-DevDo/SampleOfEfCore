@@ -40,7 +40,7 @@ public class ShopsController : ControllerBase
     /// </remarks>
     [HttpPost]
     [ProducesResponseType(typeof(GetShopResponse), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> CreateShopAsync(CreateShopRequest request)
     {
        var response = await _shopService.CreateShopAsync(request);
@@ -56,7 +56,7 @@ public class ShopsController : ControllerBase
     /// <returns></returns>
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(GetShopResponse), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(NotFoundResult), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetShopByIdAsync(uint id)
     {
         var response = await  _shopService.GetShopByIdAsync((int)id);
@@ -84,7 +84,7 @@ public class ShopsController : ControllerBase
     
     [HttpDelete("{id}")]
     [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(NotFoundResult), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteShopAsync(uint id)
     {
         var result = await _shopService.DeleteAsync((int)id);
@@ -111,7 +111,7 @@ public class ShopsController : ControllerBase
     /// </remarks>
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(GetShopResponse), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(NotFoundResult), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateShopAsync(uint id, [FromBody] UpdateShopRequest request)
     {
         var result = await  _shopService.UpdateShopAsync((int) id, request);
