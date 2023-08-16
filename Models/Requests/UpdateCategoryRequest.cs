@@ -1,5 +1,4 @@
-﻿using EfCore.Entities;
-using EfCore.Attributes
+﻿using EfCore.Attributes;
 
 namespace EfCore.Models.Requests
 {

@@ -1,4 +1,5 @@
 ﻿using EfCore.Data;
+using EfCore.Exceptions;
 using EfCore.Mappers;
 using EfCore.Models.Requests;
 using EfCore.Models.Responses;
@@ -18,6 +19,12 @@ public class ProductService : IProductService
     {
         var product = request.CreateProduct();
 
+        var company = _shopDbContext.Companies.FirstOrDefault(c=>c.Id == request.CompanyId);
+        if (company == null) throw new CompanyNotFoundException();
+
+        var category = _shopDbContext.Categories.FirstOrDefault(c => c.Id == request.CategoryId);
+        if (company == null) throw new CategoryNotFoundException();
+
         var newProduct = await _shopDbContext.Products
             .AddAsync(product);
         await _shopDbContext.SaveChangesAsync();
@@ -27,12 +34,13 @@ public class ProductService : IProductService
 
     public async Task<bool> DeleteAsync(int id)
     {
-        var product = await _shopDbContext.Products
-            
+        var product = await _shopDbContext.Products            
             .FirstOrDefaultAsync(p => p.Id == id);
+
         if (product is null) return false;
 
         product.IsDeleted = true;
+
         return await _shopDbContext.SaveChangesAsync() > 0;
     }
 
@@ -49,14 +57,15 @@ public class ProductService : IProductService
         var product = await _shopDbContext.Products
             .FirstOrDefaultAsync(sh => sh.Id == id);
 
-        return product is null ? null : product.ResponseProduct();
+        return product is null ? throw new ProductNotFoundException() 
+            : product.ResponseProduct();
     }
 
     public async Task<GetProductResponse?> UpdateProductAsync(int id, UpdateProductRequest request)
     {
         var product = await _shopDbContext.Products
             .FirstOrDefaultAsync(sh => sh.Id == id);
-        if (product is null) return null;
+        if (product is null) throw new ProductNotFoundException();
 
         product.UpdateProduct(request);
 

@@ -1,5 +1,5 @@
 ﻿using EfCore.Data;
-using EfCore.Entities;
+using EfCore.Exceptions;
 using EfCore.Mappers;
 using EfCore.Models.Requests;
 using EfCore.Models.Responses;
@@ -22,12 +22,11 @@ namespace EfCore.Services
 
             var newCategory = await _context.Categories
                 .AddAsync(category); ;
-            int saveChangesResult = await _context.SaveChangesAsync();
 
             if (await _context.SaveChangesAsync() <= 0)
                 throw new UnableToSaveShopChangesException();
-            else
-                return  newCategory.Entity.ResponseCategory();
+            
+            return  newCategory.Entity.ResponseCategory();
         }
 
         public async Task<IEnumerable<GetCategoryResponse>> GetAllCategoriesAsync()
@@ -45,14 +44,14 @@ namespace EfCore.Services
                 .Categories
                 .FirstOrDefaultAsync(p => p.Id == id);
 
-            return category is null ? throw CategoryNotFoundException() : category.ResponseCategory();
+            return category is null ? throw new CategoryNotFoundException() : category.ResponseCategory();
         }
         public async Task<GetCategoryResponse?> UpdateCategoryAsync(int id, UpdateCategoryRequest request)
         {
             var category = await _context.Categories.FirstOrDefaultAsync(p => p.Id == id);
 
             if (category is null)
-                return null;
+                throw new CategoryNotFoundException();
 
             category.UpdateCategory(request);
             _context.SaveChanges();
@@ -65,7 +64,7 @@ namespace EfCore.Services
                 .FirstOrDefaultAsync(p => p.Id == id);
 
             if (category is null)
-                return false;
+                throw new CategoryNotFoundException();
 
             category.IsDeleted = true;
             return _context.SaveChanges() > 0;

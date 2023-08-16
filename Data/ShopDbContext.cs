@@ -52,5 +52,25 @@ public class ShopDbContext : DbContext
         {
             stuff.HasQueryFilter(c => !c.IsDeleted);
         });
+
+        modelBuilder.Entity<Product>(product =>
+        {
+            product.HasQueryFilter(f => !f.IsDeleted);
+        });
+
+        modelBuilder.Entity<ProductImage>(productImage =>
+        {
+            productImage.HasQueryFilter(f => !f.IsDeleted);
+        });
+
+        modelBuilder.Entity<Category>(category =>
+        {
+            category.HasQueryFilter(f => !f.IsDeleted);
+        });
+
+        modelBuilder.Entity<CategoryImage>(categoryImage =>
+        {
+            categoryImage.HasQueryFilter(f => !f.IsDeleted);
+        });
     }
 }

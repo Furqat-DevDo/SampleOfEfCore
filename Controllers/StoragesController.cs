@@ -11,6 +11,10 @@ public class StoragesController : ControllerBase
 {
     private readonly IStorageService _storageService;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="StoragesController"/> class.
+    /// </summary>
+    /// <param name="storageService">The storage service.</param>
     public StoragesController(IStorageService storageService)
     {
         _storageService = storageService;
@@ -51,6 +55,8 @@ public class StoragesController : ControllerBase
     /// <response code="404">Returns null when storage was not found</response>
     /// <returns></returns>
     [HttpGet("{id}")]
+    [ProducesResponseType(typeof(GetStorageResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(NotFoundResult), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetStorageByIdAsync(uint id)
     {
         var response = await _storageService.GetStorageByIdAsync((int)id);
@@ -61,9 +67,9 @@ public class StoragesController : ControllerBase
     /// Here you can get all storages
     /// </summary>
     /// <response code="200">Returns all storages</response>
-    /// <response code="404">Returns null when storage was not found</response>
     /// <returns></returns>
     [HttpGet]
+    [ProducesResponseType(typeof(List<GetStorageResponse>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllStoragesAsync()
     {
         return Ok(await _storageService.GetAllStoragesAsync());
@@ -78,6 +84,8 @@ public class StoragesController : ControllerBase
     /// <response code="404">Returns false when storage was not found</response>
     /// <returns></returns>
     [HttpDelete("{id}")]
+    [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(NotFoundResult), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteStorageAsync(uint id)
     {
         var result = await _storageService.DeleteAsync((int)id);
@@ -105,6 +113,8 @@ public class StoragesController : ControllerBase
     ///         }
     /// </remarks>
     [HttpPut("{id}")]
+    [ProducesResponseType(typeof(GetStorageResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(NotFoundResult), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateStorageAsync(uint id, [FromBody] UpdateStorageRequest request)
     {
         var result = await _storageService.UpdateStorageAsync((int)id, request);

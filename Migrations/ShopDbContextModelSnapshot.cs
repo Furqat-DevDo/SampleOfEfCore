@@ -56,7 +56,7 @@ namespace EfCore.Migrations
 
                     b.HasIndex("UpperId");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("EfCore.Entities.CategoryImage", b =>
@@ -92,7 +92,7 @@ namespace EfCore.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("CategoryImages", (string)null);
+                    b.ToTable("CategoryImages");
                 });
 
             modelBuilder.Entity("EfCore.Entities.Company", b =>
@@ -126,7 +126,7 @@ namespace EfCore.Migrations
 
                     b.HasIndex("UpperId");
 
-                    b.ToTable("Companies", (string)null);
+                    b.ToTable("Companies");
                 });
 
             modelBuilder.Entity("EfCore.Entities.Product", b =>
@@ -174,7 +174,7 @@ namespace EfCore.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("EfCore.Entities.Shop", b =>
@@ -213,7 +213,7 @@ namespace EfCore.Migrations
 
                     b.HasIndex("UpperId");
 
-                    b.ToTable("Shops", (string)null);
+                    b.ToTable("Shops");
                 });
 
             modelBuilder.Entity("EfCore.Entities.Storage", b =>
@@ -251,7 +251,7 @@ namespace EfCore.Migrations
 
                     b.HasIndex("ProductsId");
 
-                    b.ToTable("Storages", (string)null);
+                    b.ToTable("Storages");
                 });
 
             modelBuilder.Entity("EfCore.Entities.Stuff", b =>
@@ -285,7 +285,7 @@ namespace EfCore.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Stuffs", (string)null);
+                    b.ToTable("Stuffs");
                 });
 
             modelBuilder.Entity("ProductImage", b =>
@@ -321,7 +321,7 @@ namespace EfCore.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductImages", (string)null);
+                    b.ToTable("ProductImages");
                 });
 
             modelBuilder.Entity("EfCore.Entities.Category", b =>

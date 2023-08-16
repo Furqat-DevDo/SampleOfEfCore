@@ -13,6 +13,8 @@ public static class ExtensionServices
         services.AddScoped<ICategoryService,CategoryService>();
         services.AddScoped<IStuffService, StuffService>();
         services.AddScoped<IProductService, ProductService>();
+        services.AddScoped<IStorageService, StorageService>();
+        services.AddScoped<ICategoryService, CategoryService>();
 
         return services;
     }
