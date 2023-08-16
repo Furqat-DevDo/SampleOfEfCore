@@ -55,7 +55,7 @@ namespace EfCore.Services
             var stuff = await _context.Stuffs
            .FirstOrDefaultAsync(s => s.Id == id);
 
-            if (stuff is null) throw new UnableToSaveStuffChangesException();
+            if (stuff is null) throw new StuffNotFoundExeption();
 
             return new GetStuffResponse(stuff);
         }
