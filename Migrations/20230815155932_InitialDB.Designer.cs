@@ -14,8 +14,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EfCore.Migrations
 {
     [DbContext(typeof(ShopDbContext))]
-    [Migration("20230810184500_ShopDb")]
-    partial class ShopDb
+    [Migration("20230815155932_InitialDB")]
+    partial class InitialDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -339,7 +339,7 @@ namespace EfCore.Migrations
             modelBuilder.Entity("EfCore.Entities.CategoryImage", b =>
                 {
                     b.HasOne("EfCore.Entities.Category", "Category")
-                        .WithMany()
+                        .WithMany("categoryImages")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -402,6 +402,11 @@ namespace EfCore.Migrations
                         .IsRequired();
 
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("EfCore.Entities.Category", b =>
+                {
+                    b.Navigation("categoryImages");
                 });
 
             modelBuilder.Entity("EfCore.Entities.Company", b =>
