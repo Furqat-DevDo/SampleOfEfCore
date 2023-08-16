@@ -25,7 +25,7 @@ namespace EfCore.Mappers
 
            UpperId = category.UpperId,
            Name = category.Name,
-           CreatedDate = category.CreatTime
+    
 
        };
 
@@ -35,7 +35,6 @@ namespace EfCore.Mappers
 
             category.Name = request.Name;
             category.UpperId = request.UpperId;
-            category.UpdatedDate = request.UpdateDate;
         }
 
 
