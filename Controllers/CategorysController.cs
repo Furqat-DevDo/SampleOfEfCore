@@ -1,5 +1,6 @@
 ﻿using EfCore.Entities;
 using EfCore.Models.Requests;
+using EfCore.Models.Responses;
 using EfCore.Services;
 using EfCore.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -10,102 +11,102 @@ namespace EfCore.Controllers
     [ApiController]
     public class CategorysController:ControllerBase
     {
-        private readonly ICategoryService categoryService;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CategoriesController"/> class.
-        /// </summary>
-        /// <param name="categoryService">The category service.</param>
+        private readonly ICategoryService _categoryService;
         public CategorysController(ICategoryService categoryService)
         {
-            this.categoryService = categoryService;
-        }
-
-        /// <summary>
-        /// Gets all categories.
-        /// </summary>
-        /// <returns>Returns a list of all categories.</returns>
-        [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetAll()
-        {
-            return Ok(await categoryService.GetAllCategoriesAsync());
+            _categoryService = categoryService;
         }
 
 
         /// <summary>
-        /// Creates a new category.
+        /// Here you can create new category.
         /// </summary>
-        /// <param name="request">The details of the category to create.</param>
-        /// <returns>Returns the newly created category if successful, or a 500 Internal Server Error if not.</returns>
+        /// <param name="request">Parametres of new category</param>
+        /// <remarks >
+        /// Sample request:
+        ///
+        ///         POST
+        ///         {
+        ///             "name": "electronika Category",
+        ///             "upperId": 1,
+        ///             "CreateDate": "2023-10-11T12:52:47.235Z",
+        ///         }
+        /// </remarks>
+        /// <response code="200">Returns the newly created category</response>
+        /// <response code="500">Returns when there was unable to create new category</response>
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(GetCategoryResponse), StatusCodes.Status200OK)]
         public async Task<IActionResult> CreateCategoryAsync(CreateCategoryRequest request)
         {
-            var response = await categoryService.CreateCategoryAsync(request);
-            return response is null ?new StatusCodeResult(StatusCodes.Status404NotFound) : Ok(response);
-            
+            var response = await _categoryService.CreateCategoryAsync(request);
+            return response is null ?
+                new StatusCodeResult(StatusCodes.Status500InternalServerError) :
+                Ok(response);
         }
 
         /// <summary>
-        /// Gets a category by its unique identifier.
+        /// Here you can get category by Id.
         /// </summary>
-        /// <param name="id">The unique identifier of the category.</param>
-        /// <returns>The category if found, or a 404 Not Found response.</returns>
+        /// <param name="id">Id of existing category</param>
+        /// <response code="200">Returns the category which id = Id</response>
+        /// <response code="404">Returns null when category was not found</response>
         [HttpGet("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetCategoryByIdAsync(uint id)
+        [ProducesResponseType(typeof(GetCategoryResponse), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetProductByIdAsync(uint id)
         {
-
-            ///Get the category by its unique identifier using the categoryService.
-            var response = await categoryService.GetCategoryByIdAsync((int)id);
-            /// If the response is null, return a 404 Not Found response.
-            try
-            {
-                return Ok(await categoryService.GetCategoryByIdAsync((int)id));
-            }
-            catch(Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            //return response is null ? new StatusCodeResult(StatusCodes.Status404NotFound) : Ok(response);
+            var response = await _categoryService.GetCategoryByIdAsync((int)id);
+            return response is null ? NotFound(response) : Ok(response);
         }
 
+        /// <summary>
+        /// Here you can get all categories.
+        /// </summary>
+        /// <response code="200">Returns all categories</response>
+        /// <response code="404">Returns null when categories was not found</response>
+        [HttpGet]
+        [ProducesResponseType(typeof(List<GetCategoryResponse>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetAllCategoriesAsync()
+        {
+            return Ok(await _categoryService.GetAllCategoriesAsync());
+        }
 
         /// <summary>
-        /// If you think that a category is not needed, you can delete it
+        /// Here you can delete existing category by its Id.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        
+        /// <param name="id">Id of existing category</param>
+        /// <response code="200">Deletes the category which id = Id and returns true</response>
+        /// <response code="404">Returns false when category was not found</response>
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCategoryAsync(uint id)
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        public async Task<IActionResult> DeleteProductAsync(uint id)
         {
-            var result = await categoryService.DeletedCategoryAsync((int)id);
-            return result ? Ok(result) : NotFound();
+            var result = await _categoryService.DeletedCategoryAsync((int)id);
+            return result ? Ok(result) : NotFound(result);
         }
 
-
-
-
         /// <summary>
-        /// Update a category with the specified ID.
+        /// Here you can update the category with Id.
         /// </summary>
-        /// <param name="id">The ID of the category to update.</param>
-        /// <param name="request">The update request containing new category information.</param>
-        /// <returns>
-        /// Returns an IActionResult representing the updated category or a NotFound result if the category with the specified ID was not found.
-        /// </returns>
-        /// <response code="200">Returns the updated category.</response>
-        /// <response code="404">If the category with the specified ID was not found.</response>
-        
+        /// <param name="id">Id of existing category</param>
+        /// <param name="request">New parameters for updating category</param>
+        /// <response code="200">Returns updated category with Id</response>
+        /// <response code="404">Returns null when category was not found</response>
+        /// /// <remarks >
+        /// Sample request:
+        ///
+        ///         PUT
+        ///         {
+        ///             "name": "Coca Cola",
+        ///             "UpperId": 1,
+        ///             "UpdateDate": "2023-10-11T12:52:47.235Z",
+        ///         }
+        /// </remarks>
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCategoryAsync(uint id, UpdateCategoryRequest request)
+        [ProducesResponseType(typeof(GetCategoryResponse), StatusCodes.Status200OK)]
+        public async Task<IActionResult> UpdateCategoryAsync(uint id, [FromBody] UpdateCategoryRequest request)
         {
-            var result = await categoryService.UpdateCategoryAsync((int)id, request);
-            return result is null ? NotFound() : Ok(result);
+            var result = await _categoryService.UpdateCategoryAsync((int)id, request);
+            return result is null ? NotFound(result) : Ok(result);
         }
 
     }

@@ -1,5 +1,6 @@
 ﻿using EfCore.Data;
 using EfCore.Entities;
+using EfCore.Mappers;
 using EfCore.Models.Requests;
 using EfCore.Models.Responses;
 using EfCore.Services.Interfaces;
@@ -15,57 +16,56 @@ namespace EfCore.Services
             _context = context;
         }
 
-        public async Task<GetCategoryResponse> CreateCategoryAsync(CreateCategoryRequest categoryRequest)
+        public async Task<GetCategoryResponse?> CreateCategoryAsync(CreateCategoryRequest request)
         {
+            var category = request.CreateCategory();
 
-            var category = new Category
-            {
-                Name = categoryRequest.Name,
-                UpperId = categoryRequest.UpperId,
-                ImageId= categoryRequest.ImageID ,
-            };
-            var newCategory = await _context.Categories.AddAsync(category);
-            await _context.SaveChangesAsync();
-            return new GetCategoryResponse(newCategory.Entity);
+            var newCategory = await _context.Categories
+                .AddAsync(category); ;
+            int saveChangesResult = await _context.SaveChangesAsync();
 
-
+            return saveChangesResult > 0 ? newCategory.Entity.ResponseCategory() : null;
         }
 
-        public async Task<bool> DeletedCategoryAsync(int id)
+        public async Task<IEnumerable<GetCategoryResponse>> GetAllCategoriesAsync()
         {
-            var category=await _context.Categories.FirstOrDefaultAsync(x=>x.Id==id);
-            if (category == null) return false;
+            var category = await _context
+                .Categories
+                .ToListAsync();
 
-            category.IsDeleted = true;
-            return await _context.SaveChangesAsync() > 0;
+            return category.Any() ? category.Select(c => c.ResponseCategory())
+                : new List<GetCategoryResponse>();
         }
-
-        public async Task<List<GetCategoryResponse>> GetAllCategoriesAsync()
-        {
-            var categories = await _context.Categories.ToListAsync();
-            return categories.Select(x => new GetCategoryResponse(x)).ToList();
-        }
-
         public async Task<GetCategoryResponse?> GetCategoryByIdAsync(int id)
         {
-            var category=await _context.Categories.FirstOrDefaultAsync(x => x.Id == id);
-           
-            return category is null ? null : new GetCategoryResponse(category);
+            var category = await _context
+                .Categories
+                .FirstOrDefaultAsync(p => p.Id == id);
 
+            return category is null ? null : category.ResponseCategory();
         }
-
-        public async Task<GetCategoryResponse?> UpdateCategoryAsync(int id, UpdateCategoryRequest update_request)
+        public async Task<GetCategoryResponse?> UpdateCategoryAsync(int id, UpdateCategoryRequest request)
         {
-            var category = await _context.Categories.FirstOrDefaultAsync(x => x.Id == id);
-            if (category == null) return null;
+            var category = await _context.Categories.FirstOrDefaultAsync(p => p.Id == id);
 
-            category.Name = update_request.Name;
-            category.UpperId = update_request.UpperId;
+            if (category is null)
+                return null;
 
-            _context.Categories.Update(category);
-            await _context.SaveChangesAsync();
-            return new GetCategoryResponse(category);
+            category.UpdateCategory(request);
+            _context.SaveChanges();
 
+            return category.ResponseCategory();
+        }
+        public async Task<bool> DeletedCategoryAsync(int id)
+        {
+            var category = await _context.Categories
+                .FirstOrDefaultAsync(p => p.Id == id);
+
+            if (category is null)
+                return false;
+
+            category.IsDeleted = true;
+            return _context.SaveChanges() > 0;
         }
     }
 }
