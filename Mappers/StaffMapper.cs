@@ -24,7 +24,7 @@ public static class StaffMapper
         FullName = request.FullName,
         Role = request.Role,
         PersonalData = request.PersonalData,
-        Salary = request.Salary
+        Salary = request.Salary,
     };
 
     public static void StaffUpdate(this Staff staff, UpdateStaffRequest request )
