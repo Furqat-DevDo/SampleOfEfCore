@@ -42,9 +42,7 @@ public class StoragesController : ControllerBase
     public async Task<IActionResult> CreateStorageAsync(CreateStorageRequest request)
     {
         var response = await _storageService.CreateStorageAsync(request);
-        return response is null ?
-            new StatusCodeResult(StatusCodes.Status500InternalServerError) :
-            Ok(response);
+        return Ok(response);
     }
 
     /// <summary>
@@ -60,7 +58,7 @@ public class StoragesController : ControllerBase
     public async Task<IActionResult> GetStorageByIdAsync(uint id)
     {
         var response = await _storageService.GetStorageByIdAsync((int)id);
-        return response is null ? NotFound() : Ok(response);
+        return Ok(response);
     }
 
     /// <summary>
@@ -118,6 +116,6 @@ public class StoragesController : ControllerBase
     public async Task<IActionResult> UpdateStorageAsync(uint id, [FromBody] UpdateStorageRequest request)
     {
         var result = await _storageService.UpdateStorageAsync((int)id, request);
-        return result is null ? NotFound() : Ok(result);
+        return Ok(result);
     }
 }
