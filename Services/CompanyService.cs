@@ -1,4 +1,5 @@
 ﻿using EfCore.Data;
+using EfCore.Exceptions;
 using EfCore.Mappers;
 using EfCore.Models.Requests;
 using EfCore.Models.Responses;
@@ -21,9 +22,11 @@ public class CompanyService : ICompanyService
 
         var newCompany = await _shopDbContext.Companies
             .AddAsync(company);
-        int saveChangesResult = await _shopDbContext.SaveChangesAsync();
 
-        return saveChangesResult > 0 ? newCompany.Entity.ResponseCompany() : null;
+        if (await _shopDbContext.SaveChangesAsync() <= 0)
+            throw new UnableToSaveCompanyChangesException();
+
+        return newCompany.Entity.ResponseCompany();
     }
 
     public async Task<bool> DeleteAsync(int id)
@@ -31,11 +34,14 @@ public class CompanyService : ICompanyService
         var company = await _shopDbContext.Companies
             .FirstOrDefaultAsync(p => p.Id == id);
 
-        if (company is null)
-            return false;
+        if (company is null) throw new CompanyNotFoundException();
 
         company.IsDeleted = true;
-        return _shopDbContext.SaveChanges() > 0;
+
+        if (await _shopDbContext.SaveChangesAsync() <= 0)
+            throw new UnableToSaveCompanyChangesException();
+
+        return true;
     }
 
     public async Task<IEnumerable<GetCompanyResponse>> GetAllCompanysAsync()
@@ -56,7 +62,7 @@ public class CompanyService : ICompanyService
             .Include (sh => sh.Branches)
             .FirstOrDefaultAsync(p => p.Id == id);
 
-        return company is null ? null : company.ResponseCompany();
+        return company is null ? throw new CompanyNotFoundException() : company.ResponseCompany();
     }
 
     public async Task<GetCompanyResponse?> UpdateCompanyAsync(int id, UpdateCompanyRequest request)
@@ -64,10 +70,12 @@ public class CompanyService : ICompanyService
         var company = await _shopDbContext.Companies.FirstOrDefaultAsync(p => p.Id == id);
 
         if (company is null)
-            return null;
+            throw new CompanyNotFoundException();
 
         company.UpdateCompany(request);
-        _shopDbContext.SaveChanges();
+
+        if (await _shopDbContext.SaveChangesAsync() <= 0)
+            throw new UnableToSaveCompanyChangesException();
 
         return company.ResponseCompany();
     }
