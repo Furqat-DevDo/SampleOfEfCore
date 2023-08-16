@@ -10,7 +10,8 @@ public static class StuffMapper
     {
         stuff.FullName = request.FullName;      
         stuff.Salary = request.Salary;
-        stuff.PersonalData = request.PersonalData;      
+        stuff.PersonalData = request.PersonalData;
+        stuff.Role = request.Role;
     }
 
     public static GetStuffResponse ToResponseStuff(this Stuff stuff)
@@ -20,14 +21,17 @@ public static class StuffMapper
        Id = stuff.Id,
        Salary = stuff.Salary,
        PersonalData = stuff.PersonalData,     
+       UpdatedDate = stuff.UpdatedDate,
+       CreatedDate = stuff.CreatedDate,
+       Role = stuff.Role
    };
 
     public static Stuff ToCreateStuff(this CreateStuffRequest stuff)
     => new Stuff
     {
         FullName = stuff.FullName,
-       
         Salary = stuff.Salary,
-        PersonalData = stuff.PersonalData
+        PersonalData = stuff.PersonalData,
+        Role = stuff.Role,
     };
 }

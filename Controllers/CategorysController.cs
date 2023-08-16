@@ -13,7 +13,7 @@ namespace EfCore.Controllers
         private readonly ICategoryService categoryService;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CategoriesController"/> class.
+        /// Initializes a new instance of the <see cref="CategorysController"/> class.
         /// </summary>
         /// <param name="categoryService">The category service.</param>
         public CategorysController(ICategoryService categoryService)
@@ -57,11 +57,8 @@ namespace EfCore.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetCategoryByIdAsync(uint id)
-        {
-
-            ///Get the category by its unique identifier using the categoryService.
+        {     
             var response = await categoryService.GetCategoryByIdAsync((int)id);
-            /// If the response is null, return a 404 Not Found response.
             try
             {
                 return Ok(await categoryService.GetCategoryByIdAsync((int)id));
@@ -70,7 +67,6 @@ namespace EfCore.Controllers
             {
                 return BadRequest(ex.Message);
             }
-            //return response is null ? new StatusCodeResult(StatusCodes.Status404NotFound) : Ok(response);
         }
 
 
