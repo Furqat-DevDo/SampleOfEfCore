@@ -17,7 +17,7 @@ namespace EfCore.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateStuffAsync(CreateStaffRequest request)
+        public async Task<IActionResult> CreateStaffAsync(CreateStaffRequest request)
         {
             var response = await _staffService.CreateStaffAsync(request);
             return response is null ?
@@ -26,7 +26,7 @@ namespace EfCore.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetStuffByIdAsync(uint id)
+        public async Task<IActionResult> GetStaffByIdAsync(uint id)
         {
             var response = await _staffService.GetStaffByIdAsync((int)id);
             return response is null ? NotFound() : Ok(response);
@@ -34,14 +34,14 @@ namespace EfCore.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> GetAllStuffsAsync()
+        public async Task<IActionResult> GetAllStaffsAsync()
         {
             return Ok(await _staffService.GetAllStaffAsync());
         }
 
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteStuffAsync(uint id)
+        public async Task<IActionResult> DeleteStaffAsync(uint id)
         {
             var result = await _staffService.DeleteStaffAsync((int)id);
             return result ? Ok(result) : NotFound();
@@ -49,7 +49,7 @@ namespace EfCore.Controllers
 
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateStuffAsync(uint id, [FromBody] UpdateStaffRequest request)
+        public async Task<IActionResult> UpdateStaffAsync(uint id, [FromBody] UpdateStaffRequest request)
         {
             var result = await _staffService.UpdateStaffAsync((int)id, request);
             return result is null ? NotFound() : Ok(result);
