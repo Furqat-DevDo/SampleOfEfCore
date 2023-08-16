@@ -44,7 +44,7 @@ namespace EfCore.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("Text")
-                        .HasColumnName("Name");
+                        .HasColumnName("CategoryName");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("timestamp with time zone");
@@ -56,7 +56,7 @@ namespace EfCore.Migrations
 
                     b.HasIndex("UpperId");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("EfCore.Entities.CategoryImage", b =>
@@ -92,7 +92,7 @@ namespace EfCore.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("CategoryImages");
+                    b.ToTable("CategoryImages", (string)null);
                 });
 
             modelBuilder.Entity("EfCore.Entities.Company", b =>
@@ -126,7 +126,7 @@ namespace EfCore.Migrations
 
                     b.HasIndex("UpperId");
 
-                    b.ToTable("Companies");
+                    b.ToTable("Companies", (string)null);
                 });
 
             modelBuilder.Entity("EfCore.Entities.Product", b =>
@@ -174,7 +174,7 @@ namespace EfCore.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("EfCore.Entities.Shop", b =>
@@ -213,7 +213,41 @@ namespace EfCore.Migrations
 
                     b.HasIndex("UpperId");
 
-                    b.ToTable("Shops");
+                    b.ToTable("Shops", (string)null);
+                });
+
+            modelBuilder.Entity("EfCore.Entities.Staff", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<JsonDocument>("PersonalData")
+                        .HasColumnType("jsonb");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("integer");
+
+                    b.Property<double>("Salary")
+                        .HasColumnType("double precision");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Staffs", (string)null);
                 });
 
             modelBuilder.Entity("EfCore.Entities.Storage", b =>
@@ -251,41 +285,7 @@ namespace EfCore.Migrations
 
                     b.HasIndex("ProductsId");
 
-                    b.ToTable("Storages");
-                });
-
-            modelBuilder.Entity("EfCore.Entities.Stuff", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("FullName")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
-
-                    b.Property<JsonDocument>("PersonalData")
-                        .HasColumnType("jsonb");
-
-                    b.Property<int>("Role")
-                        .HasColumnType("integer");
-
-                    b.Property<double>("Salary")
-                        .HasColumnType("double precision");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Stuffs");
+                    b.ToTable("Storages", (string)null);
                 });
 
             modelBuilder.Entity("ProductImage", b =>
@@ -321,7 +321,7 @@ namespace EfCore.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductImages");
+                    b.ToTable("ProductImages", (string)null);
                 });
 
             modelBuilder.Entity("EfCore.Entities.Category", b =>
@@ -336,7 +336,7 @@ namespace EfCore.Migrations
             modelBuilder.Entity("EfCore.Entities.CategoryImage", b =>
                 {
                     b.HasOne("EfCore.Entities.Category", "Category")
-                        .WithMany("categoryImages")
+                        .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -399,11 +399,6 @@ namespace EfCore.Migrations
                         .IsRequired();
 
                     b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("EfCore.Entities.Category", b =>
-                {
-                    b.Navigation("categoryImages");
                 });
 
             modelBuilder.Entity("EfCore.Entities.Company", b =>

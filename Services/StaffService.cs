@@ -1,5 +1,6 @@
 ﻿using EfCore.Data;
 using EfCore.Entities;
+using EfCore.Mappers;
 using EfCore.Models.Requests;
 using EfCore.Models.Responses;
 using EfCore.Services.Interfaces;
@@ -14,19 +15,15 @@ namespace EfCore.Services
         {
             _context = context;
         }
+
         public async Task<GetStaffResponse> CreateStaffAsync(CreateStaffRequest request)
         {
-            var staff = new Staff()
-            {
-               FullName = request.FullName,
-               Role = request.Role,
-               PersonalData = request.PersonalData,
-               Salary = request.Salary
-            };
+            var staff = request.StaffCreate();
 
             var newStaff = await _context.Staffs.AddAsync(staff);
             await _context.SaveChangesAsync();
-            return new GetStaffResponse(newStaff.Entity);
+
+            return newStaff.Entity.StaffResponse();
         }
 
         public async Task<bool> DeleteStaffAsync(int id)
@@ -44,7 +41,7 @@ namespace EfCore.Services
         {
             var staffs = await _context.Staffs.ToListAsync();
             return staffs.Any() ?
-                staffs.Select(s => new GetStaffResponse(s))
+                staffs.Select(s => s.StaffResponse())
                 : new List<GetStaffResponse>();
         }
 
@@ -53,7 +50,7 @@ namespace EfCore.Services
             var staff = await _context.Staffs
            .FirstOrDefaultAsync(s => s.Id == id);
 
-            return staff is null ? null : new GetStaffResponse(staff);
+            return staff is null ? null : new GetStaffResponse();
         }
 
         public async Task<GetStaffResponse?> UpdateStaffAsync(int id, UpdateStaffRequest request)
@@ -61,16 +58,9 @@ namespace EfCore.Services
             var staff = await _context.Staffs.FirstOrDefaultAsync(s => s.Id == id);
             if (staff is null) return null;
 
-            staff.FullName = request.FullName;
-            staff.UpdatedDate = DateTime.UtcNow;
-            staff.PersonalData = request.PersonalData;
-            staff.Salary = request.Salary;
-            staff.Role = request.Role;  
-
-
             _context.Staffs.Update(staff);
             _context.SaveChanges();
-            return new GetStaffResponse(staff);
+            return staff.StaffResponse();
         }
     }
 }

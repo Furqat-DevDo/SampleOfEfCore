@@ -85,7 +85,7 @@ namespace EfCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Stuffs",
+                name: "Staffs",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -266,7 +266,7 @@ namespace EfCore.Migrations
                 name: "Storages");
 
             migrationBuilder.DropTable(
-                name: "Stuffs");
+                name: "Staffs");
 
             migrationBuilder.DropTable(
                 name: "Products");

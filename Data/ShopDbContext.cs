@@ -13,7 +13,7 @@ public class ShopDbContext : DbContext
 
 
 
-    public DbSet<Stuff> Stuffs { get; set; }
+    public DbSet<Staff> Staffs { get; set; }
     public DbSet<Category> Categories { get; set; }
     public DbSet<Product> Products { get; set; }
     public DbSet<Company> Companies { get; set; }
@@ -48,7 +48,7 @@ public class ShopDbContext : DbContext
             company.HasQueryFilter(c=>!c.IsDeleted);
         });
 
-        modelBuilder.Entity<Stuff>(stuff =>
+        modelBuilder.Entity<Staff>(stuff =>
         {
             stuff.HasQueryFilter(c => !c.IsDeleted);
         });

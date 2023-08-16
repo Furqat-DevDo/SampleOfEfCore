@@ -257,7 +257,7 @@ namespace EfCore.Migrations
                     b.ToTable("Storages");
                 });
 
-            modelBuilder.Entity("EfCore.Entities.Stuff", b =>
+            modelBuilder.Entity("EfCore.Entities.Staff", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -288,7 +288,7 @@ namespace EfCore.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Stuffs");
+                    b.ToTable("Staffs");
                 });
 
             modelBuilder.Entity("ProductImage", b =>

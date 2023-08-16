@@ -14,6 +14,7 @@ public static class ProductMapper
         product.CategoryId = request.CategoryId;
         product.CompanyId = request.CompanyId;
         product.Price = request.Price;
+        product.UpdatedDate = DateTime.UtcNow;
     }
 
     public static GetProductResponse ResponseProduct(this Product product)
