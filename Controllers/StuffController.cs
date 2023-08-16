@@ -20,16 +20,14 @@ namespace EfCore.Controllers
         public async Task<IActionResult> CreateStuffAsync(CreateStuffRequest request)
         {
             var response = await _stuffService.CreateStuffAsync(request);
-            return response is null ?
-                new StatusCodeResult(StatusCodes.Status500InternalServerError) :
-                Ok(response);
+            return Ok(response);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetStuffByIdAsync(uint id)
         {
             var response = await _stuffService.GetStuffByIdAsync((int)id);
-            return response is null ? NotFound() : Ok(response);
+            return Ok(response);
         }
 
 
@@ -52,7 +50,7 @@ namespace EfCore.Controllers
         public async Task<IActionResult> UpdateStuffAsync(uint id, [FromBody] UpdateStuffRequest request)
         {
             var result = await _stuffService.UpdateStuffAsync((int)id, request);
-            return result is null ? NotFound() : Ok(result);
+            return Ok(result);
         }
     }
 }

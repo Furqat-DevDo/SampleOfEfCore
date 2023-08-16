@@ -43,15 +43,9 @@ public class ProductImagesController : ControllerBase
     public async Task<IActionResult> CreateAsync(int id, [FromForm] CreateProductImageRequest request)
     {
         var product = await _productService.GetProductByIdAsync(id);
-        if (product is null) return NotFound(null);
-
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
 
         var result = await _productImageService.CreateAsync(id, request);
-        return result is null ? new StatusCodeResult(StatusCodes.Status500InternalServerError) : Ok(result);
+        return Ok(result);
     }
 
     /// <summary>

@@ -1,4 +1,5 @@
 ﻿using EfCore.Data;
+using EfCore.Exceptions;
 using EfCore.Mappers;
 using EfCore.Models.Requests;
 using EfCore.Models.Responses;
@@ -25,6 +26,7 @@ public class CompanyService : ICompanyService
 
         return saveChangesResult > 0 ? newCompany.Entity.ResponseCompany() : null;
     }
+
 
     public async Task<bool> DeleteAsync(int id)
     {

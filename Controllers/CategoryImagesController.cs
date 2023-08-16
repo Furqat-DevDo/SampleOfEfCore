@@ -35,15 +35,10 @@ public class CategoryImagesController : ControllerBase
     public async Task<IActionResult> CreateAsync(int id, [FromForm] CreateCategoryImageRequest request)
     {
         var category = await _categoryService.GetCategoryByIdAsync(id);
-        if (category is null) return NotFound(null);
 
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
         var result = await _categoryImageService.CreateAsync(id, request);
         var routValue = new { id = result.CategoryId };
-        return result is not null ? CreatedAtRoute(routValue, result) : new StatusCodeResult(StatusCodes.Status500InternalServerError);
+        return CreatedAtRoute(routValue, result);
     }
 
     /// <summary>
