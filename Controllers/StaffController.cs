@@ -5,7 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EfCore.Controllers
 {
-
+    /// <summary>
+    /// API for Staff Management.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class StaffController : ControllerBase
@@ -22,24 +24,10 @@ namespace EfCore.Controllers
         }
 
         /// <summary>
-        /// Here you can create new staff.
+        /// Create a new staff member.
         /// </summary>
-        /// <param name="request">Parametres of new staff</param>
-        /// <remarks >
-        /// Sample request:
-        ///
-        ///         POST
-        ///         {
-        ///             "name": "Coca Cola",
-        ///             "categoryId": 1,
-        ///             "companyId": 1,
-        ///             "manufacturedDate": "2023-08-11T12:52:47.235Z",
-        ///             "expireDate": "2023-10-11T12:52:47.235Z",
-        ///             "price": 1000
-        ///         }
-        /// </remarks>
-        /// <response code="200">Returns the newly created staff</response>
-        /// <response code="500">Returns when there was unable to create new staff</response>
+        /// <param name="request">Parameters of the new staff member.</param>
+        /// <returns>The newly created staff member's details.</returns>
         [HttpPost]
         public async Task<IActionResult> CreateStaffAsync(CreateStaffRequest request)
         {
@@ -48,13 +36,11 @@ namespace EfCore.Controllers
                 new StatusCodeResult(StatusCodes.Status500InternalServerError) :
                 Ok(response);
         }
-
         /// <summary>
-        /// Here you can get staff by Id.
+        /// Get staff member by ID.
         /// </summary>
-        /// <param name="id">Id of existing staff</param>
-        /// <response code="200">Returns the staff which id = Id</response>
-        /// <response code="404">Returns null when staff was not found</response>
+        /// <param name="id">ID of an existing staff member.</param>
+        /// <returns>The details of the staff member with the given ID.</returns>
         [HttpGet("{id}")]
         public async Task<IActionResult> GetStaffByIdAsync(uint id)
         {
@@ -85,25 +71,11 @@ namespace EfCore.Controllers
         }
 
         /// <summary>
-        /// Here you can update the staff with Id.
+        /// Update staff member details by ID.
         /// </summary>
-        /// <param name="id">Id of existing staff</param>
-        /// <param name="request">New parameters for updating staff</param>
-        /// <response code="200">Returns updated staff with Id</response>
-        /// <response code="404">Returns null when staff was not found</response>
-        /// /// <remarks >
-        /// Sample request:
-        ///
-        ///         PUT
-        ///         {
-        ///             "name": "Coca Cola",
-        ///             "categoryId": 1,
-        ///             "companyId": 1,
-        ///             "manufacturedDate": "2023-08-11T12:52:47.235Z",
-        ///             "expireDate": "2023-10-11T12:52:47.235Z",
-        ///             "price": 1000
-        ///         }
-        /// </remarks>
+        /// <param name="id">ID of an existing staff member.</param>
+        /// <param name="request">New parameters for updating staff member.</param>
+        /// <returns>The updated details of the staff member with the given ID.</returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateStaffAsync(uint id, [FromBody] UpdateStaffRequest request)
         {
