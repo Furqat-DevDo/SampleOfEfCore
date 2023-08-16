@@ -24,7 +24,10 @@ namespace EfCore.Services
                 .AddAsync(category); ;
             int saveChangesResult = await _context.SaveChangesAsync();
 
-            return saveChangesResult > 0 ? newCategory.Entity.ResponseCategory() : null;
+            if (await _context.SaveChangesAsync() <= 0)
+                throw new UnableToSaveShopChangesException();
+            else
+                return  newCategory.Entity.ResponseCategory();
         }
 
         public async Task<IEnumerable<GetCategoryResponse>> GetAllCategoriesAsync()
@@ -42,7 +45,7 @@ namespace EfCore.Services
                 .Categories
                 .FirstOrDefaultAsync(p => p.Id == id);
 
-            return category is null ? null : category.ResponseCategory();
+            return category is null ? throw CategoryNotFoundException() : category.ResponseCategory();
         }
         public async Task<GetCategoryResponse?> UpdateCategoryAsync(int id, UpdateCategoryRequest request)
         {
