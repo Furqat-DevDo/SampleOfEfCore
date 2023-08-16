@@ -1,4 +1,5 @@
 ﻿using EfCore.Data;
+using EfCore.Exceptions;
 using EfCore.Helpers;
 using EfCore.Mappers;
 using EfCore.Models.Requests;
@@ -25,7 +26,11 @@ public class ProductImageService : IProductImageService
 
         var result = await _shopContext.ProductImages.AddAsync(newProductFile); 
 
-        return await _shopContext.SaveChangesAsync() > 0 ? result.Entity.ToResponse() : null;
+        if(await _shopContext.SaveChangesAsync() > 0) 
+        {
+            return result.Entity.ToResponse();
+        }
+        throw new UnableToSaveProductImageChangesExeption();
     }
 
     public async Task<IEnumerable<GetProductImageResponse>> GetProductFilesAsync(int id)

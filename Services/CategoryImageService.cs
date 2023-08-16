@@ -1,4 +1,5 @@
 ﻿using EfCore.Data;
+using EfCore.Exceptions;
 using EfCore.Helpers;
 using EfCore.Mappers;
 using EfCore.Models.Requests;
@@ -22,13 +23,14 @@ public class CategoryImageService : ICategoryImageService
         var (filePath, fileId) = await FileHelper.SaveFormFileAsync(request.CategoryFile);
 
         if(filePath is null)
-            throw new ArgumentNullException(nameof(filePath));
+            throw new UnableToCreateCategoryImageException(nameof(filePath));
 
         var newCategoryFile = request.ToEntity(id, filePath, fileId);
 
         var result = await _shopContext.CategoryImages.AddAsync(newCategoryFile);
 
-        await _shopContext.SaveChangesAsync();
+        if(await _shopContext.SaveChangesAsync() > 0)
+            throw new UnableToSaveCategoryImageChangesExeption();
 
         return result.Entity.ToResponse();
     }

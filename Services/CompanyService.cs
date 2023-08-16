@@ -29,6 +29,7 @@ public class CompanyService : ICompanyService
         return newCompany.Entity.ResponseCompany();
     }
 
+
     public async Task<bool> DeleteAsync(int id)
     {
         var company = await _shopDbContext.Companies
