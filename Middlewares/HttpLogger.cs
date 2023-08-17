@@ -9,10 +9,10 @@ public class HttpLogger : IMiddleware
     }
     public async  Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
-        _logger.LogCritical($"{context.Request.Path} dan request ketti");
+        _logger.LogInformation($"{context.Request.Path} dan request ketti");
         
         await next (context);
 
-        _logger.LogCritical($" Va unga {context.Response.StatusCode} degan status code qaytdi.");
+        _logger.LogInformation($" Va unga {context.Response.StatusCode} degan status code qaytdi.");
     }
 }

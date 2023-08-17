@@ -1,0 +1,4 @@
+2023-08-17 20:49:53.823 +05:00 [Fatal] [EfCore.Middlewares.HttpLogger] [] /api/company/1321 dan request ketti
+2023-08-17 20:49:55.025 +05:00 [Error] [EfCore.Services.CompanyService] [] Company with id : 1321 does not exist !!!
+2023-08-17 20:51:54.962 +05:00 [Fatal] [EfCore.Middlewares.HttpLogger] [] /api/categorys dan request ketti
+2023-08-17 20:51:56.261 +05:00 [Fatal] [EfCore.Middlewares.HttpLogger] []  Va unga 200 degan status code qaytdi.

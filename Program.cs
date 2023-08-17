@@ -3,6 +3,7 @@ using EfCore.Attributes;
 using EfCore.Data;
 using EfCore.Middlewares;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,6 +25,16 @@ builder.Services.AddSwaggerGen(options =>
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 });
 
+builder.Logging.ClearProviders();
+
+var logger = new LoggerConfiguration()
+        .ReadFrom.Configuration(builder.Configuration)
+        .Enrich.FromLogContext()
+        .CreateLogger();
+
+builder.Host.UseSerilog(logger);
+
+builder.Logging.AddSerilog(logger);
 
 var connectionString = builder.Configuration.GetConnectionString("ShopDb");
 
@@ -37,6 +48,8 @@ builder.Services.AddMyServices();
 var app = builder.Build();
 
 app.AddMySettings(app);
+
+app.UseSerilogRequestLogging();
 
 app.MapControllers();
 
