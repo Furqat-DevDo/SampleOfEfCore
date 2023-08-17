@@ -29,7 +29,6 @@ namespace EfCore.Controllers
         ///         {
         ///             "name": "electronic devices ",
         ///             "upperId": 1,
-        ///             "CreateDate": "2023-10-11T12:52:47.235Z",
         ///         }
         /// </remarks>
         /// <response code="200">Returns the newly created category</response>
@@ -100,7 +99,6 @@ namespace EfCore.Controllers
         ///         {
         ///             "name": "electronic devices",
         ///             "UpperId": 1,
-        ///             "UpdateDate": "2023-10-11T12:52:47.235Z",
         ///         }
         /// </remarks>
         [HttpPut("{id}")]
