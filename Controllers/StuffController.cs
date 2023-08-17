@@ -42,7 +42,7 @@ namespace EfCore.Controllers
         public async Task<IActionResult> DeleteStuffAsync(uint id)
         {
             var result = await _stuffService.DeleteStuffAsync((int)id);
-            return result ? Ok(result) : NotFound();
+            return Ok(result);
         }
 
 

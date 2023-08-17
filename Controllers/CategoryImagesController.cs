@@ -121,12 +121,9 @@ public class CategoryImagesController : ControllerBase
     {
         var image = await _categoryService.GetCategoryByIdAsync(id);
 
-        if (image is null)
-            return NotFound("Image not found");
-
         var result = await _categoryImageService.DeleteCategoryImage(fileId);
 
-        return result ? Ok(result) : NotFound(result);
+        return Ok(result);
     }
 
 }       

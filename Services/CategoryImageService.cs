@@ -30,7 +30,7 @@ public class CategoryImageService : ICategoryImageService
         var result = await _shopContext.CategoryImages.AddAsync(newCategoryFile);
 
         if(await _shopContext.SaveChangesAsync() > 0)
-            throw new UnableToSaveCategoryImageChangesExeption();
+            throw new UnableToSaveImageChangesExeption();
 
         return result.Entity.ToResponse();
     }
@@ -79,7 +79,7 @@ public class CategoryImageService : ICategoryImageService
         var result = await _shopContext.CategoryImages.FirstOrDefaultAsync(x => x.Id == fileId);
 
         if (result is null)
-            return false;
+            throw new CategoryImageNotFoundExeption();
 
         result.IsDeleted = true;
         return await _shopContext.SaveChangesAsync() > 0;
