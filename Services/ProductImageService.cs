@@ -30,7 +30,7 @@ public class ProductImageService : IProductImageService
         {
             return result.Entity.ToResponse();
         }
-        throw new UnableToSaveProductImageChangesExeption();
+        throw new UnableToSaveImageChangesExeption();
     }
 
     public async Task<IEnumerable<GetProductImageResponse>> GetProductFilesAsync(int id)
@@ -77,7 +77,7 @@ public class ProductImageService : IProductImageService
         var result = await _shopContext.ProductImages.FirstOrDefaultAsync(x => x.Id == fileId);
         
         if (result is null)
-            return false;
+            throw new ProductImageNotFoundExeption();
         
         result.IsDeleted = true;
         return await _shopContext.SaveChangesAsync() > 0;

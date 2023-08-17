@@ -1,24 +1,23 @@
 ﻿using System.Runtime.Serialization;
 
-namespace EfCore.Exceptions
+namespace EfCore.Exceptions;
+
+[Serializable]
+internal class CategoryImageNotFoundExeption : Exception
 {
-    [Serializable]
-    internal class CategoryImageNotFoundExeption : Exception
+    public CategoryImageNotFoundExeption()
     {
-        public CategoryImageNotFoundExeption()
-        {
-        }
+    }
 
-        public CategoryImageNotFoundExeption(string? message) : base(message)
-        {
-        }
+    public CategoryImageNotFoundExeption(string? message) : base(message)
+    {
+    }
 
-        public CategoryImageNotFoundExeption(string? message, Exception? innerException) : base(message, innerException)
-        {
-        }
+    public CategoryImageNotFoundExeption(string? message, Exception? innerException) : base(message, innerException)
+    {
+    }
 
-        protected CategoryImageNotFoundExeption(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
+    protected CategoryImageNotFoundExeption(SerializationInfo info, StreamingContext context) : base(info, context)
+    {
     }
 }
