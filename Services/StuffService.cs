@@ -28,7 +28,7 @@ namespace EfCore.Services
             await _context.SaveChangesAsync();
 
             if(newStuff == null) throw new UnableToSaveStuffChangesException();
-            return new GetStuffResponse(newStuff.Entity);
+            return new GetStuffResponse();
         }
 
         public async Task<bool> DeleteStuffAsync(int id)
@@ -46,7 +46,7 @@ namespace EfCore.Services
         {
             var stuffs = await _context.Stuffs.ToListAsync();
             return stuffs.Any() ?
-                stuffs.Select(s => new GetStuffResponse(s))
+                stuffs.Select(s => new GetStuffResponse())
                 : new List<GetStuffResponse>();
         }
 
@@ -57,7 +57,7 @@ namespace EfCore.Services
 
             if (stuff is null) throw new StuffNotFoundExeption();
 
-            return new GetStuffResponse(stuff);
+            return new GetStuffResponse();
         }
 
         public async Task<GetStuffResponse?> UpdateStuffAsync(int id, UpdateStuffRequest request)
@@ -77,7 +77,7 @@ namespace EfCore.Services
 
             if(_context.SaveChanges() > 0)
             {
-                return new GetStuffResponse(stuff);
+                return new GetStuffResponse();
             }
             throw new UnableToSaveStuffChangesException();
         }
