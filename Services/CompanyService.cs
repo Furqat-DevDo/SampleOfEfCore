@@ -11,9 +11,12 @@ namespace EfCore.Services;
 public class CompanyService : ICompanyService
 {
     private readonly ShopDbContext _shopDbContext;
-    public CompanyService(ShopDbContext shopDbContext)
+    private ILogger<CompanyService> _logger;
+    public CompanyService(ShopDbContext shopDbContext, 
+        ILogger<CompanyService> logger)
     {
         _shopDbContext = shopDbContext;
+        _logger = logger;
     }
 
     public async Task<GetCompanyResponse?> CreateCompanyAsync(CreateCompanyRequest request)
@@ -23,8 +26,10 @@ public class CompanyService : ICompanyService
         var newCompany = await _shopDbContext.Companies
             .AddAsync(company);
 
-        if (await _shopDbContext.SaveChangesAsync() <= 0)
-            throw new UnableToSaveCompanyChangesException();
+        if (await _shopDbContext.SaveChangesAsync() <= 0)        
+           throw new UnableToSaveCompanyChangesException();
+        
+            
 
         return newCompany.Entity.ResponseCompany();
     }
@@ -35,7 +40,11 @@ public class CompanyService : ICompanyService
         var company = await _shopDbContext.Companies
             .FirstOrDefaultAsync(p => p.Id == id);
 
-        if (company is null) throw new CompanyNotFoundException();
+        if (company is null)
+        {
+            _logger.LogError($"Company with id : {id} does not exist !!!");
+            throw new CompanyNotFoundException();
+        }
 
         company.IsDeleted = true;
 

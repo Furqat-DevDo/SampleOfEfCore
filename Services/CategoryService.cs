@@ -48,7 +48,7 @@ namespace EfCore.Services
 
         public async Task<GetCategoryResponse?> GetCategoryByIdAsync(int id)
         {
-            var category=await _context.Categories.FirstOrDefaultAsync(x => x.Id == id);
+            var category = await _context.Categories.FirstOrDefaultAsync(x => x.Id == id);
            
             return category is null ? null : new GetCategoryResponse(category);
 
