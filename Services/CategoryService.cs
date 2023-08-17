@@ -23,7 +23,7 @@ namespace EfCore.Services
             var newCategory = await _context.Categories
                 .AddAsync(category); ;
 
-            if (await _context.SaveChangesAsync() <= 0)
+            if (await _context.SaveChangesAsync() <= 0 || category.UpperId<=0)
                 throw new UnableToSaveShopChangesException();
             
             return  newCategory.Entity.ResponseCategory();
@@ -50,13 +50,13 @@ namespace EfCore.Services
         {
             var category = await _context.Categories.FirstOrDefaultAsync(p => p.Id == id);
 
-            if (category is null)
+            if (category is null || category?.UpperId<=0)
                 throw new CategoryNotFoundException();
 
-            category.UpdateCategory(request);
+            category?.UpdateCategory(request);
             _context.SaveChanges();
 
-            return category.ResponseCategory();
+            return category?.ResponseCategory();
         }
         public async Task<bool> DeletedCategoryAsync(int id)
         {

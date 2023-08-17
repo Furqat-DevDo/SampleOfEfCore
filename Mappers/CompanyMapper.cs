@@ -11,6 +11,7 @@ public static class CompanyMapper
         company.Name = request.Name;
         company.ClosedDate = request.ClosedDate;
         company.UpperId = request.UpperId;
+        company.UpdatedDate = DateTime.UtcNow;
     }
 
     public static GetCompanyResponse ResponseCompany(this Company company)

@@ -41,13 +41,11 @@ public class ProducsController : ControllerBase
     /// <response code="500">Returns when there was unable to create new product</response>
     [HttpPost]
     [ProducesResponseType(typeof(GetProductResponse), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> CreateProductAsync(CreateProductRequest request)
     {
         var response = await _productService.CreateProductAsync(request);
-        return response is null ?
-            new StatusCodeResult(StatusCodes.Status500InternalServerError) :
-            Ok(response);
+        return Ok(response);
     }
 
     /// <summary>
@@ -58,11 +56,11 @@ public class ProducsController : ControllerBase
     /// <response code="404">Returns null when product was not found</response>
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(GetProductResponse), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(NotFoundResult), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetProductByIdAsync(uint id)
     {
         var response = await _productService.GetProductByIdAsync((int)id);
-        return response is null ? NotFound() : Ok(response);
+        return Ok(response);
     }
 
     /// <summary>
@@ -84,10 +82,11 @@ public class ProducsController : ControllerBase
     /// <response code="404">Returns false when product was not found</response>
     [HttpDelete("{id}")]
     [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteProductAsync(uint id)
     {
         var result = await _productService.DeleteAsync((int)id);
-        return result ? Ok(result) : NotFound(result);
+        return Ok(result);
     }
 
     /// <summary>
@@ -112,10 +111,10 @@ public class ProducsController : ControllerBase
     /// </remarks>
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(GetProductResponse), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(NotFoundResult), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateProductAsync(uint id, [FromBody] UpdateProductRequest request)
     {
         var result = await _productService.UpdateProductAsync((int)id, request);
-        return result is null ? NotFound() : Ok(result);
+        return Ok(result);
     }
 }

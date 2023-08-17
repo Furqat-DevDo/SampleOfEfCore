@@ -1,12 +1,18 @@
 using EfCore;
+using EfCore.Attributes;
 using EfCore.Data;
+using EfCore.Middlewares;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+   // // Filter Error Attribute ishlashi uchun kerak !!!!
+   //options.Filters.Add<ErrorHandlingFilterAttribute>();
+});
 
 builder.Services.AddEndpointsApiExplorer();
 
@@ -26,23 +32,12 @@ builder.Services.AddDbContext<ShopDbContext>(option =>
     option.UseNpgsql(connectionString);
 });
 
-builder.Services.AddDbContext<ShopDbContext>();
 builder.Services.AddMyServices();
 
 var app = builder.Build();
 
-
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI(options =>
-    {
-        options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-        options.RoutePrefix = string.Empty;
-    });
-}
-
-app.UseExceptionHandler("/error");
+app.AddMySettings(app);
+app.UseCategoryErrorHandlingMiddleware();
 
 app.MapControllers();
 

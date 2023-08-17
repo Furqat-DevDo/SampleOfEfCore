@@ -16,7 +16,6 @@ namespace EfCore.Mappers
             IsDeleted = category.IsDeleted,
             CreatedDate = category.CreatedDate,
             UpdatedDate = category.UpdatedDate
-
         };
 
         public static Category CreateCategory(this CreateCategoryRequest category)

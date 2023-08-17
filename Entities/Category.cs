@@ -10,6 +10,5 @@ public class Category : BaseEntity
     [Column("CategoryName", TypeName = "Text")]
     public required string Name { get; set; }
     public int? UpperId { get; set; }
-    public Category? Upper { get; set; }    
 
 }

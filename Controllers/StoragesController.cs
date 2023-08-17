@@ -38,13 +38,11 @@ public class StoragesController : ControllerBase
     /// </remarks>
     [HttpPost]
     [ProducesResponseType(typeof(GetCompanyResponse), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> CreateStorageAsync(CreateStorageRequest request)
     {
         var response = await _storageService.CreateStorageAsync(request);
-        return response is null ?
-            new StatusCodeResult(StatusCodes.Status500InternalServerError) :
-            Ok(response);
+        return Ok(response);
     }
 
     /// <summary>
@@ -56,11 +54,11 @@ public class StoragesController : ControllerBase
     /// <returns></returns>
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(GetStorageResponse), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(NotFoundResult), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetStorageByIdAsync(uint id)
     {
         var response = await _storageService.GetStorageByIdAsync((int)id);
-        return response is null ? NotFound() : Ok(response);
+        return Ok(response);
     }
 
     /// <summary>
@@ -85,7 +83,7 @@ public class StoragesController : ControllerBase
     /// <returns></returns>
     [HttpDelete("{id}")]
     [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(NotFoundResult), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteStorageAsync(uint id)
     {
         var result = await _storageService.DeleteAsync((int)id);
@@ -114,10 +112,10 @@ public class StoragesController : ControllerBase
     /// </remarks>
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(GetStorageResponse), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(NotFoundResult), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateStorageAsync(uint id, [FromBody] UpdateStorageRequest request)
     {
         var result = await _storageService.UpdateStorageAsync((int)id, request);
-        return result is null ? NotFound() : Ok(result);
+        return Ok(result);
     }
 }

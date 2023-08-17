@@ -27,7 +27,7 @@ namespace EfCore.Controllers
         ///
         ///         POST
         ///         {
-        ///             "name": "electronika Category",
+        ///             "name": "electronic devices ",
         ///             "upperId": 1,
         ///             "CreateDate": "2023-10-11T12:52:47.235Z",
         ///         }
@@ -98,7 +98,7 @@ namespace EfCore.Controllers
         ///
         ///         PUT
         ///         {
-        ///             "name": "Telefon",
+        ///             "name": "electronic devices",
         ///             "UpperId": 1,
         ///             "UpdateDate": "2023-10-11T12:52:47.235Z",
         ///         }

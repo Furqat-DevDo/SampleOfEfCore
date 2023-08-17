@@ -1,5 +1,6 @@
 ﻿using EfCore.Data;
 using EfCore.Entities;
+using EfCore.Exceptions;
 using EfCore.Models.Requests;
 using EfCore.Models.Responses;
 using EfCore.Services.Interfaces;
@@ -25,6 +26,8 @@ namespace EfCore.Services
 
             var newStuff = await _context.Stuffs.AddAsync(stuff);
             await _context.SaveChangesAsync();
+
+            if(newStuff == null) throw new UnableToSaveStuffChangesException();
             return new GetStuffResponse(newStuff.Entity);
         }
 
@@ -52,13 +55,15 @@ namespace EfCore.Services
             var stuff = await _context.Stuffs
            .FirstOrDefaultAsync(s => s.Id == id);
 
-            return stuff is null ? null : new GetStuffResponse(stuff);
+            if (stuff is null) throw new StuffNotFoundExeption();
+
+            return new GetStuffResponse(stuff);
         }
 
         public async Task<GetStuffResponse?> UpdateStuffAsync(int id, UpdateStuffRequest request)
         {
             var stuff = await _context.Stuffs.FirstOrDefaultAsync(s => s.Id == id);
-            if (stuff is null) return null;
+            if (stuff is null) throw new StuffNotFoundExeption();
 
             stuff.FullName = request.FullName;
             stuff.UpdatedDate = DateTime.UtcNow;
@@ -69,7 +74,12 @@ namespace EfCore.Services
 
             _context.Stuffs.Update(stuff);
             _context.SaveChanges();
-            return new GetStuffResponse(stuff);
+
+            if(_context.SaveChanges() > 0)
+            {
+                return new GetStuffResponse(stuff);
+            }
+            throw new UnableToSaveStuffChangesException();
         }
     }
 }
