@@ -38,13 +38,11 @@ public class CompanyController : ControllerBase
     /// <response code="500">Returns when there was unable to create new company</response>
     [HttpPost]
     [ProducesResponseType(typeof(GetCompanyResponse),StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> CreateCompanyAsync(CreateCompanyRequest request)
     {
         var response = await _companyService.CreateCompanyAsync(request);
-        return response is null ?
-            new StatusCodeResult(StatusCodes.Status500InternalServerError) :
-            Ok(response);
+        return Ok(response);
     }
 
     /// <summary>
@@ -55,11 +53,11 @@ public class CompanyController : ControllerBase
     /// <response code="404">Returns null when company was not found</response>
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(GetCompanyResponse), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(NotFoundResult), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetCompanyByIdAsync(uint id)
     {
         var response = await _companyService.GetCompanyByIdAsync((int)id);
-        return response is null ? NotFound() : Ok(response);
+        return Ok(response);
     }
 
     /// <summary>
@@ -81,11 +79,11 @@ public class CompanyController : ControllerBase
     /// <response code="404">Returns false when company was not found</response>
     [HttpDelete("{id}")]
     [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(NotFoundResult),StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteCompanyAsync(uint id)
     {
         var result = await _companyService.DeleteAsync((int)id);
-        return result ? Ok(result) : NotFound();
+        return Ok(result);
     }
 
     /// <summary>
@@ -107,10 +105,10 @@ public class CompanyController : ControllerBase
     /// </remarks>
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(GetCompanyResponse), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(NotFoundResult), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateCompanyAsync(uint id, [FromBody] UpdateCompanyRequest request)
     {
         var result = await _companyService.UpdateCompanyAsync((int)id, request);
-        return result is null ? NotFound() : Ok(result);
+        return Ok(result);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using EfCore.Data;
+using EfCore.Exceptions;
 using EfCore.Mappers;
 using EfCore.Models.Requests;
 using EfCore.Models.Responses;
@@ -20,7 +21,9 @@ public class StorageService : IStorageService
         var storage = request.ToCreateStorage();
         
         var newStorage = await _shopDbContext.Storages.AddAsync(storage);
-        await _shopDbContext.SaveChangesAsync();
+
+        if (await _shopDbContext.SaveChangesAsync() <= 0)
+            throw new UnableToSaveStorageChangesException();
 
         return newStorage.Entity.ToResponseStorage();
     }
@@ -30,15 +33,20 @@ public class StorageService : IStorageService
         var storage = await _shopDbContext.Storages
             .FirstOrDefaultAsync(p => p.Id == id);
         
-        if (storage is null) return false;
+        if (storage is null) throw new StorageNotFoundException();
 
         storage.IsDeleted = true;
-        return await _shopDbContext.SaveChangesAsync() > 0;
+
+        if (await _shopDbContext.SaveChangesAsync() <= 0)
+            throw new UnableToSaveStorageChangesException();
+        
+        return true;
     }
 
     public async Task<IEnumerable<GetStorageResponse>> GetAllStoragesAsync()
     {
         var storages = await _shopDbContext.Storages.ToListAsync();
+
         return storages.Any() ?
             storages.Select(p => p.ToResponseStorage())
             : new List<GetStorageResponse>();
@@ -48,8 +56,10 @@ public class StorageService : IStorageService
     {
         var storage = await _shopDbContext.Storages
             .FirstOrDefaultAsync(s => s.Id == id);
+
+        if(storage is null) throw new StorageNotFoundException();
         
-        return storage is null ? null : storage.ToResponseStorage();
+        return storage.ToResponseStorage();
     }
 
     public async Task<GetStorageResponse?> UpdateStorageAsync(int id, UpdateStorageRequest request)
@@ -57,12 +67,15 @@ public class StorageService : IStorageService
         var storage = await _shopDbContext.Storages
             .FirstOrDefaultAsync(s => s.Id == id);
        
-        if (storage is null) return null;
+        if (storage is null) throw new StorageNotFoundException();
 
         storage.UpdateStorage(request);
 
         _shopDbContext.Storages.Update(storage);
-        _shopDbContext.SaveChanges();
+
+        if (await _shopDbContext.SaveChangesAsync() <= 0)
+            throw new UnableToSaveStorageChangesException();
+
         return storage.ToResponseStorage();
     }
 }

@@ -1,6 +1,5 @@
-﻿using EfCore.Entities;
+﻿using EfCore.Attributes;
 using EfCore.Models.Requests;
-using EfCore.Services;
 using EfCore.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +7,7 @@ namespace EfCore.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[ErrorHandlingFilter]
 public class CategorysController : ControllerBase
 {
     private readonly ICategoryService categoryService;

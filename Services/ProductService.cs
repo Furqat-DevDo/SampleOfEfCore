@@ -5,6 +5,7 @@ using EfCore.Models.Requests;
 using EfCore.Models.Responses;
 using EfCore.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography.Xml;
 
 namespace EfCore.Services;
 
@@ -23,11 +24,13 @@ public class ProductService : IProductService
         if (company == null) throw new CompanyNotFoundException();
 
         var category = _shopDbContext.Categories.FirstOrDefault(c => c.Id == request.CategoryId);
-        if (company == null) throw new CategoryNotFoundException();
+        if (category is null) throw new CategoryNotFoundException();
 
         var newProduct = await _shopDbContext.Products
             .AddAsync(product);
-        await _shopDbContext.SaveChangesAsync();
+
+        if (await _shopDbContext.SaveChangesAsync() <= 0)
+            throw new UnableToSaveProductChangesException();
 
         return newProduct.Entity.ResponseProduct();
     }
@@ -37,16 +40,20 @@ public class ProductService : IProductService
         var product = await _shopDbContext.Products            
             .FirstOrDefaultAsync(p => p.Id == id);
 
-        if (product is null) return false;
+        if (product is null) throw new ShopNotFoundException();
 
         product.IsDeleted = true;
 
-        return await _shopDbContext.SaveChangesAsync() > 0;
+        if (await _shopDbContext.SaveChangesAsync() <= 0)
+            throw new UnableToSaveProductChangesException();
+
+        return true;
     }
 
     public async Task<IEnumerable<GetProductResponse>> GetAllProductsAsync()
     {
         var products = await _shopDbContext.Products.ToListAsync();
+
         return products.Any() ?
             products.Select(p => p.ResponseProduct())
             : new List<GetProductResponse>();
@@ -70,7 +77,8 @@ public class ProductService : IProductService
         product.UpdateProduct(request);
 
         _shopDbContext.Products.Update(product);
-        _shopDbContext.SaveChanges();
+        if (await _shopDbContext.SaveChangesAsync() <= 0)
+            throw new UnableToSaveProductChangesException();
         return product.ResponseProduct();
     }
 }

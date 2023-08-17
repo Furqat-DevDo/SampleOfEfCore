@@ -11,6 +11,7 @@ public static class StorageMapper
         storage.Name = request.Name;
         storage.Adrress = request.Adrress;
         storage.ProductIds = request.ProductIds;
+        storage.UpdatedDate = DateTime.UtcNow;
     }
 
     public static GetStorageResponse ToResponseStorage(this Storage storage)
