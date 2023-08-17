@@ -7,7 +7,7 @@ namespace EfCore.Models.Requests
         [StringValidator(MinLength = 5,MaxLength =15)] 
         public string Name { get; set; } = string.Empty;
         public int? UpperId { get; set; }
-        public Guid? ImageID { get; set; }
-       
+        public DateTime CreatTime { get; set; }
+
     }
 }

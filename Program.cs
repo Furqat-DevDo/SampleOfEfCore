@@ -48,6 +48,7 @@ builder.Services.AddMyServices();
 var app = builder.Build();
 
 app.AddMySettings(app);
+app.UseCategoryErrorHandlingMiddleware();
 
 app.UseSerilogRequestLogging();
 

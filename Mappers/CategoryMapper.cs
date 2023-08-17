@@ -2,35 +2,30 @@
 using EfCore.Models.Requests;
 using EfCore.Models.Responses;
 
-namespace EfCore.Mappers;
-
 public static class CategoryMapper
 {
-    public static void UpdateCategory(this Category category, UpdateCategoryRequest request)
-    {
-        category.Name = request.Name;
-        category.UpperId = request.UpperId;
-        category.ImageId = request.ImageID;
-        category.UpdatedDate = DateTime.UtcNow;
-    }
-
-    public static GetCategoryResponse ResponseCategory(this Category entitie)
+    public static GetCategoryResponse ResponseCategory(this Category category)
     => new GetCategoryResponse
     {
-            Id = entitie.Id,
-            Name = entitie.Name,
-            UpperId = entitie.UpperId,
-            ImageId = entitie.ImageId,
-            IsActive = entitie.IsDeleted,
-            CreatedDate = entitie.CreatedDate,
-            UpdatedDate = entitie.UpdatedDate,
+            Id = category.Id,
+            Name = category.Name,
+            UpperId = category.UpperId,
+            CreatedDate = category.CreatedDate,
+            UpdatedDate = category.UpdatedDate
     };
 
-    public static Category CreateCategory(this CreateCategoryRequest entitie)
-    => new Category
+    public static Category CreateCategory(this CreateCategoryRequest category)
+   => new Category
+   {
+
+       UpperId = category.UpperId,
+       Name = category.Name,
+
+   };
+
+    public static void UpdateCategory(this Category category, UpdateCategoryRequest request)
     {
-            Name = entitie.Name,
-            UpperId = entitie.UpperId,
-            ImageId = entitie.ImageID,
-    };
+            category.Name = request.Name;
+            category.UpperId = request.UpperId;
+    }
 }
