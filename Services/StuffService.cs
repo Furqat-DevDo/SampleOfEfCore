@@ -36,7 +36,7 @@ namespace EfCore.Services
             var stuff = await _context
                 .Stuffs
                 .FirstOrDefaultAsync(s => s.Id == id);
-            if (stuff is null) return false;
+            if (stuff is null) throw new StuffNotFoundExeption();
 
             stuff.IsDeleted = true;
             return await _context.SaveChangesAsync() > 0;

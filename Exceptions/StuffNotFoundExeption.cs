@@ -1,24 +1,23 @@
 ﻿using System.Runtime.Serialization;
 
-namespace EfCore.Exceptions
+namespace EfCore.Exceptions;
+
+[Serializable]
+internal class StuffNotFoundExeption : BaseNotFoundException
 {
-    [Serializable]
-    internal class StuffNotFoundExeption : BaseNotFoundException
+    public StuffNotFoundExeption()
     {
-        public StuffNotFoundExeption()
-        {
-        }
+    }
 
-        public StuffNotFoundExeption(string? message) : base(message)
-        {
-        }
+    public StuffNotFoundExeption(string? message) : base(message)
+    {
+    }
 
-        public StuffNotFoundExeption(string? message, Exception? innerException) : base(message, innerException)
-        {
-        }
+    public StuffNotFoundExeption(string? message, Exception? innerException) : base(message, innerException)
+    {
+    }
 
-        protected StuffNotFoundExeption(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
+    protected StuffNotFoundExeption(SerializationInfo info, StreamingContext context) : base(info, context)
+    {
     }
 }
