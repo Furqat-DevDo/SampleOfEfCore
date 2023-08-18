@@ -1,4 +1,6 @@
-﻿namespace EfCore.Middlewares;
+﻿using System.Diagnostics;
+
+namespace EfCore.Middlewares;
 
 public class HttpLoggerMiddleware : IMiddleware
 {
@@ -9,10 +11,14 @@ public class HttpLoggerMiddleware : IMiddleware
     }
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
-        _logger.LogInformation($"{context.Request.Path} dan request ketti");
-
+        var stopwatch = new Stopwatch();
+        stopwatch.Start();
+    
+        _logger.LogInformation("Request received. {RequestPath}", context.Request.Path);
+    
         await next(context);
-
-        _logger.LogInformation($" Va unga {context.Response.StatusCode} degan status code qaytdi.");
+    
+        stopwatch.Stop();
+        _logger.LogInformation("Request processed in {ElapsedMilliseconds}ms. {StatusCode}", stopwatch.ElapsedMilliseconds, context.Response.StatusCode);
     }
 }
