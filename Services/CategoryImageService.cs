@@ -21,14 +21,14 @@ public class CategoryImageService : ICategoryImageService
     {
         var (filePath, fileId) = await FileHelper.SaveFormFileAsync(request.CategoryFile);
 
-        if(filePath is null)
-            throw new UnableToCreateCategoryImageException(nameof(filePath));
+        _ = filePath ?? throw new UnableToCreateCategoryImageException(nameof(filePath));
+            
 
         var newCategoryFile = request.ToEntity(id, filePath, fileId);
 
         var result = await _shopContext.CategoryImages.AddAsync(newCategoryFile);
 
-        if(await _shopContext.SaveChangesAsync() > 0)
+        if(await _shopContext.SaveChangesAsync() <= 0)
             throw new UnableToSaveImageChangesExeption();
 
         return result.Entity.ToResponse();
@@ -37,11 +37,12 @@ public class CategoryImageService : ICategoryImageService
     public async Task<IEnumerable<GetCategoryImageResponse>> GetCategoryFilesAsync(int id)
     {
         var images = await _shopContext.CategoryImages
+            .AsNoTracking()
             .Where(s => s.CategoryId == id)
             .ToListAsync();
-
+    
         return images.Any() ? images.Select(i => i.ToResponse()) :
-            new List<GetCategoryImageResponse>();
+            Enumerable.Empty<GetCategoryImageResponse>();
     }
 
     public async Task<(byte[] bytes, string[] fileInfo)> ReadFileFromPathAsync(string filePath)
@@ -54,23 +55,18 @@ public class CategoryImageService : ICategoryImageService
         return new(bytes, fileInfo);
     }
 
+    private static readonly Dictionary<string, string> _contentTypes = new Dictionary<string, string>
+    {
+        { ".jpg", "image/jpeg" },
+        { ".jpeg", "image/jpeg" },
+        { ".png", "image/png" },
+        { ".gif", "image/gif" },
+        { ".pdf", "application/pdf" }
+    };
+    
     private string GetContentType(string fileExtension)
     {
-        switch (fileExtension.ToLower())
-        {
-            case ".jpg":
-            case ".jpeg":
-                return "image/jpeg";
-            case ".png":
-                return "image/png";
-            case ".gif":
-                return "image/gif";
-            case ".pdf":
-                return "application/pdf";
-
-            default:
-                return "application/octet-stream";
-        }
+        return _contentTypes.TryGetValue(fileExtension.ToLower(), out var contentType) ? contentType : "application/octet-stream";
     }
 
     public async Task<bool> DeleteCategoryImage(Guid fileId)
