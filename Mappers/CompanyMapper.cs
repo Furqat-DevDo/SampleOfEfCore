@@ -37,10 +37,10 @@ public static class CompanyMapper
     }
 
     public static Company CreateCompany(this CreateCompanyRequest company)
-    => new Company
-    {
-        Name = company.Name,
-        ClosedDate = company.ClosedDate,
-        UpperId = company.UpperId
-    };
+        => new Company
+        {
+            Name = company.Name,
+            ClosedDate = company.ClosedDate,
+            UpperId = company.UpperId
+        };
 }

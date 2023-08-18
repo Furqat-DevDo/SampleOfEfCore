@@ -16,24 +16,24 @@ public static class StuffMapper
     }
 
     public static GetStuffResponse ResponseStuff(this Stuff entity)
-    => new GetStuffResponse
-    {
+        => new GetStuffResponse
+        {
 
-            Id = entity.Id,
+                Id = entity.Id,
+                FullName = entity.FullName,
+                CreatedDate = entity.CreatedDate,
+                UpdatedDate = entity.UpdatedDate,
+                Role = entity.Role,
+                PersonalData = entity.PersonalData,
+                Salary = entity.Salary,
+        };
+
+    public static Stuff CreateStuff(this CreateStuffRequest entity)
+        => new Stuff
+        {
             FullName = entity.FullName,
-            CreatedDate = entity.CreatedDate,
-            UpdatedDate = entity.UpdatedDate,
             Role = entity.Role,
             PersonalData = entity.PersonalData,
             Salary = entity.Salary,
-    };
-
-    public static Stuff CreateStuff(this CreateStuffRequest entity)
-    => new Stuff
-    {
-        FullName = entity.FullName,
-        Role = entity.Role,
-        PersonalData = entity.PersonalData,
-        Salary = entity.Salary,
-    };
+        };
 }

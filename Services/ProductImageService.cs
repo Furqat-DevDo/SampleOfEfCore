@@ -26,21 +26,21 @@ public class ProductImageService : IProductImageService
 
         var result = await _shopContext.ProductImages.AddAsync(newProductFile); 
 
-        if(await _shopContext.SaveChangesAsync() > 0) 
-        {
-            return result.Entity.ToResponse();
-        }
-        throw new UnableToSaveImageChangesExeption();
+        if(await _shopContext.SaveChangesAsync() <= 0) 
+            throw new UnableToSaveImageChangesExeption();
+
+        return result.Entity.ToResponse(); 
     }
 
     public async Task<IEnumerable<GetProductImageResponse>> GetProductFilesAsync(int id)
     {
         var images = await _shopContext.ProductImages
             .Where(s => s.ProductId == id)
+            .AsNoTracking()
             .ToListAsync();
 
         return images.Any() ? images.Select(i => i.ToResponse()) :
-            new List<GetProductImageResponse>();
+            Enumerable.Empty<GetProductImageResponse>();
     }
 
     public async Task<(byte[] bytes, string[] fileInfo)> ReadFileFromPathAsync(string filePath)
@@ -53,23 +53,18 @@ public class ProductImageService : IProductImageService
         return new(bytes, fileInfo);
     }
 
+    private static readonly Dictionary<string, string> _contentTypes = new Dictionary<string, string>
+    {
+        { ".jpg", "image/jpeg" },
+        { ".jpeg", "image/jpeg" },
+        { ".png", "image/png" },
+        { ".gif", "image/gif" },
+        { ".pdf", "application/pdf" }
+    };
+
     private string GetContentType(string fileExtension)
     {
-        switch (fileExtension.ToLower())
-        {
-            case ".jpg":
-            case ".jpeg":
-                return "image/jpeg";
-            case ".png":
-                return "image/png";
-            case ".gif":
-                return "image/gif";
-            case ".pdf":
-                return "application/pdf";
-
-            default:
-                return "application/octet-stream";
-        }
+        return _contentTypes.TryGetValue(fileExtension.ToLower(), out var contentType) ? contentType : "application/octet-stream";
     }
 
     public async Task<bool> DeleteProductImage(Guid fileId)
