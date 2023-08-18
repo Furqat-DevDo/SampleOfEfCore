@@ -19,13 +19,7 @@ public class PriceValidator : ValidationAttribute
 
     public override bool IsValid(object? value)
     {
-        //if (value == null || value.GetType() != typeof(decimal))
-        //{
-        //    return false;
-        //}
-
         if (value is decimal price &&  price >  0 ) return true;
-
         return false;
     }
 

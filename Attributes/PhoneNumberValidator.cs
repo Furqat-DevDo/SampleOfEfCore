@@ -5,21 +5,18 @@ namespace EfCore.Attributes;
 
 public class PhoneNumberValidator : ValidationAttribute
 {
-    public PhoneNumberValidator()
-    {
-        
-    }
+    private static readonly Regex regex = 
+    new Regex(@"^\+?\d{1,4}?[-\s]?\(?\d{1,4}?\)?[-\s]?\d{1,4}[-\s]?\d{1,6}[-\s]?\d{1,6}$",
+     RegexOptions.Compiled);
+    public PhoneNumberValidator(){}
 
     public override bool IsValid(object? value)
     {
         if (value is null) 
             return false;
 
-        string pattern = @"^\+?\d{1,4}?[-\s]?\(?\d{1,4}?\)?[-\s]?\d{1,4}[-\s]?\d{1,6}[-\s]?\d{1,6}$";
-        Regex regex = new Regex(pattern);
         return regex.IsMatch((string)value);
     }
-
     public override string FormatErrorMessage(string message = "")
     {
         return $"The phone number {message} is not valid";
