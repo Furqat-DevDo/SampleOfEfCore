@@ -29,7 +29,7 @@ public class CategoryImagesController : ControllerBase
     /// <response code="500">Returns when there was unable to add new image</response>
     [HttpPost]
     [ProducesResponseType(typeof(GetCategoryImageResponse), StatusCodes.Status201Created)]
-    [ProducesResponseType(typeof(GetCategoryImageResponse), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(GetCategoryImageResponse), StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> CreateAsync(int id, [FromForm] CreateCategoryImageRequest request)
     {
@@ -74,7 +74,7 @@ public class CategoryImagesController : ControllerBase
     /// <response code="404">Returns when there was unable to get image</response>
     [HttpGet("download")]
     [ProducesResponseType(typeof(GetCategoryImageResponse), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(GetCategoryImageResponse), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetFileFromPathDownload(int id, string filePath)
     {
         var image = await _categoryService.GetCategoryByIdAsync(id);
@@ -97,7 +97,7 @@ public class CategoryImagesController : ControllerBase
     /// <response code="404">Returns when there was unable to get image</response>  
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<GetCategoryImageResponse>), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(GetCategoryImageResponse), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GeCategoriesImages(int id)
     {
         var image = await _categoryService.GetCategoryByIdAsync(id);
@@ -116,7 +116,7 @@ public class CategoryImagesController : ControllerBase
     /// <response code="404">Returns false when image was not found</response>
     [HttpDelete("{fileId}")]
     [ProducesResponseType(typeof(GetCategoryImageResponse), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(GetCategoryImageResponse), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteCategoryImage(int id, Guid fileId)
     {
         await _categoryService.GetCategoryByIdAsync(id);
