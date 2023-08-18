@@ -21,8 +21,7 @@ public class CategoryImageService : ICategoryImageService
     {
         var (filePath, fileId) = await FileHelper.SaveFormFileAsync(request.CategoryFile);
 
-        _ = filePath ?? throw new UnableToCreateCategoryImageException(nameof(filePath));
-            
+        _ = filePath ?? throw new UnableToCreateCategoryImageException(nameof(filePath));          
 
         var newCategoryFile = request.ToEntity(id, filePath, fileId);
 
@@ -71,11 +70,7 @@ public class CategoryImageService : ICategoryImageService
 
     public async Task<bool> DeleteCategoryImage(Guid fileId)
     {
-        var result = await _shopContext.CategoryImages.FirstOrDefaultAsync(x => x.Id == fileId);
-
-        if (result is null)
-            throw new CategoryImageNotFoundExeption();
-
+        var result = await _shopContext.CategoryImages.FirstOrDefaultAsync(x => x.Id == fileId) ?? throw new CategoryImageNotFoundExeption();
         result.IsDeleted = true;
         return await _shopContext.SaveChangesAsync() > 0;
     }

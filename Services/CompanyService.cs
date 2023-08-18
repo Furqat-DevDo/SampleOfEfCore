@@ -27,29 +27,20 @@ public class CompanyService : ICompanyService
             .AddAsync(company);
 
         if (await _shopDbContext.SaveChangesAsync() <= 0)        
-           throw new UnableToSaveCompanyChangesException();
+                throw new UnableToSaveCompanyChangesException();
         
-            
-
         return newCompany.Entity.ResponseCompany();
     }
 
 
     public async Task<bool> DeleteAsync(int id)
     {
-        var company = await _shopDbContext.Companies
-            .FirstOrDefaultAsync(p => p.Id == id);
-
-        if (company is null)
-        {
-            _logger.LogError($"Company with id : {id} does not exist !!!");
-            throw new CompanyNotFoundException();
-        }
+        var company = await _shopDbContext.Companies.FirstOrDefaultAsync(p => p.Id == id) ?? throw new CompanyNotFoundException();
 
         company.IsDeleted = true;
 
         if (await _shopDbContext.SaveChangesAsync() <= 0)
-            throw new UnableToSaveCompanyChangesException();
+                throw new UnableToSaveCompanyChangesException();
 
         return true;
     }
@@ -58,11 +49,12 @@ public class CompanyService : ICompanyService
     {
         var companies = await _shopDbContext
             .Companies
+            .AsNoTracking()
             .Include(sh => sh.Branches)
             .ToListAsync();
 
         return companies.Any() ? companies.Select(c => c.ResponseCompany())
-            : new List<GetCompanyResponse>();
+            : Enumerable.Empty<GetCompanyResponse>();
     }
 
     public async Task<GetCompanyResponse?> GetCompanyByIdAsync(int id)
@@ -70,17 +62,17 @@ public class CompanyService : ICompanyService
         var company = await _shopDbContext
             .Companies
             .Include (sh => sh.Branches)
-            .FirstOrDefaultAsync(p => p.Id == id);
+            .FirstOrDefaultAsync(p => p.Id == id) 
+            ?? throw new CompanyNotFoundException();
 
-        return company is null ? throw new CompanyNotFoundException() : company.ResponseCompany();
+        return company.ResponseCompany();
     }
 
     public async Task<GetCompanyResponse?> UpdateCompanyAsync(int id, UpdateCompanyRequest request)
     {
-        var company = await _shopDbContext.Companies.FirstOrDefaultAsync(p => p.Id == id);
-
-        if (company is null)
-            throw new CompanyNotFoundException();
+        var company = await _shopDbContext.Companies
+        .FirstOrDefaultAsync(p => p.Id == id)
+        ?? throw new CompanyNotFoundException();
 
         company.UpdateCompany(request);
 
