@@ -3,7 +3,7 @@
 namespace EfCore.Exceptions;
 
 [Serializable]
-internal class CategoryImageNotFoundExeption : Exception
+internal class CategoryImageNotFoundExeption : BaseNotFoundException
 {
     public CategoryImageNotFoundExeption()
     {

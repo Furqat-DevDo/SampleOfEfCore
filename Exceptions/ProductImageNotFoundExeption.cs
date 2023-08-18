@@ -3,7 +3,7 @@
 namespace EfCore.Exceptions;
 
 [Serializable]
-internal class ProductImageNotFoundExeption : Exception
+internal class ProductImageNotFoundExeption : BaseNotFoundException
 {
     public ProductImageNotFoundExeption()
     {

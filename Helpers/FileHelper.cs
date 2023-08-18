@@ -11,8 +11,7 @@ public static  class FileHelper
             var logger = _logger.CreateLogger(typeof(FormFile));
             logger.LogError($"Could not read the file for saving");
             throw new ArgumentNullException(nameof(formFile));
-        }
-            
+        }            
 
         if (!Directory.Exists(destination))
         {
@@ -53,7 +52,6 @@ public static  class FileHelper
             throw new FileLoadException("An error occurred: " + ex.Message);
         }
 
-        return byteArray;
-        
+        return byteArray;        
     }
 }
