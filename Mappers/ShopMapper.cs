@@ -16,23 +16,23 @@ public static class ShopMapper
     }
 
     public static GetShopResponse ResponseShop(this Shop shop)
-    => new GetShopResponse
-    {
-        Id = shop.Id,
-        Name = shop.Name,
-        Adrress = shop.Adrress,
-        Phone = shop.Phone,
-        UpperId = shop.UpperId,
-        CreatedDate = shop.CreatedDate,
-        UpdatedDate = shop.UpdatedDate
-    };
+        => new GetShopResponse
+        {
+            Id = shop.Id,
+            Name = shop.Name,
+            Adrress = shop.Adrress,
+            Phone = shop.Phone,
+            UpperId = shop.UpperId,
+            CreatedDate = shop.CreatedDate,
+            UpdatedDate = shop.UpdatedDate
+        };
 
     public static Shop CreateShop(this CreateShopRequest shop)
-    => new Shop
-    {
-        Name = shop.Name,
-        Adrress = shop.Adrress,
-        Phone = shop.Phone,
-        UpperId = shop.UpperId
-    };
+        => new Shop
+        {
+            Name = shop.Name,
+            Adrress = shop.Adrress,
+            Phone = shop.Phone,
+            UpperId = shop.UpperId
+        };
 }

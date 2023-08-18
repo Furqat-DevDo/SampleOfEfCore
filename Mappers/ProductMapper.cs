@@ -18,27 +18,27 @@ public static class ProductMapper
     }
 
     public static GetProductResponse ResponseProduct(this Product product)
-    => new GetProductResponse
-    {
-        Id = product.Id,
-        Name = product.Name,
-        ExpireDate = product.ExpireDate,
-        ManufacturedDate = product.ManufacturedDate,
-        CategoryId = product.CategoryId,
-        CompanyId = product.CompanyId,
-        Price = product.Price,
-        CreatedDate = product.CreatedDate,
-        UpdatedDate = product.UpdatedDate
-    };
+        => new GetProductResponse
+        {
+            Id = product.Id,
+            Name = product.Name,
+            ExpireDate = product.ExpireDate,
+            ManufacturedDate = product.ManufacturedDate,
+            CategoryId = product.CategoryId,
+            CompanyId = product.CompanyId,
+            Price = product.Price,
+            CreatedDate = product.CreatedDate,
+            UpdatedDate = product.UpdatedDate
+        };
 
     public static Product CreateProduct(this CreateProductRequest product)
-    => new Product
-    {
-        Name = product.Name,
-        ExpireDate = product.ExpireDate,
-        ManufacturedDate = product.ManufacturedDate,
-        CategoryId = product.CategoryId,
-        CompanyId = product.CompanyId,
-        Price = product.Price
-    };
+        => new Product
+        {
+            Name = product.Name,
+            ExpireDate = product.ExpireDate,
+            ManufacturedDate = product.ManufacturedDate,
+            CategoryId = product.CategoryId,
+            CompanyId = product.CompanyId,
+            Price = product.Price
+        };
 }

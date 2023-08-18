@@ -1,6 +1,4 @@
-﻿using EfCore.Entities;
-
-namespace EfCore.Models.Responses;
+﻿namespace EfCore.Models.Responses;
 
 public class GetShopResponse
 {

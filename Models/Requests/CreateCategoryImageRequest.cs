@@ -1,10 +1,9 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace EfCore.Models.Requests
+namespace EfCore.Models.Requests;
+
+public class CreateCategoryImageRequest
 {
-    public class CreateCategoryImageRequest
-    {
-        [NotNull]
-        public required IFormFile CategoryFile { get; set; }
-    }
+    [NotNull]
+    public required IFormFile CategoryFile { get; set; }
 }

@@ -15,21 +15,21 @@ public static class StorageMapper
     }
 
     public static GetStorageResponse ToResponseStorage(this Storage storage)
-   => new GetStorageResponse
-   {
-       Name = storage.Name,
-       Adress = storage.Adrress,
-       ProductIds = storage.ProductIds,
-       Id = storage.Id,
-       CreatedDate = storage.CreatedDate,
-       UpdatedDate = storage.UpdatedDate,
-   };
+        => new GetStorageResponse
+        {
+            Name = storage.Name,
+            Adress = storage.Adrress,
+            ProductIds = storage.ProductIds,
+            Id = storage.Id,
+            CreatedDate = storage.CreatedDate,
+            UpdatedDate = storage.UpdatedDate,
+        };
 
     public static Storage ToCreateStorage(this CreateStorageRequest storage)
-    => new Storage
-    {
-       Name = storage.Name,
-       Adrress = storage.Adrress,
-       ProductIds = storage.ProductIds,
-    };
+        => new Storage
+        {
+        Name = storage.Name,
+        Adrress = storage.Adrress,
+        ProductIds = storage.ProductIds,
+        };
 }

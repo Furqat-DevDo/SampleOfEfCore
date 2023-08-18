@@ -39,7 +39,7 @@ public class ProductImagesController : ControllerBase
     [ProducesResponseType(typeof(GetProductImageResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(typeof(NotFoundResult), StatusCodes.Status404NotFound)]
-    [ProducesResponseType(typeof(ModelStateDictionary), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateAsync(int id, [FromForm] CreateProductImageRequest request)
     {
         var product = await _productService.GetProductByIdAsync(id);

@@ -5,7 +5,6 @@ using EfCore.Mappers;
 using EfCore.Models.Requests;
 using EfCore.Models.Responses;
 using EfCore.Services.Interfaces;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
 namespace EfCore.Services;

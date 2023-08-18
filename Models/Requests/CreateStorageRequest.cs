@@ -1,5 +1,4 @@
 ﻿using EfCore.Attributes;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EfCore.Models.Requests;
 

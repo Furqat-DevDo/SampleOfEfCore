@@ -10,7 +10,5 @@ public class CreateCompanyRequest
 
     [DataType(DataType.Date)]
     public DateTime? ClosedDate { get; set; }
-
-
     public int? UpperId { get; set; }
 }
