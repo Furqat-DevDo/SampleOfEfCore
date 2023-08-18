@@ -26,8 +26,15 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 builder.Logging.ClearProviders();
-builder.Host.UseSerilog();
-builder.Logging.AddSerilog();
+
+var logger = new LoggerConfiguration()
+        .ReadFrom.Configuration(builder.Configuration)
+        .Enrich.FromLogContext()
+        .CreateLogger();
+
+builder.Host.UseSerilog(logger);
+
+builder.Logging.AddSerilog(logger);
 
 var connectionString = builder.Configuration.GetConnectionString("ShopDb");
 
@@ -40,9 +47,9 @@ builder.Services.AddMyServices();
 
 var app = builder.Build();
 
-
-
 app.AddMySettings(app);
+
+app.UseSerilogRequestLogging();
 
 app.MapControllers();
 

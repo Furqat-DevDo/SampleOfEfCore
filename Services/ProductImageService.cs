@@ -77,7 +77,10 @@ public class ProductImageService : IProductImageService
         var result = await _shopContext.ProductImages.FirstOrDefaultAsync(x => x.Id == fileId);
         
         if (result is null)
+        {
             throw new ProductImageNotFoundExeption();
+        }
+            
         
         result.IsDeleted = true;
         return await _shopContext.SaveChangesAsync() > 0;

@@ -1,5 +1,6 @@
 ﻿using EfCore.Data;
 using EfCore.Entities;
+using EfCore.Exceptions;
 using EfCore.Models.Requests;
 using EfCore.Models.Responses;
 using EfCore.Services.Interfaces;
@@ -17,7 +18,6 @@ namespace EfCore.Services
 
         public async Task<GetCategoryResponse> CreateCategoryAsync(CreateCategoryRequest categoryRequest)
         {
-
             var category = new Category
             {
                 Name = categoryRequest.Name,
@@ -26,15 +26,13 @@ namespace EfCore.Services
             };
             var newCategory = await _context.Categories.AddAsync(category);
             await _context.SaveChangesAsync();
-            return new GetCategoryResponse(newCategory.Entity);
-
-
+            return new GetCategoryResponse();
         }
 
         public async Task<bool> DeletedCategoryAsync(int id)
         {
             var category=await _context.Categories.FirstOrDefaultAsync(x=>x.Id==id);
-            if (category == null) return false;
+            if (category == null) throw new CategoryNotFoundException();
 
             category.IsDeleted = true;
             return await _context.SaveChangesAsync() > 0;
@@ -43,28 +41,31 @@ namespace EfCore.Services
         public async Task<List<GetCategoryResponse>> GetAllCategoriesAsync()
         {
             var categories = await _context.Categories.ToListAsync();
-            return categories.Select(x => new GetCategoryResponse(x)).ToList();
+            return categories.Select(x => new GetCategoryResponse()).ToList();
         }
 
         public async Task<GetCategoryResponse?> GetCategoryByIdAsync(int id)
         {
             var category=await _context.Categories.FirstOrDefaultAsync(x => x.Id == id);
-           
-            return category is null ? null : new GetCategoryResponse(category);
 
+            if (category is null)
+            {
+                throw new CategoryNotFoundException();
+            }
+                return new GetCategoryResponse();
         }
 
         public async Task<GetCategoryResponse?> UpdateCategoryAsync(int id, UpdateCategoryRequest update_request)
         {
             var category = await _context.Categories.FirstOrDefaultAsync(x => x.Id == id);
-            if (category == null) return null;
+            if (category == null) throw new CategoryNotFoundException();
 
             category.Name = update_request.Name;
             category.UpperId = update_request.UpperId;
 
             _context.Categories.Update(category);
             await _context.SaveChangesAsync();
-            return new GetCategoryResponse(category);
+            return new GetCategoryResponse();
 
         }
     }

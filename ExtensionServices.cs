@@ -19,6 +19,7 @@ public static class ExtensionServices
         services.AddScoped<ICompanyService, CompanyService>();
         
         services.AddTransient<GlobalExceptionHandlingMiddleWare> ();
+        services.AddTransient<HttpLogger>();
         return services;
     }
 
@@ -39,6 +40,16 @@ public static class ExtensionServices
                 options.RoutePrefix = string.Empty;
             });
         }
+
+        app.UseCors(options =>
+        {
+            options.AllowAnyOrigin();
+            options.AllowAnyHeader();
+            options.AllowAnyMethod();
+        });
+
+        app.UseHttpsRedirection();
+        app.UseMiddleware<HttpLogger>();
 
         return app;
     }

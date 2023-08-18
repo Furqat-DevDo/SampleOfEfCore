@@ -26,7 +26,7 @@ public class ShopDbContext : DbContext
     {
         base.OnConfiguring(optionsBuilder);
         optionsBuilder.EnableSensitiveDataLogging(true);
-        optionsBuilder.LogTo(s =>Console.WriteLine(s));
+        //optionsBuilder.LogTo(s =>Console.WriteLine(s));
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
