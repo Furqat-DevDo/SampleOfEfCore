@@ -11,7 +11,7 @@ namespace EfCore.Services;
 public class CompanyService : ICompanyService
 {
     private readonly ShopDbContext _shopDbContext;
-    private ILogger<CompanyService> _logger;
+    private readonly ILogger<CompanyService> _logger;
 
     public CompanyService(ShopDbContext shopDbContext, ILogger<CompanyService> logger)
     {
