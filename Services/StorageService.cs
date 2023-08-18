@@ -10,10 +10,12 @@ namespace EfCore.Services;
 
 public class StorageService : IStorageService
 {
+    private ILogger<StorageService> _logger;
     private readonly ShopDbContext _shopDbContext;
-    public StorageService(ShopDbContext shopDbContext)
+    public StorageService(ShopDbContext shopDbContext, ILogger<StorageService> logger)
     {
         _shopDbContext = shopDbContext;
+        _logger = logger;
     }
 
     public async Task<GetStorageResponse> CreateStorageAsync(CreateStorageRequest request)
@@ -23,8 +25,11 @@ public class StorageService : IStorageService
         var newStorage = await _shopDbContext.Storages.AddAsync(storage);
 
         if (await _shopDbContext.SaveChangesAsync() <= 0)
+        {
+            _logger.LogError($"storage was not created");
             throw new UnableToSaveStorageChangesException();
-
+        }
+            
         return newStorage.Entity.ToResponseStorage();
     }
 
@@ -33,7 +38,11 @@ public class StorageService : IStorageService
         var storage = await _shopDbContext.Storages
             .FirstOrDefaultAsync(p => p.Id == id);
         
-        if (storage is null) throw new StorageNotFoundException();
+        if (storage is null)
+        {
+            _logger.LogError($"Unable to delete storage");
+            throw new StorageNotFoundException();
+        }
 
         storage.IsDeleted = true;
 
@@ -57,7 +66,11 @@ public class StorageService : IStorageService
         var storage = await _shopDbContext.Storages
             .FirstOrDefaultAsync(s => s.Id == id);
 
-        if(storage is null) throw new StorageNotFoundException();
+        if(storage is null)
+        {
+            _logger.LogError($"this {id} does not exist");
+            throw new StorageNotFoundException();
+        }
         
         return storage.ToResponseStorage();
     }
@@ -66,8 +79,12 @@ public class StorageService : IStorageService
     {
         var storage = await _shopDbContext.Storages
             .FirstOrDefaultAsync(s => s.Id == id);
-       
-        if (storage is null) throw new StorageNotFoundException();
+
+        if (storage is null)
+        {
+            _logger.LogError($"this {id} does not exist");
+            throw new StorageNotFoundException();
+        }
 
         storage.UpdateStorage(request);
 

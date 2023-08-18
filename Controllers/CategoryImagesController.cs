@@ -33,7 +33,7 @@ public class CategoryImagesController : ControllerBase
     [ProducesResponseType(typeof(GetCategoryImageResponse), StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> CreateAsync(int id, [FromForm] CreateCategoryImageRequest request)
     {
-        var category = await _categoryService.GetCategoryByIdAsync(id);
+        await _categoryService.GetCategoryByIdAsync(id);
 
         var result = await _categoryImageService.CreateAsync(id, request);
         var routValue = new { id = result.CategoryId };
@@ -49,7 +49,7 @@ public class CategoryImagesController : ControllerBase
     /// <response code="404">Returns when there was unable to get image</response>
     [HttpGet("direct")]
     [ProducesResponseType(typeof(GetCategoryImageResponse), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(GetCategoryImageResponse), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetFileFromPath(int id, string filePath)
     {
 
@@ -62,7 +62,7 @@ public class CategoryImagesController : ControllerBase
             return NotFound("File not found !!!");
         }
 
-        return File(searchFileResult.Item1, searchFileResult.fileInfo[0]);
+        return Ok(File(searchFileResult.Item1, searchFileResult.fileInfo[0]));
     }
 
     /// <summary>
@@ -86,7 +86,7 @@ public class CategoryImagesController : ControllerBase
             return NotFound("File not found !!!");
         }
 
-        return File(searchFileResult.Item1, "application/octet-stream", searchFileResult.fileInfo[1]);
+        return Ok(File(searchFileResult.Item1, "application/octet-stream", searchFileResult.fileInfo[1]));
     }
 
     /// <summary>
@@ -119,14 +119,11 @@ public class CategoryImagesController : ControllerBase
     [ProducesResponseType(typeof(GetCategoryImageResponse), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteCategoryImage(int id, Guid fileId)
     {
-        var image = await _categoryService.GetCategoryByIdAsync(id);
-
-        if (image is null)
-            return NotFound("Image not found");
+        await _categoryService.GetCategoryByIdAsync(id);
 
         var result = await _categoryImageService.DeleteCategoryImage(fileId);
 
-        return result ? Ok(result) : NotFound(result);
+        return Ok(result);
     }
 
 }       

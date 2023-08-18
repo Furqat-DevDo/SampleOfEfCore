@@ -1,0 +1,274 @@
+2023-08-18 04:19:10.263 -08:00 [Information] [EfCore.Middlewares.HttpLogger] [] /api/categorys/1/categoryimages dan request ketti
+2023-08-18 04:19:11.477 -08:00 [Information] [EfCore.Middlewares.HttpLogger] []  Va unga 400 degan status code qaytdi.
+2023-08-18 04:20:47.495 -08:00 [Information] [EfCore.Middlewares.HttpLogger] [] /api/categorys/1/categoryimages dan request ketti
+2023-08-18 04:22:11.852 -08:00 [Information] [EfCore.Middlewares.HttpLogger] [] /api/categorys/1/categoryimages dan request ketti
+2023-08-18 04:22:12.045 -08:00 [Information] [EfCore.Middlewares.HttpLogger] []  Va unga 200 degan status code qaytdi.
+2023-08-18 04:22:42.453 -08:00 [Information] [EfCore.Middlewares.HttpLogger] [] /api/categorys/2/categoryimages dan request ketti
+2023-08-18 04:22:42.485 -08:00 [Information] [EfCore.Middlewares.HttpLogger] []  Va unga 400 degan status code qaytdi.
+2023-08-18 04:25:56.437 -08:00 [Information] [EfCore.Middlewares.HttpLogger] [] /api/categorys/1/categoryimages dan request ketti
+2023-08-18 04:25:58.673 -08:00 [Information] [EfCore.Middlewares.HttpLogger] []  Va unga 200 degan status code qaytdi.
+2023-08-18 04:28:13.270 -08:00 [Information] [EfCore.Middlewares.HttpLogger] [] /api/categorys/1/categoryimages dan request ketti
+2023-08-18 04:28:13.356 -08:00 [Information] [EfCore.Middlewares.HttpLogger] []  Va unga 200 degan status code qaytdi.
+2023-08-18 04:28:49.816 -08:00 [Information] [EfCore.Middlewares.HttpLogger] [] /api/categorys/1/categoryimages/8cfaf7b3-161c-4587-b18a-21619ba66854 dan request ketti
+2023-08-18 04:28:50.155 -08:00 [Information] [EfCore.Middlewares.HttpLogger] []  Va unga 200 degan status code qaytdi.
+2023-08-18 04:28:56.139 -08:00 [Information] [EfCore.Middlewares.HttpLogger] [] /api/categorys/1/categoryimages/8cfaf7b3-161c-4587-b18a-21619ba66854 dan request ketti
+2023-08-18 04:28:56.155 -08:00 [Information] [EfCore.Services.CategoryImageService] [] This  could not found !
+2023-08-18 04:30:05.459 -08:00 [Information] [EfCore.Middlewares.HttpLogger] [] /api/categorys/1/categoryimages/8cfaf7b3-161c-4587-b18a-21619ba66854 dan request ketti
+2023-08-18 04:30:05.485 -08:00 [Information] [EfCore.Services.CategoryImageService] [] This  could not found !
+2023-08-18 04:30:13.871 -08:00 [Information] [EfCore.Middlewares.HttpLogger] [] /api/categorys/1/categoryimages/8cfaf7b3-161c-4587-b18a-21619ba66854 dan request ketti
+2023-08-18 04:30:13.888 -08:00 [Information] [EfCore.Services.CategoryImageService] [] This  could not found !
+2023-08-18 04:31:38.205 -08:00 [Information] [EfCore.Middlewares.HttpLogger] [] /api/categorys/1/categoryimages dan request ketti
+2023-08-18 04:31:40.512 -08:00 [Information] [EfCore.Middlewares.HttpLogger] []  Va unga 200 degan status code qaytdi.
+2023-08-18 04:32:05.507 -08:00 [Information] [EfCore.Middlewares.HttpLogger] [] /api/categorys/1/categoryimages/d54c912d-2bb1-4b97-8a02-840a41054c5b dan request ketti
+2023-08-18 04:33:02.902 -08:00 [Information] [EfCore.Middlewares.HttpLogger] []  Va unga 200 degan status code qaytdi.
+2023-08-18 04:33:22.807 -08:00 [Information] [EfCore.Middlewares.HttpLogger] [] /api/categorys/1/categoryimages/d54c912d-2bb1-4b97-8a02-840a41054c5b dan request ketti
+2023-08-18 04:34:08.612 -08:00 [Information] [EfCore.Services.CategoryImageService] [] This  could not found !
+2023-08-18 04:45:29.318 -08:00 [Information] [EfCore.Middlewares.HttpLogger] [] /api/categorys/1/categoryimages dan request ketti
+2023-08-18 04:46:52.206 -08:00 [Information] [EfCore.Middlewares.HttpLogger] [] /api/storages dan request ketti
+2023-08-18 04:46:52.524 -08:00 [Information] [EfCore.Middlewares.HttpLogger] []  Va unga 200 degan status code qaytdi.
+2023-08-18 04:47:12.544 -08:00 [Information] [EfCore.Middlewares.HttpLogger] [] /api/storages dan request ketti
+2023-08-18 04:47:12.670 -08:00 [Information] [EfCore.Middlewares.HttpLogger] []  Va unga 200 degan status code qaytdi.
+2023-08-18 04:48:13.413 -08:00 [Information] [EfCore.Middlewares.HttpLogger] [] /api/storages/343 dan request ketti
+2023-08-18 04:48:13.501 -08:00 [Error] [EfCore.Services.StorageService] [] this 343 does not exist
+2023-08-18 05:04:33.105 -08:00 [Information] [EfCore.Middlewares.HttpLogger] [] /api/shops dan request ketti
+2023-08-18 05:04:35.594 -08:00 [Error] [Microsoft.EntityFrameworkCore.Database.Command] [{ Id: 20102, Name: "Microsoft.EntityFrameworkCore.Database.Command.CommandError" }] Failed executing DbCommand ("94"ms) [Parameters=["@p0='Chilonzor' (Nullable = false), @p1='2023-08-18T13:04:33.6514112Z' (DbType = DateTime), @p2='False', @p3='Uzum Market' (Nullable = false), @p4='931871234' (Nullable = false), @p5=NULL (DbType = DateTime), @p6='0' (Nullable = true)"], CommandType='Text', CommandTimeout='30']"
+""INSERT INTO \"Shops\" (\"Adrress\", \"CreatedDate\", \"IsDeleted\", \"Name\", \"Phone\", \"UpdatedDate\", \"UpperId\")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6)
+RETURNING \"Id\";"
+2023-08-18 05:04:35.670 -08:00 [Error] [Microsoft.EntityFrameworkCore.Update] [{ Id: 10000, Name: "Microsoft.EntityFrameworkCore.Update.SaveChangesFailed" }] An exception occurred in the database while saving changes for context type '"EfCore.Data.ShopDbContext"'."
+""Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Npgsql.PostgresException (0x80004005): 23503: insert or update on table \"Shops\" violates foreign key constraint \"FK_Shops_Shops_UpperId\"
+
+DETAIL: Detail redacted as it may contain sensitive data. Specify 'Include Error Detail' in the connection string to include this information.
+   at Npgsql.Internal.NpgsqlConnector.<ReadMessage>g__ReadMessageLong|234_0(NpgsqlConnector connector, Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(CommandBehavior behavior, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(CommandBehavior behavior, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+  Exception data:
+    Severity: ERROR
+    SqlState: 23503
+    MessageText: insert or update on table \"Shops\" violates foreign key constraint \"FK_Shops_Shops_UpperId\"
+    Detail: Detail redacted as it may contain sensitive data. Specify 'Include Error Detail' in the connection string to include this information.
+    SchemaName: public
+    TableName: Shops
+    ConstraintName: FK_Shops_Shops_UpperId
+    File: ri_triggers.c
+    Line: 2596
+    Routine: ri_ReportViolation
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)"
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Npgsql.PostgresException (0x80004005): 23503: insert or update on table "Shops" violates foreign key constraint "FK_Shops_Shops_UpperId"
+
+DETAIL: Detail redacted as it may contain sensitive data. Specify 'Include Error Detail' in the connection string to include this information.
+   at Npgsql.Internal.NpgsqlConnector.<ReadMessage>g__ReadMessageLong|234_0(NpgsqlConnector connector, Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(CommandBehavior behavior, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(CommandBehavior behavior, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+  Exception data:
+    Severity: ERROR
+    SqlState: 23503
+    MessageText: insert or update on table "Shops" violates foreign key constraint "FK_Shops_Shops_UpperId"
+    Detail: Detail redacted as it may contain sensitive data. Specify 'Include Error Detail' in the connection string to include this information.
+    SchemaName: public
+    TableName: Shops
+    ConstraintName: FK_Shops_Shops_UpperId
+    File: ri_triggers.c
+    Line: 2596
+    Routine: ri_ReportViolation
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2023-08-18 05:05:04.185 -08:00 [Information] [EfCore.Middlewares.HttpLogger] [] /api/shops dan request ketti
+2023-08-18 05:05:04.323 -08:00 [Error] [Microsoft.EntityFrameworkCore.Database.Command] [{ Id: 20102, Name: "Microsoft.EntityFrameworkCore.Database.Command.CommandError" }] Failed executing DbCommand ("14"ms) [Parameters=["@p0='Chilonzor' (Nullable = false), @p1='2023-08-18T13:05:04.2212312Z' (DbType = DateTime), @p2='False', @p3='Uzum Market' (Nullable = false), @p4='931871234' (Nullable = false), @p5=NULL (DbType = DateTime), @p6='1' (Nullable = true)"], CommandType='Text', CommandTimeout='30']"
+""INSERT INTO \"Shops\" (\"Adrress\", \"CreatedDate\", \"IsDeleted\", \"Name\", \"Phone\", \"UpdatedDate\", \"UpperId\")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6)
+RETURNING \"Id\";"
+2023-08-18 05:05:04.335 -08:00 [Error] [Microsoft.EntityFrameworkCore.Update] [{ Id: 10000, Name: "Microsoft.EntityFrameworkCore.Update.SaveChangesFailed" }] An exception occurred in the database while saving changes for context type '"EfCore.Data.ShopDbContext"'."
+""Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Npgsql.PostgresException (0x80004005): 23503: insert or update on table \"Shops\" violates foreign key constraint \"FK_Shops_Shops_UpperId\"
+
+DETAIL: Detail redacted as it may contain sensitive data. Specify 'Include Error Detail' in the connection string to include this information.
+   at Npgsql.Internal.NpgsqlConnector.<ReadMessage>g__ReadMessageLong|234_0(NpgsqlConnector connector, Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(CommandBehavior behavior, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(CommandBehavior behavior, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+  Exception data:
+    Severity: ERROR
+    SqlState: 23503
+    MessageText: insert or update on table \"Shops\" violates foreign key constraint \"FK_Shops_Shops_UpperId\"
+    Detail: Detail redacted as it may contain sensitive data. Specify 'Include Error Detail' in the connection string to include this information.
+    SchemaName: public
+    TableName: Shops
+    ConstraintName: FK_Shops_Shops_UpperId
+    File: ri_triggers.c
+    Line: 2596
+    Routine: ri_ReportViolation
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)"
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Npgsql.PostgresException (0x80004005): 23503: insert or update on table "Shops" violates foreign key constraint "FK_Shops_Shops_UpperId"
+
+DETAIL: Detail redacted as it may contain sensitive data. Specify 'Include Error Detail' in the connection string to include this information.
+   at Npgsql.Internal.NpgsqlConnector.<ReadMessage>g__ReadMessageLong|234_0(NpgsqlConnector connector, Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(CommandBehavior behavior, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(CommandBehavior behavior, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+  Exception data:
+    Severity: ERROR
+    SqlState: 23503
+    MessageText: insert or update on table "Shops" violates foreign key constraint "FK_Shops_Shops_UpperId"
+    Detail: Detail redacted as it may contain sensitive data. Specify 'Include Error Detail' in the connection string to include this information.
+    SchemaName: public
+    TableName: Shops
+    ConstraintName: FK_Shops_Shops_UpperId
+    File: ri_triggers.c
+    Line: 2596
+    Routine: ri_ReportViolation
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2023-08-18 05:06:44.309 -08:00 [Information] [EfCore.Middlewares.HttpLogger] [] /api/shops dan request ketti
+2023-08-18 05:07:28.735 -08:00 [Error] [Microsoft.EntityFrameworkCore.Database.Command] [{ Id: 20102, Name: "Microsoft.EntityFrameworkCore.Database.Command.CommandError" }] Failed executing DbCommand ("84"ms) [Parameters=["@p0='Chilonzor' (Nullable = false), @p1='2023-08-18T13:06:54.7878600Z' (DbType = DateTime), @p2='False', @p3='Uzum Market' (Nullable = false), @p4='931871234' (Nullable = false), @p5=NULL (DbType = DateTime), @p6='1' (Nullable = true)"], CommandType='Text', CommandTimeout='30']"
+""INSERT INTO \"Shops\" (\"Adrress\", \"CreatedDate\", \"IsDeleted\", \"Name\", \"Phone\", \"UpdatedDate\", \"UpperId\")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6)
+RETURNING \"Id\";"
+2023-08-18 05:07:28.825 -08:00 [Error] [Microsoft.EntityFrameworkCore.Update] [{ Id: 10000, Name: "Microsoft.EntityFrameworkCore.Update.SaveChangesFailed" }] An exception occurred in the database while saving changes for context type '"EfCore.Data.ShopDbContext"'."
+""Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Npgsql.PostgresException (0x80004005): 23503: insert or update on table \"Shops\" violates foreign key constraint \"FK_Shops_Shops_UpperId\"
+
+DETAIL: Detail redacted as it may contain sensitive data. Specify 'Include Error Detail' in the connection string to include this information.
+   at Npgsql.Internal.NpgsqlConnector.<ReadMessage>g__ReadMessageLong|234_0(NpgsqlConnector connector, Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(CommandBehavior behavior, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(CommandBehavior behavior, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+  Exception data:
+    Severity: ERROR
+    SqlState: 23503
+    MessageText: insert or update on table \"Shops\" violates foreign key constraint \"FK_Shops_Shops_UpperId\"
+    Detail: Detail redacted as it may contain sensitive data. Specify 'Include Error Detail' in the connection string to include this information.
+    SchemaName: public
+    TableName: Shops
+    ConstraintName: FK_Shops_Shops_UpperId
+    File: ri_triggers.c
+    Line: 2596
+    Routine: ri_ReportViolation
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)"
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Npgsql.PostgresException (0x80004005): 23503: insert or update on table "Shops" violates foreign key constraint "FK_Shops_Shops_UpperId"
+
+DETAIL: Detail redacted as it may contain sensitive data. Specify 'Include Error Detail' in the connection string to include this information.
+   at Npgsql.Internal.NpgsqlConnector.<ReadMessage>g__ReadMessageLong|234_0(NpgsqlConnector connector, Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(CommandBehavior behavior, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(CommandBehavior behavior, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+  Exception data:
+    Severity: ERROR
+    SqlState: 23503
+    MessageText: insert or update on table "Shops" violates foreign key constraint "FK_Shops_Shops_UpperId"
+    Detail: Detail redacted as it may contain sensitive data. Specify 'Include Error Detail' in the connection string to include this information.
+    SchemaName: public
+    TableName: Shops
+    ConstraintName: FK_Shops_Shops_UpperId
+    File: ri_triggers.c
+    Line: 2596
+    Routine: ri_ReportViolation
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2023-08-18 05:08:14.072 -08:00 [Information] [EfCore.Middlewares.HttpLogger] [] /api/shops dan request ketti
+2023-08-18 05:08:14.605 -08:00 [Information] [EfCore.Middlewares.HttpLogger] []  Va unga 200 degan status code qaytdi.
+2023-08-18 05:08:44.367 -08:00 [Information] [EfCore.Middlewares.HttpLogger] [] /api/shops/1 dan request ketti
+2023-08-18 05:08:44.635 -08:00 [Error] [EfCore.Services.ShopService] [] this 1 id does not exist
+2023-08-18 05:41:21.174 -08:00 [Information] [EfCore.Middlewares.HttpLogger] [] /api/categorys/1/categoryimages dan request ketti
+2023-08-18 05:41:58.954 -08:00 [Information] [EfCore.Middlewares.HttpLogger] [] /api/categorys/1/categoryimages dan request ketti
+2023-08-18 05:42:58.119 -08:00 [Information] [EfCore.Middlewares.HttpLogger] [] /api/categorys/1/categoryimages dan request ketti
+2023-08-18 05:45:24.507 -08:00 [Information] [EfCore.Middlewares.HttpLogger] [] /api/categorys/2/categoryimages dan request ketti
+2023-08-18 05:53:19.182 -08:00 [Information] [EfCore.Middlewares.HttpLogger] [] /api/categorys/1/categoryimages dan request ketti
+2023-08-18 05:53:42.400 -08:00 [Information] [EfCore.Middlewares.HttpLogger] [] /api/categorys/1/categoryimages dan request ketti
+2023-08-18 05:57:28.445 -08:00 [Information] [EfCore.Middlewares.HttpLogger] [] /api/categorys/2/categoryimages dan request ketti
+2023-08-18 06:01:44.023 -08:00 [Information] [EfCore.Middlewares.HttpLogger] []  Va unga 201 degan status code qaytdi.
+2023-08-18 06:02:15.905 -08:00 [Information] [EfCore.Middlewares.HttpLogger] [] /api/categorys/2/categoryimages dan request ketti
+2023-08-18 06:02:16.035 -08:00 [Information] [EfCore.Middlewares.HttpLogger] []  Va unga 200 degan status code qaytdi.
+2023-08-18 06:12:33.922 -08:00 [Information] [EfCore.Middlewares.HttpLogger] [] /api/categorys/2/categoryimages dan request ketti
+2023-08-18 06:12:39.934 -08:00 [Information] [EfCore.Middlewares.HttpLogger] []  Va unga 201 degan status code qaytdi.
+2023-08-18 06:12:55.506 -08:00 [Information] [EfCore.Middlewares.HttpLogger] [] /api/categorys/2/categoryimages dan request ketti
+2023-08-18 06:12:55.628 -08:00 [Information] [EfCore.Middlewares.HttpLogger] []  Va unga 200 degan status code qaytdi.
+2023-08-18 06:17:51.108 -08:00 [Information] [EfCore.Middlewares.HttpLogger] [] /api/categorys/2/categoryimages dan request ketti
+2023-08-18 06:17:54.406 -08:00 [Information] [EfCore.Middlewares.HttpLogger] []  Va unga 201 degan status code qaytdi.
+2023-08-18 06:18:25.323 -08:00 [Information] [EfCore.Middlewares.HttpLogger] [] /api/categorys/2/categoryimages/direct dan request ketti
+2023-08-18 06:18:25.502 -08:00 [Information] [EfCore.Middlewares.HttpLogger] []  Va unga 200 degan status code qaytdi.
+2023-08-18 06:19:39.525 -08:00 [Information] [EfCore.Middlewares.HttpLogger] [] /api/categorys/2/categoryimages/download dan request ketti
+2023-08-18 06:20:04.577 -08:00 [Information] [EfCore.Middlewares.HttpLogger] [] /api/categorys/2/categoryimages dan request ketti
+2023-08-18 06:20:04.656 -08:00 [Information] [EfCore.Middlewares.HttpLogger] []  Va unga 200 degan status code qaytdi.
+2023-08-18 06:20:32.212 -08:00 [Information] [EfCore.Middlewares.HttpLogger] [] /api/categorys/2/categoryimages/download dan request ketti

@@ -130,11 +130,8 @@ public class ProductImagesController : ControllerBase
     {
         var product = await _productService.GetProductByIdAsync(id);
 
-        if (product is null)
-            return NotFound("Product not found");
-
         var result = await _productImageService.DeleteProductImage(fileId);
 
-        return result ? Ok(result) : NotFound(result);
+        return Ok(result);
     }
 }

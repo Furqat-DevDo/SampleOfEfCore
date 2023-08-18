@@ -12,10 +12,12 @@ namespace EfCore.Services;
 
 public class CategoryImageService : ICategoryImageService
 {
+    private ILogger<CategoryImageService> _logger;
     private readonly ShopDbContext _shopContext;
-    public CategoryImageService(ShopDbContext shopDbContext)
+    public CategoryImageService(ShopDbContext shopDbContext, ILogger<CategoryImageService> logger)
     {
         _shopContext = shopDbContext;
+        _logger = logger;
     }
     public async Task<GetCategoryImageResponse> CreateAsync(int id,
         CreateCategoryImageRequest request)
@@ -23,14 +25,16 @@ public class CategoryImageService : ICategoryImageService
         var (filePath, fileId) = await FileHelper.SaveFormFileAsync(request.CategoryFile);
 
         if(filePath is null)
+        {         
+            _logger.LogError($"Could not found {filePath} !");
             throw new UnableToCreateCategoryImageException(nameof(filePath));
-
+        }
         var newCategoryFile = request.ToEntity(id, filePath, fileId);
 
         var result = await _shopContext.CategoryImages.AddAsync(newCategoryFile);
 
-        if(await _shopContext.SaveChangesAsync() > 0)
-            throw new UnableToSaveCategoryImageChangesExeption();
+        if(await _shopContext.SaveChangesAsync() < 0)
+            throw new UnableToSaveImageChangesExeption();
 
         return result.Entity.ToResponse();
     }
@@ -79,8 +83,11 @@ public class CategoryImageService : ICategoryImageService
         var result = await _shopContext.CategoryImages.FirstOrDefaultAsync(x => x.Id == fileId);
 
         if (result is null)
-            return false;
-
+        {
+            _logger.LogInformation($"This {result} could not found !");
+            throw new CategoryImageNotFoundExeption();
+        }
+        
         result.IsDeleted = true;
         return await _shopContext.SaveChangesAsync() > 0;
     }

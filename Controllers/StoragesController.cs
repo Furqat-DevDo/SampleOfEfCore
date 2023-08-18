@@ -87,7 +87,7 @@ public class StoragesController : ControllerBase
     public async Task<IActionResult> DeleteStorageAsync(uint id)
     {
         var result = await _storageService.DeleteAsync((int)id);
-        return result ? Ok(result) : NotFound();
+        return Ok(result);
     }
 
 
