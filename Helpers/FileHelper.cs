@@ -1,8 +1,11 @@
-﻿namespace EfCore.Helpers;
+﻿using Microsoft.AspNetCore.Http;
+
+namespace EfCore.Helpers;
 
 public static  class FileHelper
 {
     private static string destination = "./Files/File";
+    private static ILoggerFactory _logger = new LoggerFactory();
     public static async Task<(string,Guid)> SaveFormFileAsync(IFormFile formFile)
     {
         if (formFile == null)
@@ -27,19 +30,25 @@ public static  class FileHelper
 
     public async static Task<byte[]> ReadFileFromPathAsync(string filePath)
     {
-        
+
         // TODO Check FilePath IsExist and is not null
-
+        if (filePath == null) 
+        {
+            var logger = _logger.CreateLogger(typeof(FormFile));
+            logger.LogError($"Could not read the file for saving");
+            throw new ArgumentNullException(nameof(filePath));
+        }
         byte[] byteArray = new byte[0];
-
+         
         try
         {
             byteArray =  await File.ReadAllBytesAsync(filePath);
         }
-        catch (Exception ex)
+        catch (Exception )
         {
-            // TODO inside of catch block do not hide exception throw it untill controller
-            Console.WriteLine("An error occurred: " + ex.Message);
+            var logger = _logger.CreateLogger(typeof(FormFile));
+            logger.LogError($"Could not read the file for saving");
+            throw new ArgumentNullException(nameof(filePath));
         }
 
         return byteArray;
