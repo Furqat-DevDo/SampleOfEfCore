@@ -12,10 +12,14 @@ namespace EfCore.Services;
 public class ProductImageService : IProductImageService
 {
     private readonly ShopDbContext _shopContext;
-    public ProductImageService(ShopDbContext shopDbContext)
+    private readonly ILogger<ProductImageService> _logger;
+
+    public ProductImageService(ShopDbContext shopDbContext, ILogger<ProductImageService> logger)
     {
         _shopContext = shopDbContext;
+        _logger = logger;
     }
+
     public async Task<GetProductImageResponse?> CreateAsync(int id,
         CreateProductImageRequest request)
     {
@@ -46,6 +50,11 @@ public class ProductImageService : IProductImageService
     public async Task<(byte[] bytes, string[] fileInfo)> ReadFileFromPathAsync(string filePath)
     {
         var bytes = await FileHelper.ReadFileFromPathAsync(filePath);
+        if(!bytes.Any())
+        {
+            _logger.LogCritical($"Empty file is loaded from {filePath}");
+        }
+
         var fileInfo = new string[] {
             GetContentType(Path.GetExtension(filePath)),
             Path.GetFileName(filePath) };
@@ -69,12 +78,19 @@ public class ProductImageService : IProductImageService
 
     public async Task<bool> DeleteProductImage(Guid fileId)
     {
-        var result = await _shopContext.ProductImages
-        .FirstOrDefaultAsync(x => x.Id == fileId)
-        ?? throw new ProductImageNotFoundExeption();
-
+        var result = await _shopContext.ProductImages.FirstOrDefaultAsync(x => x.Id == fileId);
+        
+        if (result is null)
+        {
+            _logger.LogError($"file with Id = {fileId} not found on deleting !!!");
+            throw new ProductImageNotFoundExeption();
+        }            
+        
         result.IsDeleted = true;
 
-        return await _shopContext.SaveChangesAsync() > 0;
+        if (await _shopContext.SaveChangesAsync() <= 0)
+            throw new UnableToSaveImageChangesExeption();
+
+        return true;
     }
 }

@@ -11,19 +11,31 @@ namespace EfCore.Services;
 public class ProductService : IProductService
 {
     private readonly ShopDbContext _shopDbContext;
-    public ProductService(ShopDbContext shopDbContext)
+    private readonly ILogger<ProductService> _logger;
+    public ProductService(ShopDbContext shopDbContext, ILogger<ProductService> logger)
     {
         _shopDbContext = shopDbContext;
+        _logger = logger;
     }
     public async Task<GetProductResponse> CreateProductAsync(CreateProductRequest request)
     {
         var product = request.CreateProduct();
 
         var company = _shopDbContext.Companies.FirstOrDefault(c=>c.Id == request.CompanyId);
-        if (company == null) throw new CompanyNotFoundException();
+        if (company == null)
+        {
+            _logger.LogError($"Company with Id = {request.CompanyId}" +
+                $" for product: {request.Name} not found !!!");
+            throw new CompanyNotFoundException();
+        }
 
         var category = _shopDbContext.Categories.FirstOrDefault(c => c.Id == request.CategoryId);
-        if (category is null) throw new CategoryNotFoundException();
+        if (category is null)
+        {
+            _logger.LogError($"Category with Id = {request.CompanyId}" +
+                $" for product: {request.Name} not found !!!");
+            throw new CategoryNotFoundException();
+        }
 
         var newProduct = await _shopDbContext.Products
             .AddAsync(product);
@@ -39,7 +51,12 @@ public class ProductService : IProductService
         var product = await _shopDbContext.Products            
             .FirstOrDefaultAsync(p => p.Id == id);
 
-        if (product is null) throw new ShopNotFoundException();
+        if (product is null)
+        {
+            _logger.LogError($"Unable to delete product. Product with Id = {id} not found !!!"); 
+            throw new ProductNotFoundException();
+        }
+            
 
         product.IsDeleted = true;
 
@@ -63,15 +80,25 @@ public class ProductService : IProductService
         var product = await _shopDbContext.Products
             .FirstOrDefaultAsync(sh => sh.Id == id);
 
-        return product is null ? throw new ProductNotFoundException() 
-            : product.ResponseProduct();
+        if (product is null)
+        {
+            _logger.LogError($"Product with Id = {id} not found");
+            throw new ProductNotFoundException();
+        }
+        
+        return product.ResponseProduct();
     }
 
     public async Task<GetProductResponse?> UpdateProductAsync(int id, UpdateProductRequest request)
     {
         var product = await _shopDbContext.Products
             .FirstOrDefaultAsync(sh => sh.Id == id);
-        if (product is null) throw new ProductNotFoundException();
+        if (product is null)
+        {
+            _logger.LogError($"Product with Id = {id} not found");
+            throw new ProductNotFoundException();
+        }
+         
 
         product.UpdateProduct(request);
 

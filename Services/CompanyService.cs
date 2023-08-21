@@ -11,9 +11,9 @@ namespace EfCore.Services;
 public class CompanyService : ICompanyService
 {
     private readonly ShopDbContext _shopDbContext;
-    private ILogger<CompanyService> _logger;
-    public CompanyService(ShopDbContext shopDbContext, 
-        ILogger<CompanyService> logger)
+    private readonly ILogger<CompanyService> _logger;
+
+    public CompanyService(ShopDbContext shopDbContext, ILogger<CompanyService> logger)
     {
         _shopDbContext = shopDbContext;
         _logger = logger;
@@ -26,8 +26,8 @@ public class CompanyService : ICompanyService
         var newCompany = await _shopDbContext.Companies
             .AddAsync(company);
 
-        if (await _shopDbContext.SaveChangesAsync() <= 0)        
-                throw new UnableToSaveCompanyChangesException();
+        if (await _shopDbContext.SaveChangesAsync() <= 0)       
+            throw new UnableToSaveCompanyChangesException();
         
         return newCompany.Entity.ResponseCompany();
     }
@@ -40,7 +40,10 @@ public class CompanyService : ICompanyService
         company.IsDeleted = true;
 
         if (await _shopDbContext.SaveChangesAsync() <= 0)
-                throw new UnableToSaveCompanyChangesException();
+        {
+            _logger.LogError($"Company wiht Id = {id} not found !!!");
+            throw new UnableToSaveCompanyChangesException();
+        }                
 
         return true;
     }
@@ -61,9 +64,14 @@ public class CompanyService : ICompanyService
     {
         var company = await _shopDbContext
             .Companies
-            .Include (sh => sh.Branches)
-            .FirstOrDefaultAsync(p => p.Id == id) 
-            ?? throw new CompanyNotFoundException();
+            .Include(sh => sh.Branches)
+            .FirstOrDefaultAsync(p => p.Id == id);
+        if(company is null)
+        {
+            _logger.LogError($"Company wiht Id = {id} not found !!!");
+            throw new CompanyNotFoundException();
+        }
+            
 
         return company.ResponseCompany();
     }
@@ -71,8 +79,13 @@ public class CompanyService : ICompanyService
     public async Task<GetCompanyResponse?> UpdateCompanyAsync(int id, UpdateCompanyRequest request)
     {
         var company = await _shopDbContext.Companies
-        .FirstOrDefaultAsync(p => p.Id == id)
-        ?? throw new CompanyNotFoundException();
+        .FirstOrDefaultAsync(p => p.Id == id);
+        
+        if (company is null)
+        {
+            _logger.LogError($"Company wiht Id = {id} not found !!!");
+            throw new CompanyNotFoundException();
+        }
 
         company.UpdateCompany(request);
 

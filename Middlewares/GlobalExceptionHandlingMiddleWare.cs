@@ -6,6 +6,12 @@ namespace EfCore.Middlewares;
 
 public class GlobalExceptionHandlingMiddleWare : IMiddleware
 {
+    private readonly ILogger<GlobalExceptionHandlingMiddleWare> _logger;
+
+    public GlobalExceptionHandlingMiddleWare(ILogger<GlobalExceptionHandlingMiddleWare> logger)
+    {
+        _logger = logger;
+    }
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
         try
@@ -14,6 +20,7 @@ public class GlobalExceptionHandlingMiddleWare : IMiddleware
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex.Message);
             await HandleExceptionAsync(context, ex);
         }
         

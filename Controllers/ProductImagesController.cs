@@ -38,12 +38,11 @@ public class ProductImagesController : ControllerBase
     [HttpPost]
     [ProducesResponseType(typeof(GetProductImageResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [ProducesResponseType(typeof(NotFoundResult), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateAsync(int id, [FromForm] CreateProductImageRequest request)
     {
-        var product = await _productService.GetProductByIdAsync(id);
-
+        await _productService.GetProductByIdAsync(id);
         var result = await _productImageService.CreateAsync(id, request);
         return Ok(result);
     }
@@ -57,20 +56,14 @@ public class ProductImagesController : ControllerBase
     /// <response code="404">Returns null when image was not found</response>
     [HttpGet("direct")]
     [ProducesResponseType(typeof(FileContentResult), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(NotFoundResult), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetFileFromPath(int id, string filePath)
     {
-
-        var product = await _productService.GetProductByIdAsync(id);
-        if (product is null) return NotFound(null);
+        await _productService.GetProductByIdAsync(id);
 
         var searchFileResult = await _productImageService.ReadFileFromPathAsync(filePath);
-        if (searchFileResult.bytes.Length == 0)
-        {
-            return NotFound(null);
-        }
 
-        return File(searchFileResult.Item1, searchFileResult.fileInfo[0]);
+        return Ok(File(searchFileResult.bytes, searchFileResult.fileInfo[0]));
     }
 
     /// <summary>
@@ -82,19 +75,14 @@ public class ProductImagesController : ControllerBase
     /// <response code="404">Returns null when companys was not found</response>
     [HttpGet("download")]
     [ProducesResponseType(typeof(FileContentResult), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(NotFoundResult), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetFileFromPathDownload(int id, string filePath)
     {
-        var product = await _productService.GetProductByIdAsync(id);
-        if (product is null) return NotFound(null);
+        await _productService.GetProductByIdAsync(id);
 
         var searchFileResult = await _productImageService.ReadFileFromPathAsync(filePath);
-        if (!searchFileResult.bytes.Any())
-        {
-            return NotFound(null);
-        }
 
-        return File(searchFileResult.Item1, "application/octet-stream", searchFileResult.fileInfo[1]);
+        return Ok(File(searchFileResult.bytes, "application/octet-stream", searchFileResult.fileInfo[1]));
     }
 
     /// <summary>
@@ -105,13 +93,13 @@ public class ProductImagesController : ControllerBase
     /// <response code="404">Returns null when no image was found</response>
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<GetProductImageResponse>), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(NotFoundResult), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetProductsImages(int id)
     {
-        var product = await _productService.GetProductByIdAsync(id);
-        if (product is null) return NotFound(null);
+        await _productService.GetProductByIdAsync(id);
 
         var productFiles = await _productImageService.GetProductFilesAsync(id);
+
         return Ok(productFiles);
     }
 
@@ -124,11 +112,11 @@ public class ProductImagesController : ControllerBase
     /// <response code="404">Returns false when image was not found</response>
     [HttpDelete("{fileId}")]
     [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(bool), StatusCodes.Status404NotFound)]
-    [ProducesResponseType(typeof(NotFoundResult), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteProductImage(int id, Guid fileId)
     {
-        var product = await _productService.GetProductByIdAsync(id);
+        await _productService.GetProductByIdAsync(id);
 
         var result = await _productImageService.DeleteProductImage(fileId);
 
